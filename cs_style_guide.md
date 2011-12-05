@@ -222,7 +222,7 @@ You should use `...` to de-structure an array and pass it as multiple arguments 
 
 `or=` should be used when possible:
 
-      temp or= {}
+      temp or= {} # Yes
       temp = temp || {} # No
 
 If accessing prototype, a shortcut is `::`:
