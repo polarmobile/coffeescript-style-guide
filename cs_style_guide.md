@@ -121,6 +121,11 @@ When declaring functions/methods, if it contains arguments, there should be a si
       methodName: (arg1, arg2) -> # Yes
       methodName:(arg1, arg2)-> # No
 
+Functions/methods that take no arguments require no parenthesis before the arrow:
+
+      methodName: -> # Yes
+      methodName: () -> # No
+
 Don't use parentheses when calling functions/methods:
 
       @myfunc 'string'
@@ -132,6 +137,32 @@ The general rule is that the final method call in a chain should omit the parent
 ## Strings
 
 Use single quotes `''` instead of double quotes `""` for strings.
+
+## Conditionals
+
+Instead of using `unless...else`, use `if...else`:
+
+      # Yes
+      if true
+        ...
+      else
+        ...
+        
+      # No
+      unless false
+        ...
+      else
+        ...
+Multi-line if/elses should use indentation:
+
+      # Yes
+      if true
+        ...
+      else
+      
+      # No
+      if true then ...
+      else ...
 
 ## Loops and iterators
 
@@ -168,6 +199,12 @@ The `do` keyword should be used to execute functions immediately.  This allows y
           strType = Object::toString.call(obj)
           classToType[strType] or "object"
 
+## Exceptions
+
+If you're doing something non-trivial, feel free to use exceptions.
+
+Custom exceptions may also be used in order to return more descriptive error information.
+
 ## Other
 
 CoffeeScript prefers to use parentheses to group methods, rather than group method parameters. For example, jQuery `$` without a parenthesis:
@@ -181,7 +218,14 @@ You should use `...` to de-structure an array and pass it as multiple arguments 
 
 `or` is preferred over `||`, and `and` is preferred over `&&`
 
+`is` is preferred over `==`
+
 `or=` should be used when possible:
 
       temp or= {}
       temp = temp || {} # No
+
+If accessing prototype, a shortcut is `::`:
+
+      Array:slice # Yes
+      Array.prototype.slice # No
