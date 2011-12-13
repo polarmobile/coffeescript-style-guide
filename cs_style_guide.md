@@ -4,7 +4,7 @@
 
 ## Table of Contents
 
-* The CoffeeScript Style Guide
+* [The CoffeeScript Style Guide](#guide)
     * [Code Layout](#code_layout)
       * [Tabs or spaces?](#tabs_or_spaces)
       * [Maximum line length](#maximum_line_length)
