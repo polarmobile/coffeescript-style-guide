@@ -74,7 +74,7 @@ Exports should be at the bottom:
       module.exports = App
 
 <a name="whitespace"/>
-## Whitespace 
+## Whitespace
 
 <a name="expressions_statements"/>
 ### Expressions and statements
@@ -97,7 +97,7 @@ More than one space around an assignment (or other) operator to align it with an
       x = 1
       y = 1
       longVariable = 3
-      
+
       # No
       x            = 1
       y            = 1
@@ -190,7 +190,7 @@ Instead of using `unless...else`, use `if...else`:
         ...
       else
         ...
-        
+
       # No
       unless false
         ...
@@ -202,7 +202,7 @@ Multi-line if/elses should use indentation:
       if true
         ...
       else
-      
+
       # No
       if true then ...
       else ...
@@ -238,7 +238,7 @@ The `do` keyword should be used to execute functions immediately.  This allows y
         classToType = {}
         for name in "Boolean Number String Function Array Date RegExp Undefined Null".split(" ")
           classToType["[object " + name + "]"] = name.toLowerCase()
-          
+
         # Return a function
         (obj) ->
           strType = Object::toString.call(obj)
