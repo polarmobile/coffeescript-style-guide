@@ -141,15 +141,18 @@ If a comment is short, the period at the end can be omitted.
 <a name="block_comments"/>
 ### Block Comments
 
-Block comments generally apply to some (or all) code that follows them, and are indented to the same level as that code.  Each line of a block comment starts with a `#` and a single space (unless it is indented text inside the comment).
+Block comments apply to the block of code that follows them.
+
+Each line of a block comment starts with a `#` and a single space, and should be indented at the same level of the code that it describes.
 
 Paragraphs inside of block comments are separated by a line containing a single `#`.
 
     # This is a block comment. Note that if this were a real block
-    # comment, we would be actually describing the proceeding code.
+    # comment, we would actually be describing the proceeding code.
     #
-    # This is the second paragraph of the same block comment. See
-    # previous paragraph.
+    # This is the second paragraph of the same block comment. Note
+    # that this paragraph was separated from the previous paragraph
+    # by a line containing a single comment character.
 
     init()
     start()
