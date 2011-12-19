@@ -1,6 +1,11 @@
-# CoffeeScript style guide
+# CoffeeScript Style Guide
 
-[CoffeeScript](http://jashkenas.github.com/coffee-script/) is the main client-side language used to write code for Polar Mobile.  This style guide is a list of coding conventions to be followed when writing CoffeeScript code.
+This guide presents a collection of best-practices and coding conventions for the [CoffeeScript][coffeescript] programming language.
+
+This guide is intended to be community-driven, and contributions are highly encouraged.
+
+Please note that this is a work-in-progress: there is much more that can be specified, and some of the guidelines that have been specified may not be deemed to be idiomatic by the community (in which case, these offending guidelines will be modified or removed, as appropriate).
+
 ## Inspiration
 
 The details in this guide have been very heavily inspired by several existing style guides and other resources. In particular:
