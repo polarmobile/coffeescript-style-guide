@@ -79,10 +79,10 @@ UTF-8 is the preferred source file encoding.
 
 If using a module system (CommonJS Modules, AMD, etc.), `require` statements should be placed on separate lines.
 
-    ```coffeescript
-    require 'lib/setup'
-    Backbone = require 'backbone'
-    ```
+```coffeescript
+require 'lib/setup'
+Backbone = require 'backbone'
+```
 These statements should be grouped in the following order:
 
 1. Standard library imports _(if a standard library exists)_
@@ -96,17 +96,17 @@ Avoid extraneous whitespace in the following situations:
 
 - Immediately inside parentheses, brackets or braces
 
-          ```coffeescript
-          ($ 'body') # Yes
-          ( $ 'body' ) # No
-          ```
+    ```coffeescript
+       ($ 'body') # Yes
+       ( $ 'body' ) # No
+    ```
 
 - Immediately before a comma
 
-          ```coffeescript
-          console.log x, y # Yes
-          console.log x , y # No
-          ```
+    ```coffeescript
+       console.log x, y # Yes
+       console.log x , y # No
+    ```
 
 Additional recommendations:
 
@@ -119,24 +119,24 @@ Additional recommendations:
 
     - _(Do not use more than one space around these operators)_
 
-              ```coffeescript
-              # Yes
-              x = 1
-              y = 1
-              fooBar = 3
+        ```coffeescript
+           # Yes
+           x = 1
+           y = 1
+           fooBar = 3
 
-              # No
-              x      = 1
-              y      = 1
-              fooBar = 3
-              ```
+           # No
+           x      = 1
+           y      = 1
+           fooBar = 3
+        ```
 
 - Do not use spaces around the `=` sign when used to indicate a default parameter value
 
-          ```coffeescript
-          test: (param=null) -> # Yes
-          test: (param = null) -> # No
-          ```
+    ```coffeescript
+       test: (param=null) -> # Yes
+       test: (param = null) -> # No
+    ```
 
 <a name="comments"/>
 ## Comments
@@ -156,18 +156,18 @@ Each line of a block comment starts with a `#` and a single space, and should be
 
 Paragraphs inside of block comments are separated by a line containing a single `#`.
 
-    ```coffeescript
-    # This is a block comment. Note that if this were a real block
-    # comment, we would actually be describing the proceeding code.
-    #
-    # This is the second paragraph of the same block comment. Note
-    # that this paragraph was separated from the previous paragraph
-    # by a line containing a single comment character.
+```coffeescript
+  # This is a block comment. Note that if this were a real block
+  # comment, we would actually be describing the proceeding code.
+  #
+  # This is the second paragraph of the same block comment. Note
+  # that this paragraph was separated from the previous paragraph
+  # by a line containing a single comment character.
 
-    init()
-    start()
-    stop()
-    ```
+  init()
+  start()
+  stop()
+```
 
 <a name="inline_comments"/>
 ### Inline Comments
@@ -180,17 +180,17 @@ The use of inline comments should be limited, because their existence is typical
 
 Do not use inline comments when they state the obvious:
 
-    ```coffeescript
-    # No
-    x = x + 1 # Increment x
-    ```
+```coffeescript
+  # No
+  x = x + 1 # Increment x
+```
 
 However, inline comments can be useful in certain scenarios:
 
-    ```coffeescript
-    # Yes
-    x = x + 1 # Compensate for border
-    ```
+```coffeescript
+  # Yes
+  x = x + 1 # Compensate for border
+```
 
 <a name="naming_conventions"/>
 ## Naming Conventions
@@ -203,15 +203,15 @@ _(The **official** CoffeeScript convention is camelcase, because this simplifies
 
 For constants, use all uppercase with underscores:
 
-    ```coffeescript
-    CONSTANT_LIKE_THIS
-    ```
+```coffeescript
+CONSTANT_LIKE_THIS
+```
 
 Methods and variables that are intended to be "private" should begin with a leading underscore:
 
-    ```coffeescript
-    _privateMethod: ->
-    ```
+```coffeescript
+_privateMethod: ->
+```
 
 <a name="functions"/>
 ## Functions
@@ -220,58 +220,58 @@ _(These guidelines also apply to the methods of a class.)_
 
 When declaring a function that takes arguments, always use a single space after the closing parenthesis of the arguments list:
 
-    ```coffeescript
-    foo = (arg1, arg2) -> # Yes
-    foo = (arg1, arg2)-> # No
-    ```
+```coffeescript
+foo = (arg1, arg2) -> # Yes
+foo = (arg1, arg2)-> # No
+```
 
 Do not use parentheses when declaring functions that take no arguments:
 
-    ```coffeescript
-    bar = -> # Yes
-    bar = () -> # No
-    ```
+```coffeescript
+bar = -> # Yes
+bar = () -> # No
+```
 
 In cases where method calls are being chained and the code does not fit on a single line, each call should be placed on a separate line and indented by one level (i.e., two spaces), with a leading `.`.
 
-    ```coffeescript
-    [1..3]
-      .map((x) -> x * x)
-      .concat([10..12])
-      .filter((x) -> x < 11)
-      .reduce((x, y) -> x + y)
-    ```
+```coffeescript
+[1..3]
+  .map((x) -> x * x)
+  .concat([10..12])
+  .filter((x) -> x < 11)
+  .reduce((x, y) -> x + y)
+```
 
 When calling functions, omit the parentheses on the final method call in a chain. For example:
 
-    ```coffeescript
-    baz 12
+```coffeescript
+baz 12
 
-    foo(4).bar 8
-    ```
+foo(4).bar 8
+```
 
 You will sometimes see parentheses used to group functions (instead of being used to group function parameters). Examples of using this style (hereafter referred to as the "function grouping style"):
 
-    ```coffeescript
-    ($ '#selektor').addClass 'klass'
+```coffeescript
+($ '#selektor').addClass 'klass'
 
-    (foo 4).bar 8
-    ```
+(foo 4).bar 8
+```
 
 This is in contrast to:
 
-    ```coffeescript
-    $('#selektor').addClass 'klass'
+```coffeescript
+$('#selektor').addClass 'klass'
 
-    foo(4).bar 8
-    ```
+foo(4).bar 8
+```
 
 The correct way to apply the function grouping style when chaining is to use it for the initial call only:
 
-    ```coffeescript
-    ($ '#selektor').addClass('klass').hide() # Yes
-    ($ '#selektor').(addClass 'klass').hide() # No
-    ```
+```coffeescript
+($ '#selektor').addClass('klass').hide() # Yes
+($ '#selektor').(addClass 'klass').hide() # No
+```
 
 This guide does not prescribe the use of the function grouping style or the alternative. However, **if the function grouping style is adopted for a particular project, be consistent with its usage.**
 
@@ -280,10 +280,10 @@ This guide does not prescribe the use of the function grouping style or the alte
 
 Use string interpolation instead of string concatenation:
 
-    ```coffeescript
-    "this is an #{adjective} string" # Yes
-    "this is an " + adjective + " string" # No
-    ```
+```coffeescript
+"this is an #{adjective} string" # Yes
+"this is an " + adjective + " string" # No
+```
 
 Prefer single quoted strings (`''`) instead of double quoted (`""`) strings, unless features like string interpolation are being used for the given string.
 
@@ -294,33 +294,33 @@ Favor `unless` over `if` for negative conditions.
 
 Instead of using `unless...else`, use `if...else`:
 
-    ```coffeescript
-    # Yes
-    if true
-      ...
-    else
-      ...
+```coffeescript
+  # Yes
+  if true
+    ...
+  else
+    ...
 
-    # No
-    unless false
-      ...
-    else
-      ...
-    ```
+  # No
+  unless false
+    ...
+  else
+    ...
+```
 
 Multi-line if/else clauses should use indentation:
 
-    ```coffeescript
-    # Yes
-    if true
-      ...
-    else
-      ...
+```coffeescript
+  # Yes
+  if true
+    ...
+  else
+    ...
 
-    # No
-    if true then ...
-    else ...
-    ```
+  # No
+  if true then ...
+  else ...
+```
 
 <a name="looping_and_comprehensions"/>
 ## Looping and Comprehensions
