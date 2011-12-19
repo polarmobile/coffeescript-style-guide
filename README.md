@@ -327,28 +327,28 @@ Multi-line if/else clauses should use indentation:
 
 Take advantage of comprehensions whenever possible:
 
-    ```coffeescript
-    # Yes
-    result = (item.name for item in array)
+```coffeescript
+  # Yes
+  result = (item.name for item in array)
 
-    # No
-    results = []
-    for item in array
-      results.push item.name
-    ```
+  # No
+  results = []
+  for item in array
+    results.push item.name
+```
 
 To filter:
 
-    ```coffeescript
-    result = (item for item in array when item.name is "test")
-    ```
+```coffeescript
+result = (item for item in array when item.name is "test")
+```
 
 To iterate over the keys and values of objects:
 
-    ```coffeescript
-    object = one: 1, two: 2
-    alert("#{key} = #{value}") for key, value of object
-    ```
+```coffeescript
+object = one: 1, two: 2
+alert("#{key} = #{value}") for key, value of object
+```
 
 <a name="#extending_native_objects"/>
 ## Extending Native Objects
@@ -371,19 +371,19 @@ Write the annotation on the line immediately above the code that the annotation 
 
 The annotation keyword should be followed by a colon and a space, and a descriptive note.
 
-    ```coffeescript
-    # FIXME: The client's current state should *not* affect payload processing.
-    resetClientState()
-    processPayload()
-    ```
+```coffeescript
+  # FIXME: The client's current state should *not* affect payload processing.
+  resetClientState()
+  processPayload()
+```
 
 If multiple lines are required by the description, indent subsequent lines with two spaces:
 
-    ```coffeescript
-    # TODO: Ensure that the value returned by this call falls within a certain
-    #   range, or throw an exception.
-    analyze()
-    ```
+```coffeescript
+  # TODO: Ensure that the value returned by this call falls within a certain
+  #   range, or throw an exception.
+  analyze()
+```
 
 Annotation types:
 
@@ -408,17 +408,17 @@ If a custom annotation is required, the annotation should be documented in the p
 
 `or=` should be used when possible:
 
-    ```coffeescript
-    temp or= {} # Yes
-    temp = temp || {} # No
-    ```
+```coffeescript
+temp or= {} # Yes
+temp = temp || {} # No
+```
 
 Prefer shorthand notation (`::`) for accessing an object's prototype:
 
-    ```coffeescript
-    Array::slice # Yes
-    Array.prototype.slice # No
-    ```coffeescript
+```coffeescript
+Array::slice # Yes
+Array.prototype.slice # No
+```
 
 Prefer `@property` over `this.property`.
 
