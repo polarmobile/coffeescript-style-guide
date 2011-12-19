@@ -177,7 +177,11 @@ However, inline comments can be useful in certain scenarios:
 <a name="naming_conventions"/>
 ## Naming Conventions
 
-Use camelCase to name all classes, modules/mixins, methods, variables, etc.
+Use `camelCase` (with a leading lowercase character) to name all variables, methods, and object properties.
+
+Use `CamelCase` (with a leading uppercase character) to name all classes.
+
+_(The **official** CoffeeScript convention is camelcase, because this simplifies interoperability with JavaScript. For more on this decision, see [here][coffeescript-issue-425].)_
 
 For constants, use all uppercase with underscores:
 
@@ -186,8 +190,6 @@ For constants, use all uppercase with underscores:
 Methods and variables that are intended to be "private" should begin with a leading underscore:
 
       _privateMethod: ->
-
-(The _official_ CoffeeScript convention is camelCase, because this simplifies interoperability with JavaScript. For more on this decision, see [here][coffeescript-issue-425].)
 
 <a name="functions"/>
 ## Functions
