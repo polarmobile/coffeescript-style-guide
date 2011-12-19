@@ -223,13 +223,17 @@ When calling functions, omit the parentheses on the final method call in a chain
 
     foo(4).bar 8
 
-You will sometimes see parentheses used to group functions (instead of being used to group function parameters). An example of using this style (hereafter referred to as the "function grouping style"):
+You will sometimes see parentheses used to group functions (instead of being used to group function parameters). Examples of using this style (hereafter referred to as the "function grouping style"):
 
     ($ '#selektor').addClass 'klass'
+
+    (foo 4).bar 8
 
 This is in contrast to:
 
     $('#selektor').addClass 'klass'
+
+    foo(4).bar 8
 
 The correct way to apply the function grouping style when chaining is to use it for the initial call only:
 
