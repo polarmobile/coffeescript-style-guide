@@ -426,11 +426,11 @@ Avoid `return` where not required, unless the explicit return increases clarity.
 
 Use splats (`...`) when working with functions that accept variable numbers of arguments:
 
-    ```coffeescript
-    console.log args... # Yes
+```coffeescript
+console.log args... # Yes
 
-    (a, b, c, rest...) -> # Yes
-    ```
+(a, b, c, rest...) -> # Yes
+```
 
 [coffeescript]: http://jashkenas.github.com/coffee-script/
 [coffeescript-issue-425]: https://github.com/jashkenas/coffee-script/issues/425
