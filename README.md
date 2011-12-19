@@ -236,7 +236,7 @@ The correct way to apply the function grouping style when chaining is to use it 
     ($ '#selektor').addClass('klass').hide() # Yes
     ($ '#selektor').(addClass 'klass').hide() # No
 
-**If this function grouping style is adopted for a particular project, be consistent with its usage.**
+This guide does not prescribe the use of the function grouping style or the alternative. However, **if the function grouping style is adopted for a particular project, be consistent with its usage.**
 
 <a name="strings"/>
 ## Strings
