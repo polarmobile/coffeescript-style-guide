@@ -46,152 +46,202 @@ The details in this guide have been very heavily inspired by several existing st
 ## Code layout
 
 <a name="tabs_or_spaces"/>
-### Tabs or spaces?
+### Tabs or Spaces?
 
-Never mix tabs and spaces. Use spaces only and use 2 spaces per indentation level.
-
-Code indented with a mixture of tabs and spaces should be converted to using spaces exclusively.
+Use **spaces only**, with **2 spaces** per indentation level. Never mix tabs and spaces.
 
 <a name="maximum_line_length"/>
-### Maximum line length
+### Maximum Line Length
 
 Limit all lines to a maximum of 79 characters.
 
 <a name="blank_lines"/>
-### Blank lines
+### Blank Lines
 
 Separate top-level function and class definitions with a single blank line.
 
-Method definitions inside a class are also separated by a single blank line.
+Separate method definitions inside of a class with a single blank line.
 
-Single blank lines may also be used within methods and functions to indicate logical sections.
+Use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
+
+<a name="trailing_whitespace"/>
+### Trailing Whitespace
+
+Do not include trailing whitespace on any lines.
 
 <a name="encoding"/>
 ### Encoding
 
-UTF-8 is the preferred encoding.
+UTF-8 is the preferred source file encoding.
 
-<a name="require_exports"/>
-## Requires/exports
+<a name="module_imports"/>
+## Module Imports
 
-If using CommonJS, require statements should be on separate lines:
+If using a module system (CommonJS Modules, AMD, etc.), `require` statements should be placed on separate lines.
 
-      require 'lib/setup'
-      Backbone = require 'backbone'
+    require 'lib/setup'
+    Backbone = require 'backbone'
 
-Requires should be grouped in the following order:
+These statements should be grouped in the following order:
 
-1.  Third party library requires.
-2.  Local application/library specific requires.
-
-Exports should be at the bottom:
-
-      module.exports = App
+1. Standard library imports _(if a standard library exists)_
+2. Third party library imports
+3. Local imports _(imports specific to this application or library)_
 
 <a name="whitespace"/>
-## Whitespace
+## Whitespace in Expressions and Statements
 
-<a name="expressions_statements"/>
-### Expressions and statements
+Avoid extraneous whitespace in the following situations:
 
-Avoid extraneous whitespace in the following situations.
+- Immediately inside parentheses, brackets or braces
 
-Immediately inside parentheses, brackets or braces:
+          ($ 'body') # Yes
+          ( $ 'body' ) # No
 
-      ($ 'body') # Yes
-      ( $ 'body' ) # No
+- Immediately before a comma
 
-Immediately before the open parenthesis that starts an indexing or slicing:
+          console.log x, y # Yes
+          console.log x , y # No
 
-      views['keys'] # Yes
-      views ['key'] # No
+Additional recommendations:
 
-More than one space around an assignment (or other) operator to align it with another:
+- Always surround these binary operators with a **single space** on either side
 
-      # Yes
-      x = 1
-      y = 1
-      longVariable = 3
+    - assignment: `=`
+    - augmented assignment: `+=`, `-=`, etc.
+    - comparisons: `==`, `<`, `>`, `<=`, `>=`, `unless`, etc.
+    - arithmetic operators: `+`, `-`, `*`, `/`, etc.
 
-      # No
-      x            = 1
-      y            = 1
-      longVariable = 3
+    - _(Do not use more than one space around these operators)_
 
-<a name="other_recommendations"/>
-### Other recommendations
+              # Yes
+              x = 1
+              y = 1
+              fooBar = 3
 
-Always surround these binary operators with a single space on either side: assignment `=`, augmented assignment `+=`, `-=` etc..., comparisons `==`, `<`, `>`, `<=`, `>=`, `unless`, etc..., arithmetic operators.
+              # No
+              x      = 1
+              y      = 1
+              fooBar = 3
 
-Don't use spaces around the `=` sign when used to indicate a default parameter value:
+- Do not use spaces around the `=` sign when used to indicate a default parameter value
 
-      test: (param=null) -> # Yes
-
-Don't put conditional and iterator statements on one line if they are multi-clause statements.
+          test: (param=null) -> # Yes
+          test: (param = null) -> # No
 
 <a name="comments"/>
 ## Comments
 
-Comments should be complete sentences.  If a comment is a phrase or sentence, its first word should be capitalized, unless it is an identifier that begins with a lower case letter.
+If modifying code that is described by an existing comment, update the comment such that it accurately reflects the new code. (Ideally, improve the code to obviate the need for the comment, and delete the comment entirely.)
 
-If a comment is short, the period at the end can be omitted.  Block comments generally consist of one or more paragraphs built out of complete sentences, and each sentence should end in a period.
+The first word of the comment should be capitalized, unless the first word is an identifier that begins with a lower-case letter.
 
-Use two spaces after a sentence-ending period.
+If a comment is short, the period at the end can be omitted.
 
 <a name="block_comments"/>
-### Block comments
+### Block Comments
 
-Block comments generally apply to some (or all) code that follows them, and are indented to the same level as that code.  Each line of a block comment starts with a # and a single space (unless it is indented text inside the comment).
+Block comments generally apply to some (or all) code that follows them, and are indented to the same level as that code.  Each line of a block comment starts with a `#` and a single space (unless it is indented text inside the comment).
 
-Paragraphs inside a block comment are separated by a line containing a single #.
+Paragraphs inside of block comments are separated by a line containing a single `#`.
+
+    # This is a block comment. Note that if this were a real block
+    # comment, we would be actually describing the proceeding code.
+    #
+    # This is the second paragraph of the same block comment. See
+    # previous paragraph.
+
+    init()
+    start()
+    stop()
 
 <a name="inline_comments"/>
-### Inline comments
+### Inline Comments
 
-Use inline comments sparingly.
+Inline comments are placed on the line immediately above the statement that they are describing. If the inline comment is sufficiently short, it can be placed on the same line as the statement (separated by a single space from the end of the statement).
 
-Inline comments are unnecessary and in fact distracting if they state the obvious.
+All inline comments should start with a `#` and a single space.
 
-An inline comment is a comment on the line above the statement.  If they are short enough, the can be on the same line as a statement and separated by a space from the statement.  They should start with a # and a single space.
+The use of inline comments should be limited, because their existence is typically a sign of a code smell.
+
+Do not use inline comments when they state the obvious:
+
+    # No
+    x = x + 1 # Increment x
+
+However, inline comments can be useful in certain scenarios:
+
+    # Yes
+    x = x + 1 # Compensate for border
 
 <a name="naming_conventions"/>
-## Naming conventions
+## Naming Conventions
 
-Use camel case to name all classes, modules/mixins, methods, variables etc...
+Use camelCase to name all classes, modules/mixins, methods, variables, etc.
 
 For constants, use all uppercase with underscores:
 
       CONSTANT_LIKE_THIS
 
-There is no concept of private methods in JavaScript/CoffeeScript, methods and variables meant to be private should start with `_`:
+Methods and variables that are intended to be "private" should begin with a leading underscore:
 
       _privateMethod: ->
 
-<a name="functions_methods"/>
-## Functions/methods
+(The _official_ CoffeeScript convention is camelCase, because this simplifies interoperability with JavaScript. For more on this decision, see [here][coffeescript-issue-425].)
 
-When declaring functions/methods, if it contains arguments, there should be a single space before the opening parenthesis of the arguments list and after the closing parenthesis:
+<a name="functions"/>
+## Functions
 
-      methodName: (arg1, arg2) -> # Yes
-      methodName:(arg1, arg2)-> # No
+_(These guidelines also apply to the methods of a class.)_
 
-Functions/methods that take no arguments require no parenthesis before the arrow:
+When declaring a function that takes arguments, always use a single space after the closing parenthesis of the arguments list:
 
-      methodName: -> # Yes
-      methodName: () -> # No
+    foo = (arg1, arg2) -> # Yes
+    foo = (arg1, arg2)-> # No
 
-Don't use parentheses when calling functions/methods:
+Do not use parentheses when declaring functions that take no arguments:
 
-      @myfunc 'string'
+    bar = -> # Yes
+    bar = () -> # No
 
-The general rule is that the final method call in a chain should omit the parentheses:
+In cases where method calls are being chained and the code does not fit on a single line, each call should be placed on a separate line and indented by one level (i.e., two spaces), with a leading `.`.
 
-      elem = ($ '#mySelector').addClass 'testing'
+    [1..3]
+      .map((x) -> x*x)
+      .concat([10..12])
+      .filter((x) -> x < 11)
+      .reduce((x, y) -> x + y)
+
+When calling functions, omit the parentheses on the final method call in a chain. For example:
+
+    baz 12
+
+    foo(4).bar 8
+
+You will sometimes see parentheses used to group functions (instead of being used to group function parameters). An example of using this style (hereafter referred to as the "function grouping style"):
+
+    ($ '#selektor').addClass 'klass'
+
+This is in contrast to:
+
+    $('#selektor').addClass 'klass'
+
+The correct way to apply the function grouping style when chaining is to use it for the initial call only:
+
+    ($ '#selektor').addClass('klass').hide() # Yes
+    ($ '#selektor').(addClass 'klass').hide() # No
+
+**If this function grouping style is adopted for a particular project, be consistent with its usage.**
 
 <a name="strings"/>
 ## Strings
 
-Use single quotes `''` instead of double quotes `""` for strings.
+Use string interpolation instead of string concatenation:
+
+    "this is an #{adjective} string" # Yes
+    "this is an " + adjective + " string" # No
+
+Prefer single quoted strings (`''`) instead of double quoted (`""`) strings, unless features like string interpolation are being used for the given string.
 
 <a name="conditionals"/>
 ## Conditionals
@@ -211,113 +261,115 @@ Instead of using `unless...else`, use `if...else`:
         ...
       else
         ...
-Multi-line if/elses should use indentation:
+
+Multi-line if/else clauses should use indentation:
 
       # Yes
       if true
         ...
       else
+        ...
 
       # No
       if true then ...
       else ...
 
-<a name="loops_and_iterators"/>
-## Loops and iterators
+<a name="looping_and_comprehensions"/>
+## Looping and Comprehensions
 
-Instead of using for loops and while loops for iterating through arrays, you should use `for-in` whenever possible:
+Take advantage of comprehensions whenever possible:
 
-      result = (item.name for item in array)
+    # Yes
+    result = (item.name for item in array)
 
-and use `for-in-when` for filtering:
+    # No
+    results = []
+    for item in array
+      results.push item.name
+
+To filter:
 
       result = (item for item in array when item.name is "test")
 
-If comprehensions get too long, you can split them onto multiple lines:
+To iterate over the keys and values of objects:
 
-      for score in [49, 58, 76, 82, 88, 90]
-        (if score > 60 then passed else failed).push score
-
-To iterate over objects, use `for-of`:
-
-      object = {one: 1, two: 2}
+      object = one: 1, two: 2
       alert("#{key} = #{value}") for key, value of object
 
-<a name="private_variables"/>
-## Private variables
+<a name="#extending_native_objects"/>
+## Extending Native Objects
 
-The `do` keyword should be used to execute functions immediately.  This allows you to encapsulate scope and have private variables:
+Do not modify native objects.
 
-      # Execute function immediately
-      type = do ->
-        classToType = {}
-        for name in "Boolean Number String Function Array Date RegExp Undefined Null".split(" ")
-          classToType["[object " + name + "]"] = name.toLowerCase()
-
-        # Return a function
-        (obj) ->
-          strType = Object::toString.call(obj)
-          classToType[strType] or "object"
+For example, do not modify `Array.prototype` to introduce `Array#forEach`.
 
 <a name="exceptions"/>
 ## Exceptions
 
-If you're doing something non-trivial, feel free to use exceptions.
-
-Custom exceptions may also be used in order to return more descriptive error information.
+Do not suppress exceptions.
 
 <a name="annotations"/>
 ## Annotations
 
-Annotations should usually be written on the line immediately above the relevant code.
+Use annotations when necessary to describe a specific action that must be taken against the indicated block of code.
 
-The annotation keyword is followed by a colon and a space, then a note describing the problem.
+Write the annotation on the line immediately above the code that the annotation is describing.
 
-If multiple lines are required to describe the problem, subsequent lines should be indented two spaces after the `#`.
+The annotation keyword should be followed by a colon and a space, and a descriptive note.
 
-* Use `TODO` to note missing features or functionality that should be
-  added at a later date.
-* Use `FIXME` to note broken code that needs to be fixed.
-* Use `OPTIMIZE` to note slow or inefficient code that may cause
-  performance problems.
-* Use `HACK` to note code smells where questionable coding practices
-  were used and should be refactored away.
-* Use `REVIEW` to note anything that should be looked at to confirm it
-  is working as intended. For example: `REVIEW: Are we sure this is how the
-  client does X currently?`
+    # FIXME: The client's current state should *not* affect payload processing.
+    resetClientState()
+    processPayload()
 
-<a name="other"/>
-## Other
+If multiple lines are required by the description, indent subsequent lines with two spaces:
 
-CoffeeScript prefers to use parentheses to group methods, rather than group method parameters. For example, jQuery `$` without a parenthesis:
+    # TODO: Ensure that the value returned by this call falls within a certain
+    #   range, or throw an exception.
+    analyze()
 
-      ($ '#mySelector') # Yes
-      $('#mySelector') # No
+Annotation types:
 
-You should use `...` to de-structure an array and pass it as multiple arguments to a method:
+- `TODO`: describe missing functionality that should be added at a later date
+- `FIXME`: describe broken code that must be fixed
+- `OPTIMIZE`: describe code that is inefficient and may become a bottleneck
+- `HACK`: describe the use of a questionable (or ingenious) coding practice
+- `REVIEW`: describe code that should be reviewed to confirm implementation
 
-      console.log args...
+If a custom annotation is required, the annotation should be documented in the project's README.
 
-`or` is preferred over `||`, and `and` is preferred over `&&`
+<a name="miscellaneous"/>
+## Miscellaneous
 
-`is` is preferred over `==`
+`and` is preferred over `&&`.
+
+`or` is preferred over `||`.
+
+`is` is preferred over `==`.
+
+`not` is preferred over `!`.
 
 `or=` should be used when possible:
 
       temp or= {} # Yes
       temp = temp || {} # No
 
-If accessing prototype, a shortcut is `::`:
+Prefer shorthand notation (`::`) for accessing an object's prototype:
 
-      Array:slice # Yes
+      Array::slice # Yes
       Array.prototype.slice # No
 
-Avoid `return` where not required.
+Prefer `@property` over `this.property`.
 
-When using jQuery/Zepto with Backbone.js, in the Backbone Views, use the shortcut `@$`:
+Avoid `return` where not required, unless the explicit return increases clarity.
 
-      (@$ '#element') # Yes
-      ($ '#element', @) # No
+Use splats (`...`) when working with functions that accept variable numbers of arguments:
+
+      console.log args... # Yes
+
+      (a, b, c, rest...) -> # Yes
+
+[coffeescript]: http://jashkenas.github.com/coffee-script/
+[coffeescript-issue-425]: https://github.com/jashkenas/coffee-script/issues/425
 [spine-js]: http://spinejs.com/
 [spine-js-code-review]: https://gist.github.com/1005723
 [pep8]: http://www.python.org/dev/peps/pep-0008/
