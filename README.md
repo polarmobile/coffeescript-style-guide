@@ -270,7 +270,7 @@ The correct way to apply the function grouping style when chaining is to use it 
 
 ```coffeescript
 ($ '#selektor').addClass('klass').hide() # Yes
-($ '#selektor').(addClass 'klass').hide() # No
+(($ '#selektor').addClass 'klass').hide() # No
 ```
 
 This guide does not prescribe the use of the function grouping style or the alternative. However, **if the function grouping style is adopted for a particular project, be consistent with its usage.**
