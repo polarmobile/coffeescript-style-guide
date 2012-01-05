@@ -113,6 +113,14 @@ Additional recommendations:
 - Always surround these binary operators with a **single space** on either side
 
     - assignment: `=`
+
+        - _Note that this also applies when indicating default parameter value(s) in a function declaration_
+
+           ```coffeescript
+           test: (param = null) -> # Yes
+           test: (param=null) -> # No
+           ```
+
     - augmented assignment: `+=`, `-=`, etc.
     - comparisons: `==`, `<`, `>`, `<=`, `>=`, `unless`, etc.
     - arithmetic operators: `+`, `-`, `*`, `/`, etc.
@@ -130,13 +138,6 @@ Additional recommendations:
            y      = 1
            fooBar = 3
         ```
-
-- Do not use spaces around the `=` sign when used to indicate a default parameter value
-
-    ```coffeescript
-       test: (param=null) -> # Yes
-       test: (param = null) -> # No
-    ```
 
 <a name="comments"/>
 ## Comments
