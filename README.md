@@ -422,6 +422,18 @@ Array.prototype.slice # No
 
 Prefer `@property` over `this.property`.
 
+```coffeescript
+return @property # Yes
+return this.property # No
+```
+
+However, avoid the use of **standalone** `@`:
+
+```coffeescript
+return this # Yes
+return @ # No
+```
+
 Avoid `return` where not required, unless the explicit return increases clarity.
 
 Use splats (`...`) when working with functions that accept variable numbers of arguments:
