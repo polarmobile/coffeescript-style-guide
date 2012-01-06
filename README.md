@@ -282,7 +282,7 @@ In cases where method calls are being chained, some adopters of this style prefe
 (($ '#selektor').addClass 'klass').hide() # All calls
 ```
 
-This guide does not prescribe the use of the function grouping style or the alternative. However, **if the function grouping style is adopted for a particular project, be consistent with its usage.**
+The function grouping style is not recommended. However, **if the function grouping style is adopted for a particular project, be consistent with its usage.**
 
 <a name="strings"/>
 ## Strings
