@@ -275,11 +275,11 @@ $('#selektor').addClass 'klass'
 foo(4).bar 8
 ```
 
-The correct way to apply the function grouping style when chaining is to use it for the initial call only:
+In cases where method calls are being chained, some adopters of this style prefer to use function grouping for the initial call only:
 
 ```coffeescript
-($ '#selektor').addClass('klass').hide() # Yes
-(($ '#selektor').addClass 'klass').hide() # No
+($ '#selektor').addClass('klass').hide() # Initial call only
+(($ '#selektor').addClass 'klass').hide() # All calls
 ```
 
 This guide does not prescribe the use of the function grouping style or the alternative. However, **if the function grouping style is adopted for a particular project, be consistent with its usage.**
