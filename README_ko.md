@@ -1,7 +1,8 @@
 <!--# CoffeeScript Style Guide-->
 # 커피스크립트 스타일 가이드
 
-This guide presents a collection of best-practices and coding conventions for the [CoffeeScript][coffeescript] programming language.
+<!--This guide presents a collection of best-practices and coding conventions for the [CoffeeScript][coffeescript] programming language.-->
+이 가이드는 [CoffeeScript][coffeescript] 프로그래밍의 모범 사례와 코딩 관례 모음집입니다.
 
 This guide is intended to be community-driven, and contributions are highly encouraged.
 
