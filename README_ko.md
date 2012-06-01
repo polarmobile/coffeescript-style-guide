@@ -2,11 +2,12 @@
 # 커피스크립트 스타일 가이드
 
 <!--This guide presents a collection of best-practices and coding conventions for the [CoffeeScript][coffeescript] programming language.-->
-이 가이드는 [CoffeeScript][coffeescript] 프로그래밍의 모범 사례와 코딩 관례 모음집입니다.
+이 가이드는 [CoffeeScript][coffeescript] 프로그래밍 언어에 대한 모범 사례와 코딩 관례 모음집입니다.
 
 This guide is intended to be community-driven, and contributions are highly encouraged.
 
-Please note that this is a work-in-progress: there is much more that can be specified, and some of the guidelines that have been specified may not be deemed to be idiomatic by the community (in which case, these offending guidelines will be modified or removed, as appropriate).
+<!--Please note that this is a work-in-progress: there is much more that can be specified, and some of the guidelines that have been specified may not be deemed to be idiomatic by the community (in which case, these offending guidelines will be modified or removed, as appropriate).-->
+이 가이드라인은 미완성이며 작성 진행중임을 당부드립니다: 내용이 더 추가될 수도 있고, 가이드 라인중 일부는 커뮤니티에 의해 자연스럽게 여겨지지 않을 수도 있습니다. (이 경우, 문제의 소지가 있는 부분은 적절하게 수정하거나 삭제할 것입니다.)
 
 <!--## Inspiration-->
 ## 영감을 얻은 곳들
