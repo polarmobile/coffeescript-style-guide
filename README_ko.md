@@ -110,7 +110,7 @@ top-level 함수와 클래스를 정의한 것 사이는 빈 줄을 하나 띄�
 클래스 안에서 메서드를 정의할 때에는, 중간에 빈 줄을 하나 띄워서 구분해 주세요.
 
 <!--Use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).-->
-가독성을 높이기 위해 필요한 경우에는, 메서드나 함수를 정의하는 본문 안에서는 빈줄 하나를 써 주세요. (예를 들면, )
+가독성을 높이기 위해 필요한 경우에는, 메서드나 함수를 정의하는 본문 안에서는 빈줄 하나를 써 주세요. (예를 들면, 논리적인 덩어리를 명확하게 구분하기 위해 필요할때)
 
 <a name="trailing_whitespace"/>
 <!--### Trailing Whitespace-->
@@ -260,7 +260,8 @@ Backbone = require 'backbone'
 ```
 -->
 ```coffeescript
-# 이것은 블록 주석입니다.
+# 이것은 블록 주석입니다. 이게 진짜 블록 주석이었다면,
+# 실제 코드의 진행과정을 설명했을꺼에요.
 #
 # 이것은 블록 주석의 두 번째 문단입니다. 이 문단이
 # 주석 문자 하나가 있는 줄로 위의 문단과 나누어 졌다는
@@ -595,7 +596,7 @@ return @property # Yes
 return this.property # No
 ```
 
-However, avoid the use of **standalone** `@`:
+<!--However, avoid the use of **standalone** `@`:-->
 하지만, `@`를 **단독으로** 쓰지 마세요:
 
 ```coffeescript
