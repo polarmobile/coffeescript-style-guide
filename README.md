@@ -37,6 +37,10 @@ The details in this guide have been very heavily inspired by several existing st
     * [Exceptions](#exceptions)
     * [Annotations](#annotations)
     * [Miscellaneous](#miscellaneous)
+    * [Gotchas and Best Practices](#gotchas_and_best_practices)
+        * [Calling Methods](#calling_methods)
+        * [Fat and Thin Arrows](#fat_and_thin_arrows)
+        * [Closures in Loops](#closures_in_loops)
 
 <a name="code_layout"/>
 ## Code layout
@@ -138,13 +142,14 @@ Additional recommendations:
 
 If modifying code that is described by an existing comment, update the comment such that it accurately reflects the new code. (Ideally, improve the code to obviate the need for the comment, and delete the comment entirely.)
 
-The first word of the comment should be capitalized, unless the first word is an identifier that begins with a lower-case letter.
+Comments should be written as sentences -- so the first word should be capitalised (unless referring to a variable that begins with a lower-case letter), and they should end with a full stop.
+
+We use [CODO](https://github.com/HuzuTech/codo) to autogenerate documentation from comments.
 
 <a name="block_comments"/>
 ### Block Comments
 
 Block comments should be used sparingly -- generally at the head of a file, to specify a license or other metadata.
-
 
 ```coffeescript
   ### 
@@ -355,6 +360,137 @@ console.log args... # Yes
 
 (a, b, c, rest...) -> # Yes
 ```
+
+<a name="gotchas_and_best_practices"/>
+## Gotchas and Best Practices
+
+<a name="calling_functions"/>
+### Calling Functions
+
+When calling a function with no arguments *remember to include the parenthesis*.
+
+```coffeescript
+@function   # Hours of fruitless debugging
+@function() # Passing tests
+```
+
+<a name="fat_and_thin_arrows"/>
+### Fat and Thin Arrows
+
+The 'Fat Arrow' (`=>`) operator is syntactic sugar to bind `this` to the entity creating the function (where `this` would otherwise refer to the function itself). This is very useful when creating anonymous functions in the context of class methods:
+
+```coffeescript
+example: (otherClass) ->
+    otherClass.bind "event", =>
+        @anotherMethod
+```
+
+The Fat Arrow should *not*, in normal circumstances, be used to declare class methods:
+
+```coffeescript
+example: (otherClass) => # no
+
+example: (otherClass) -> # yes
+```
+
+One extraordinary circumstance may be that the class method in question is intended to be referred to by function name elsewhere:
+
+```coffeescript
+example: (otherClass) =>
+    @anotherMethod()
+    
+otherExample: (otherClass) ->
+    otherClass.bind "event", @example
+```
+
+This should be used very sparingly. There are better alternatives, the most obvious being to declare an anonymous function and bind there:
+
+```coffeescript
+example: (otherClass) ->
+    @anotherMethod()
+    
+otherExample: (otherClass) ->
+    otherClass.bind "event", => @example()
+```
+
+When this is difficult (e.g. when an event must be programmatically unbound), use an ad-hoc named function:
+
+```coffeescript
+example: (otherClass) ->
+    @anotherMethod()
+    
+otherExample: (otherClass) ->
+    namedFunction = => @example()
+    otherClass.bind "event", namedFunction
+```
+
+<a name="closures_in_loops"/>
+## Closures in Loops
+
+CoffeeScript fixes many of Javascript's scoping issues, but it nevertheless IS effectively Javascript, and inherits Javascript's overall scoping strategy: function scoping.
+
+Unlike, for example, Java, Javascript does not use block scoping:
+
+```coffeescript
+for i in [1, 2, 3, 4]
+    otherClass.bind "event", -> console.log i
+
+otherClass.trigger "event"
+```
+
+In the above example, four events are bound to `otherClass`. We might expect that each event would log, respectively, 1, 2, 3 and 4 to the console. In fact, *all four events will log the number 4*. This is because the Javascript scoping rules do not lead to the creation of a new variable `i` on each iteration of the loop; rather, `i` is 'hoisted' to the beginning of its parent function, as we can see in the Javascript compiled from the above:
+
+```javascript
+(function() {
+  var i, _i, _len, _ref;
+
+  _ref = [1, 2, 3, 4];
+  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    i = _ref[_i];
+    otherClass.bind("event", function() {
+      return console.log(i);
+    });
+  }
+
+  otherClass.trigger("event");
+
+}).call(this);
+```
+
+The variable `i` is declared at the head of the function, and maintains its scope through that function. When we 'close' over `i` in the function bound to `event`, we create a reference to the scope in which `i` exists. So, when `event` is triggered, the value of `i` will be logged to the console; and presuming `event` is triggered after the last iteration of the loop, the value of `i` will be 4.
+
+The way to avoid this awkward behaviour is to leverage Javascript's function scoping. Variables *passed into* a function are given their own scope within that function, so presuming we create and execute a function at each iteration of the loop, we can use that function's independent scope to isolate our variable. CoffeeScript makes it simple to create an immediately-executing function using the `do` keyword:
+
+```coffeescript
+for i in [1, 2, 3, 4]
+    do (i) ->
+        otherClass.bind "event", -> console.log i
+
+otherClass.trigger "event"
+```
+
+This version of the code will result in four separate events being bound, which will log, respectively, 1, 2, 3 and 4. We pass the variable `i` as an argument to the anonymous function created using the `do` keyword, resulting in a new scope being created for `i` on each iteration of the loop. See the compiled Javascript:
+
+```javascript
+(function() {
+  var i, _fn, _i, _len, _ref;
+
+  _ref = [1, 2, 3, 4];
+  _fn = function(i) {
+    return otherClass.bind("event", function() {
+      return console.log(i);
+    });
+  };
+  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    i = _ref[_i];
+    _fn(i);
+  }
+
+  otherClass.trigger("event");
+
+}).call(this);
+```
+
 
 [coffeescript]: http://jashkenas.github.com/coffee-script/
 [coffeescript-issue-425]: https://github.com/jashkenas/coffee-script/issues/425
