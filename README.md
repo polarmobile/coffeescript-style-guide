@@ -1,6 +1,6 @@
 # CoffeeScript Style Guide
 
-This is a HuzuTech-local version of the canonical [CoffeeScript style guide][coffeescript-style-guide] created by [polarmobile](https://github.com/polarmobile).
+This is a HuzuTech-local version of the canonical [CoffeeScript style guide](https://github.com/polarmobile/coffeescript-style-guide) created by [polarmobile](https://github.com/polarmobile).
 
 ## Inspiration
 
