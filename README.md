@@ -218,14 +218,14 @@ bar = -> # Yes
 bar = () -> # No
 ```
 
-In cases where method calls are being chained and the code does not fit on a single line, each call should be placed on a separate line and indented by one level (i.e., two spaces), with a leading `.`.
+In cases where method calls are being chained and the code does not fit on a single line, each call should be placed on a separate line and indented by one level (i.e., four spaces), with a leading `.`.
 
 ```coffeescript
 [1..3]
-  .map((x) -> x * x)
-  .concat([10..12])
-  .filter((x) -> x < 11)
-  .reduce((x, y) -> x + y)
+    .map((x) -> x * x)
+    .concat([10..12])
+    .filter((x) -> x < 11)
+    .reduce((x, y) -> x + y)
 ```
 
 When calling functions, choose to omit or include parentheses in such a way that optimizes for readability. Keeping in mind that "readability" can be subjective, the following examples demonstrate cases where parentheses have been omitted or included in a manner that the community deems to be optimal:
