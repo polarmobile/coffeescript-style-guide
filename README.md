@@ -58,11 +58,36 @@ Limit all lines to a maximum of 79 characters.
 <a name="blank_lines"/>
 ### Blank Lines
 
-Separate top-level function and class definitions with a single blank line.
+Separate top-level function and class definitions with two blank line.
 
 Separate method definitions inside of a class with a single blank line.
 
 Use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
+
+```coffeescript
+# YES
+
+class Fruits
+
+  eat: -> ...
+
+
+class Bananas extends Fruits
+
+  eat: -> ...
+
+  peel: -> ...
+```
+
+```coffeescript
+# NO
+
+class Fruits
+  eat: -> ...
+class Bananas extends Fruits
+  eat: -> ...
+  peel: -> ...
+```
 
 <a name="trailing_whitespace"/>
 ### Trailing Whitespace
@@ -429,18 +454,11 @@ Array::slice # Yes
 Array.prototype.slice # No
 ```
 
-Prefer `@property` over `this.property`.
+Don't use `this`. You have @, so just don't
 
 ```coffeescript
 return @property # Yes
 return this.property # No
-```
-
-However, avoid the use of **standalone** `@`:
-
-```coffeescript
-return this # Yes
-return @ # No
 ```
 
 Avoid `return` where not required, unless the explicit return increases clarity.
