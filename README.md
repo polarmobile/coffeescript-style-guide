@@ -454,7 +454,7 @@ Array::slice # Yes
 Array.prototype.slice # No
 ```
 
-Don't use `this`. You have @, so just don't
+Don't use `this`. You have `@`, so just don't
 
 ```coffeescript
 return @property # Yes
