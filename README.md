@@ -1,10 +1,6 @@
 # CoffeeScript Style Guide
 
-This guide presents a collection of best-practices and coding conventions for the [CoffeeScript][coffeescript] programming language.
-
-This guide is intended to be community-driven, and contributions are highly encouraged.
-
-Please note that this is a work-in-progress: there is much more that can be specified, and some of the guidelines that have been specified may not be deemed to be idiomatic by the community (in which case, these offending guidelines will be modified or removed, as appropriate).
+This is a HuzuTech-local version of the canonical [CoffeeScript style guide](https://github.com/polarmobile/coffeescript-style-guide) created by [polarmobile](https://github.com/polarmobile).
 
 ## Inspiration
 
@@ -41,6 +37,10 @@ The details in this guide have been very heavily inspired by several existing st
     * [Exceptions](#exceptions)
     * [Annotations](#annotations)
     * [Miscellaneous](#miscellaneous)
+    * [Gotchas and Best Practices](#gotchas_and_best_practices)
+        * [Calling Methods](#calling_methods)
+        * [Fat and Thin Arrows](#fat_and_thin_arrows)
+        * [Closures in Loops](#closures_in_loops)
 
 <a name="code_layout"/>
 ## Code layout
@@ -48,21 +48,21 @@ The details in this guide have been very heavily inspired by several existing st
 <a name="tabs_or_spaces"/>
 ### Tabs or Spaces?
 
-Use **spaces only**, with **2 spaces** per indentation level. Never mix tabs and spaces.
+Use **spaces only**, with **4 spaces** per indentation level. Never mix tabs and spaces.
 
 <a name="maximum_line_length"/>
 ### Maximum Line Length
 
-Limit all lines to a maximum of 79 characters.
+Limit all lines to a maximum of 120 characters.
 
 <a name="blank_lines"/>
 ### Blank Lines
 
-Separate top-level function and class definitions with a single blank line.
+Separate top-level function and class definitions with a **single blank line**.
 
-Separate method definitions inside of a class with a single blank line.
+Separate method definitions inside a class with a **single blank line**.
 
-Use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
+**SPARINGLY** use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
 
 <a name="trailing_whitespace"/>
 ### Trailing Whitespace
@@ -80,8 +80,8 @@ UTF-8 is the preferred source file encoding.
 If using a module system (CommonJS Modules, AMD, etc.), `require` statements should be placed on separate lines.
 
 ```coffeescript
-require 'lib/setup'
-Backbone = require 'backbone'
+require "lib/setup"
+Backbone = require "backbone"
 ```
 These statements should be grouped in the following order:
 
@@ -89,16 +89,27 @@ These statements should be grouped in the following order:
 2. Third party library imports
 3. Local imports _(imports specific to this application or library)_
 
+Use **double quotes** around module paths, and **omit parens** where possible.
+
 <a name="whitespace"/>
 ## Whitespace in Expressions and Statements
 
 Avoid extraneous whitespace in the following situations:
 
-- Immediately inside parentheses, brackets or braces
+- Immediately inside parentheses or brackets
 
     ```coffeescript
        ($ 'body') # Yes
        ( $ 'body' ) # No
+       a = [1, 2, 3] # Yes
+       a = [ 1, 2, 3 ] # No
+    ```
+    
+    But DO use a single space inside object literals, where braces are necessary:
+    
+    ```coffeescript
+    {a: 1, b: 2} # No
+    { a: 1, b: 2 } # Yes
     ```
 
 - Immediately before a comma
@@ -125,18 +136,18 @@ Additional recommendations:
     - comparisons: `==`, `<`, `>`, `<=`, `>=`, `unless`, etc.
     - arithmetic operators: `+`, `-`, `*`, `/`, etc.
 
-    - _(Do not use more than one space around these operators)_
+    - Don't align on the operator
 
         ```coffeescript
            # Yes
            x = 1
            y = 1
            fooBar = 3
-
+           
            # No
            x      = 1
            y      = 1
-           fooBar = 3
+           fooBar = 3           
         ```
 
 <a name="comments"/>
@@ -144,26 +155,21 @@ Additional recommendations:
 
 If modifying code that is described by an existing comment, update the comment such that it accurately reflects the new code. (Ideally, improve the code to obviate the need for the comment, and delete the comment entirely.)
 
-The first word of the comment should be capitalized, unless the first word is an identifier that begins with a lower-case letter.
+Comments should be written as sentences -- so the first word should be capitalised (unless referring to a variable that begins with a lower-case letter), and they should end with a full stop.
 
-If a comment is short, the period at the end can be omitted.
+We use [CODO](https://github.com/HuzuTech/codo) to autogenerate documentation from comments.
 
 <a name="block_comments"/>
 ### Block Comments
 
-Block comments apply to the block of code that follows them.
-
-Each line of a block comment starts with a `#` and a single space, and should be indented at the same level of the code that it describes.
-
-Paragraphs inside of block comments are separated by a line containing a single `#`.
+Block comments should be used sparingly -- generally at the head of a file, to specify a license or other metadata.
 
 ```coffeescript
-  # This is a block comment. Note that if this were a real block
-  # comment, we would actually be describing the proceeding code.
-  #
-  # This is the second paragraph of the same block comment. Note
-  # that this paragraph was separated from the previous paragraph
-  # by a line containing a single comment character.
+  ### 
+  This is a block comment. It should introduce a large grouping of code (e.g. a class),
+  and should not be used for general commenting unless it's crucial to draw attention to 
+  the comment.
+  ###
 
   init()
   start()
@@ -176,8 +182,6 @@ Paragraphs inside of block comments are separated by a line containing a single 
 Inline comments are placed on the line immediately above the statement that they are describing. If the inline comment is sufficiently short, it can be placed on the same line as the statement (separated by a single space from the end of the statement).
 
 All inline comments should start with a `#` and a single space.
-
-The use of inline comments should be limited, because their existence is typically a sign of a code smell.
 
 Do not use inline comments when they state the obvious:
 
@@ -200,18 +204,12 @@ Use `camelCase` (with a leading lowercase character) to name all variables, meth
 
 Use `CamelCase` (with a leading uppercase character) to name all classes. _(This style is also commonly referred to as `PascalCase`, `CamelCaps`, or `CapWords`, among [other alternatives][camel-case-variations].)_
 
-_(The **official** CoffeeScript convention is camelcase, because this simplifies interoperability with JavaScript. For more on this decision, see [here][coffeescript-issue-425].)_
+_(The **official** CoffeeScript convention is camelCase, because this simplifies interoperability with JavaScript. For more on this decision, see [here][coffeescript-issue-425].)_
 
 For constants, use all uppercase with underscores:
 
 ```coffeescript
 CONSTANT_LIKE_THIS
-```
-
-Methods and variables that are intended to be "private" should begin with a leading underscore:
-
-```coffeescript
-_privateMethod: ->
 ```
 
 <a name="functions"/>
@@ -233,17 +231,17 @@ bar = -> # Yes
 bar = () -> # No
 ```
 
-In cases where method calls are being chained and the code does not fit on a single line, each call should be placed on a separate line and indented by one level (i.e., two spaces), with a leading `.`.
+In cases where method calls are being chained and the code does not fit on a single line, each call should be placed on a separate line and indented by one level (i.e., four spaces), with a leading `.`.
 
 ```coffeescript
 [1..3]
-  .map((x) -> x * x)
-  .concat([10..12])
-  .filter((x) -> x < 11)
-  .reduce((x, y) -> x + y)
+    .map((x) -> x * x)
+    .concat([10..12])
+    .filter((x) -> x < 11)
+    .reduce((x, y) -> x + y)
 ```
 
-When calling functions, choose to omit or include parentheses in such a way that optimizes for readability. Keeping in mind that "readability" can be subjective, the following examples demonstrate cases where parentheses have been omitted or included in a manner that the community deems to be optimal:
+When calling functions, choose to omit or include parentheses in such a way that optimizes for readability. Keeping in mind that "readability" can be subjective; the following examples demonstrate cases where parentheses have been omitted or included in a manner that the community deems to be optimal:
 
 ```coffeescript
 baz 12
@@ -259,30 +257,62 @@ print inspect value
 new Tag(new Value(a, b), new Arg(c))
 ```
 
-You will sometimes see parentheses used to group functions (instead of being used to group function parameters). Examples of using this style (hereafter referred to as the "function grouping style"):
+### Designing Functions
+
+If a function takes another function as an argument, make that argument the last in the parameter list:
 
 ```coffeescript
-($ '#selektor').addClass 'klass'
+# No
+myUglyFunction = (aCallback, anotherArgument) ->
+    ...
 
-(foo 4).bar 8
+myUglyFunction (arg) ->
+    doSomething()
+    doSomethingElse()
+, 200
+
+# Yes
+myPrettyFunction = (anArgument, aCallback) ->
+    ...
+
+myPrettyFunction 200, (arg) ->
+    doSomething()
+    doSomethingElse()
 ```
 
-This is in contrast to:
+Similarly, if a function takes an object as an argument, make that argument the last in the parameter list:
 
 ```coffeescript
-$('#selektor').addClass 'klass'
+# No
+myUglyFunction = (anObject, anotherArgument) ->
+    ...
 
-foo(4).bar 8
+myUglyFunction { a: 1, b: 2 }, 200
+
+# Yes
+myPrettyFunction = (anArgument, anObject) ->
+    ...
+
+myPrettyFunction 200, a: 1, b: 2
 ```
 
-In cases where method calls are being chained, some adopters of this style prefer to use function grouping for the initial call only:
+In case of conflict in these guidelines, prefer the first.
+
+Avoid hanging parens:
 
 ```coffeescript
-($ '#selektor').addClass('klass').hide() # Initial call only
-(($ '#selektor').addClass 'klass').hide() # All calls
-```
+# No
+myUglyFunction(
+    lengthyArgument: "long!", veryLengthy: "also long!", 
+    "another long argument", 12, (callbackArgument) -> doSomething()
+)
 
-The function grouping style is not recommended. However, **if the function grouping style is adopted for a particular project, be consistent with its usage.**
+# Yes
+options = lengthyArgument: "long!", veryLengthy: "also long!"
+callback = (callbackArgument) -> doSomething()
+
+myLessUglyFunction options, "another long argument", 12, callback
+```
 
 <a name="strings"/>
 ## Strings
@@ -294,7 +324,7 @@ Use string interpolation instead of string concatenation:
 "this is an " + adjective + " string" # No
 ```
 
-Prefer single quoted strings (`''`) instead of double quoted (`""`) strings, unless features like string interpolation are being used for the given string.
+Prefer double quoted strings (`""`) over single quoted (`''`) strings.
 
 <a name="conditionals"/>
 ## Conditionals
@@ -359,50 +389,47 @@ object = one: 1, two: 2
 alert("#{key} = #{value}") for key, value of object
 ```
 
-<a name="#extending_native_objects"/>
-## Extending Native Objects
+## Object and Array Literals
 
-Do not modify native objects.
-
-For example, do not modify `Array.prototype` to introduce `Array#forEach`.
-
-<a name="exceptions"/>
-## Exceptions
-
-Do not suppress exceptions.
-
-<a name="annotations"/>
-## Annotations
-
-Use annotations when necessary to describe a specific action that must be taken against the indicated block of code.
-
-Write the annotation on the line immediately above the code that the annotation is describing.
-
-The annotation keyword should be followed by a colon and a space, and a descriptive note.
+Omit braces in object literals wherever possible:
 
 ```coffeescript
-  # FIXME: The client's current state should *not* affect payload processing.
-  resetClientState()
-  processPayload()
+obj = { a: 1, b: 2 } # No
+obj = a: 1, b: 2 # Yes
 ```
 
-If multiple lines are required by the description, indent subsequent lines with two spaces:
+Declare large object literals on multiple lines, without separating commas:
 
 ```coffeescript
-  # TODO: Ensure that the value returned by this call falls within a certain
-  #   range, or throw an exception.
-  analyze()
+obj = 
+    longValue: "A long value of some kind"
+    lengthyValue: "Another lengthy value"
+    longLongValue: "Yawn"
 ```
 
-Annotation types:
+Simliarly with nested object literals:
 
-- `TODO`: describe missing functionality that should be added at a later date
-- `FIXME`: describe broken code that must be fixed
-- `OPTIMIZE`: describe code that is inefficient and may become a bottleneck
-- `HACK`: describe the use of a questionable (or ingenious) coding practice
-- `REVIEW`: describe code that should be reviewed to confirm implementation
+```coffeescript
+obj = 
+    levelOne:
+        firstLevelOneValue: 10
+        secondLevelOneValue: 25
+    levelTwo:
+        firstLevelTwoValue:
+            anotherObject: 5
+        secondLevelTwoValue: 30
+```
 
-If a custom annotation is required, the annotation should be documented in the project's README.
+Try to keep array literals short. When absolutely necessary, declare them on multiple lines in K&R bracket style:
+
+```coffeescript
+aLongArrayLiteral = [
+    value1,
+    value2,
+    value3,
+    value4
+]
+```
 
 <a name="miscellaneous"/>
 ## Miscellaneous
@@ -436,13 +463,6 @@ return @property # Yes
 return this.property # No
 ```
 
-However, avoid the use of **standalone** `@`:
-
-```coffeescript
-return this # Yes
-return @ # No
-```
-
 Avoid `return` where not required, unless the explicit return increases clarity.
 
 Use splats (`...`) when working with functions that accept variable numbers of arguments:
@@ -452,6 +472,137 @@ console.log args... # Yes
 
 (a, b, c, rest...) -> # Yes
 ```
+
+<a name="gotchas_and_best_practices"/>
+## Gotchas and Best Practices
+
+<a name="calling_functions"/>
+### Calling Functions
+
+When calling a function with no arguments *remember to include the parenthesis*.
+
+```coffeescript
+@function   # Hours of fruitless debugging
+@function() # Passing tests
+```
+
+<a name="fat_and_thin_arrows"/>
+### Fat and Thin Arrows
+
+The 'Fat Arrow' (`=>`) operator is syntactic sugar to bind `this` to the entity creating the function (where `this` would otherwise refer to the function itself). This is very useful when creating anonymous functions in the context of class methods:
+
+```coffeescript
+example: (otherClass) ->
+    otherClass.bind "event", =>
+        @anotherMethod
+```
+
+The Fat Arrow should *not*, in normal circumstances, be used to declare class methods:
+
+```coffeescript
+example: (otherClass) => # no
+
+example: (otherClass) -> # yes
+```
+
+One extraordinary circumstance may be that the class method in question is intended to be referred to by function name elsewhere:
+
+```coffeescript
+example: (otherClass) =>
+    @anotherMethod()
+    
+otherExample: (otherClass) ->
+    otherClass.bind "event", @example
+```
+
+This should be used very sparingly. There are better alternatives, the most obvious being to declare an anonymous function and bind there:
+
+```coffeescript
+example: (otherClass) ->
+    @anotherMethod()
+    
+otherExample: (otherClass) ->
+    otherClass.bind "event", => @example()
+```
+
+When this is difficult (e.g. when an event must be programmatically unbound), use an ad-hoc named function:
+
+```coffeescript
+example: (otherClass) ->
+    @anotherMethod()
+    
+otherExample: (otherClass) ->
+    namedFunction = => @example()
+    otherClass.bind "event", namedFunction
+```
+
+<a name="closures_in_loops"/>
+## Closures in Loops
+
+CoffeeScript fixes many of Javascript's scoping issues, but it nevertheless IS effectively Javascript, and inherits Javascript's overall scoping strategy: function scoping.
+
+Unlike, for example, Java, Javascript does not use block scoping:
+
+```coffeescript
+for i in [1, 2, 3, 4]
+    otherClass.bind "event", -> console.log i
+
+otherClass.trigger "event"
+```
+
+In the above example, four events are bound to `otherClass`. We might expect that each event would log, respectively, 1, 2, 3 and 4 to the console. In fact, *all four events will log the number 4*. This is because the Javascript scoping rules do not lead to the creation of a new variable `i` on each iteration of the loop; rather, `i` is 'hoisted' to the beginning of its parent function, as we can see in the Javascript compiled from the above:
+
+```javascript
+(function() {
+  var i, _i, _len, _ref;
+
+  _ref = [1, 2, 3, 4];
+  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    i = _ref[_i];
+    otherClass.bind("event", function() {
+      return console.log(i);
+    });
+  }
+
+  otherClass.trigger("event");
+
+}).call(this);
+```
+
+The variable `i` is declared at the head of the function, and maintains its scope through that function. When we 'close' over `i` in the function bound to `event`, we create a reference to the scope in which `i` exists. So, when `event` is triggered, the value of `i` will be logged to the console; and presuming `event` is triggered after the last iteration of the loop, the value of `i` will be 4.
+
+The way to avoid this awkward behaviour is to leverage Javascript's function scoping. Variables *passed into* a function are given their own scope within that function, so presuming we create and execute a function at each iteration of the loop, we can use that function's independent scope to isolate our variable. CoffeeScript makes it simple to create an immediately-executing function using the `do` keyword:
+
+```coffeescript
+for i in [1, 2, 3, 4]
+    do (i) ->
+        otherClass.bind "event", -> console.log i
+
+otherClass.trigger "event"
+```
+
+This version of the code will result in four separate events being bound, which will log, respectively, 1, 2, 3 and 4. We pass the variable `i` as an argument to the anonymous function created using the `do` keyword, resulting in a new scope being created for `i` on each iteration of the loop. See the compiled Javascript:
+
+```javascript
+(function() {
+  var i, _fn, _i, _len, _ref;
+
+  _ref = [1, 2, 3, 4];
+  _fn = function(i) {
+    return otherClass.bind("event", function() {
+      return console.log(i);
+    });
+  };
+  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    i = _ref[_i];
+    _fn(i);
+  }
+
+  otherClass.trigger("event");
+
+}).call(this);
+```
+
 
 [coffeescript]: http://jashkenas.github.com/coffee-script/
 [coffeescript-issue-425]: https://github.com/jashkenas/coffee-script/issues/425
