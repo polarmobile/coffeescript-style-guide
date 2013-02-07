@@ -58,11 +58,11 @@ Limit all lines to a maximum of 120 characters.
 <a name="blank_lines"/>
 ### Blank Lines
 
-Separate top-level function and class definitions with a single blank line.
+Separate top-level function and class definitions with a **single blank line**.
 
-Separate method definitions inside of a class with a single blank line.
+Separate method definitions inside a class with a **single blank line**.
 
-SPARINGLY use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
+**SPARINGLY** use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
 
 <a name="trailing_whitespace"/>
 ### Trailing Whitespace
@@ -80,8 +80,8 @@ UTF-8 is the preferred source file encoding.
 If using a module system (CommonJS Modules, AMD, etc.), `require` statements should be placed on separate lines.
 
 ```coffeescript
-require 'lib/setup'
-Backbone = require 'backbone'
+require "lib/setup"
+Backbone = require "backbone"
 ```
 These statements should be grouped in the following order:
 
@@ -89,16 +89,27 @@ These statements should be grouped in the following order:
 2. Third party library imports
 3. Local imports _(imports specific to this application or library)_
 
+Use **double quotes** around module paths, and **omit parens** where possible.
+
 <a name="whitespace"/>
 ## Whitespace in Expressions and Statements
 
 Avoid extraneous whitespace in the following situations:
 
-- Immediately inside parentheses, brackets or braces
+- Immediately inside parentheses or brackets
 
     ```coffeescript
        ($ 'body') # Yes
        ( $ 'body' ) # No
+       a = [1, 2, 3] # Yes
+       a = [ 1, 2, 3 ] # No
+    ```
+    
+    But DO use a single space inside object literals, where braces are necessary:
+    
+    ```coffeescript
+    {a: 1, b: 2} # No
+    { a: 1, b: 2 } # Yes
     ```
 
 - Immediately before a comma
@@ -125,16 +136,18 @@ Additional recommendations:
     - comparisons: `==`, `<`, `>`, `<=`, `>=`, `unless`, etc.
     - arithmetic operators: `+`, `-`, `*`, `/`, etc.
 
-    - _(Assignment operators can be aligned on the operator if this makes the code more readable)_
+    - Don't align on the operator
 
         ```coffeescript
-           x      = 1
-           y      = 1
+           # Yes
+           x = 1
+           y = 1
            fooBar = 3
            
-           x     : 1
-           y     : 1
-           fooBar: 3
+           # No
+           x      = 1
+           y      = 1
+           fooBar = 3           
         ```
 
 <a name="comments"/>
@@ -191,7 +204,7 @@ Use `camelCase` (with a leading lowercase character) to name all variables, meth
 
 Use `CamelCase` (with a leading uppercase character) to name all classes. _(This style is also commonly referred to as `PascalCase`, `CamelCaps`, or `CapWords`, among [other alternatives][camel-case-variations].)_
 
-_(The **official** CoffeeScript convention is camelcase, because this simplifies interoperability with JavaScript. For more on this decision, see [here][coffeescript-issue-425].)_
+_(The **official** CoffeeScript convention is camelCase, because this simplifies interoperability with JavaScript. For more on this decision, see [here][coffeescript-issue-425].)_
 
 For constants, use all uppercase with underscores:
 
@@ -228,7 +241,7 @@ In cases where method calls are being chained and the code does not fit on a sin
     .reduce((x, y) -> x + y)
 ```
 
-When calling functions, choose to omit or include parentheses in such a way that optimizes for readability. Keeping in mind that "readability" can be subjective, the following examples demonstrate cases where parentheses have been omitted or included in a manner that the community deems to be optimal:
+When calling functions, choose to omit or include parentheses in such a way that optimizes for readability. Keeping in mind that "readability" can be subjective; the following examples demonstrate cases where parentheses have been omitted or included in a manner that the community deems to be optimal:
 
 ```coffeescript
 baz 12
@@ -242,6 +255,63 @@ obj.value(10, 20) / obj.value(20, 10)
 print inspect value
 
 new Tag(new Value(a, b), new Arg(c))
+```
+
+### Designing Functions
+
+If a function takes another function as an argument, make that argument the last in the parameter list:
+
+```coffeescript
+# No
+myUglyFunction = (aCallback, anotherArgument) ->
+    ...
+
+myUglyFunction (arg) ->
+    doSomething()
+    doSomethingElse()
+, 200
+
+# Yes
+myPrettyFunction = (anArgument, aCallback) ->
+    ...
+
+myPrettyFunction 200, (arg) ->
+    doSomething()
+    doSomethingElse()
+```
+
+Similarly, if a function takes an object as an argument, make that argument the last in the parameter list:
+
+```coffeescript
+# No
+myUglyFunction = (anObject, anotherArgument) ->
+    ...
+
+myUglyFunction { a: 1, b: 2 }, 200
+
+# Yes
+myPrettyFunction = (anArgument, anObject) ->
+    ...
+
+myPrettyFunction 200, a: 1, b: 2
+```
+
+In case of conflict in these guidelines, prefer the first.
+
+Avoid hanging parens:
+
+```coffeescript
+# No
+myUglyFunction(
+    lengthyArgument: "long!", veryLengthy: "also long!", 
+    "another long argument", 12, (callbackArgument) -> doSomething()
+)
+
+# Yes
+options = lengthyArgument: "long!", veryLengthy: "also long!"
+callback = (callbackArgument) -> doSomething()
+
+myLessUglyFunction options, "another long argument", 12, callback
 ```
 
 <a name="strings"/>
@@ -317,6 +387,48 @@ To iterate over the keys and values of objects:
 ```coffeescript
 object = one: 1, two: 2
 alert("#{key} = #{value}") for key, value of object
+```
+
+## Object and Array Literals
+
+Omit braces in object literals wherever possible:
+
+```coffeescript
+obj = { a: 1, b: 2 } # No
+obj = a: 1, b: 2 # Yes
+```
+
+Declare large object literals on multiple lines, without separating commas:
+
+```coffeescript
+obj = 
+    longValue: "A long value of some kind"
+    lengthyValue: "Another lengthy value"
+    longLongValue: "Yawn"
+```
+
+Simliarly with nested object literals:
+
+```coffeescript
+obj = 
+    levelOne:
+        firstLevelOneValue: 10
+        secondLevelOneValue: 25
+    levelTwo:
+        firstLevelTwoValue:
+            anotherObject: 5
+        secondLevelTwoValue: 30
+```
+
+Try to keep array literals short. When absolutely necessary, declare them on multiple lines in K&R bracket style:
+
+```coffeescript
+aLongArrayLiteral = [
+    value1,
+    value2,
+    value3,
+    value4
+]
 ```
 
 <a name="miscellaneous"/>
