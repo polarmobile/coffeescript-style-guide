@@ -1,6 +1,6 @@
 # CoffeeScript Style Guide
 
-This guide establishes a collection of CoffeeScript coding conventions for creating high-quality and easy-to-cooperte CoffeeScript code.
+This guide establishes a collection of CoffeeScript coding conventions for creating high-quality and easy-to-cooperate CoffeeScript code.
 
 ## Variance
 The contents of this guide is originated from [polarmobile/coffeescript-style-guide](https://github.com/polarmobile/coffeescript-style-guide), with various additions and modifies, with references to the following style guides:
