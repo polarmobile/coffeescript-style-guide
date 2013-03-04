@@ -224,12 +224,12 @@ else
   ```coffeescript
   # Yes
   kids =
-    brother:
-      name: 'Max'
-      age:  11
-    sister:
-      name: 'Ida'
-      age:  9    
+      brother:
+        name: 'Max'
+        age:  11
+      sister:
+        name: 'Ida'
+        age:  9    
 
   # No
   kids = 
