@@ -233,18 +233,18 @@ else
 
   # No
   kids = 
-  {
-    brother:
     {
-      name: "Max"
-      age:  11
+      brother:
+      {
+        name: "Max"
+        age:  11
+      }
+      sister:
+      {
+        name: "Ida"
+        age:  9
+      }
     }
-    sister:
-    {
-      name: "Ida"
-      age:  9
-    }
-  }
   ```
 
 <a name="comments"/>
@@ -309,17 +309,17 @@ Write the annotation on the line immediately above the code that the annotation 
 The annotation keyword should be followed by a colon and a space, and a descriptive note.
 
 ```coffeescript
-  # FIXME: The client's current state should *not* affect payload processing.
-  resetClientState()
-  processPayload()
+# FIXME: The client's current state should *not* affect payload processing.
+resetClientState()
+processPayload()
 ```
 
 If multiple lines are required by the description, indent subsequent lines with two spaces:
 
 ```coffeescript
-  # TODO: Ensure that the value returned by this call falls within a certain
-  #   range, or throw an exception.
-  analyze()
+# TODO: Ensure that the value returned by this call falls within a certain
+#   range, or throw an exception.
+analyze()
 ```
 
 Annotation types:
@@ -405,7 +405,7 @@ obj.value(10, 20) / obj.value(20, 10)
 (obj.value 10, 20) / (obj.value 20, 10)
 ```
 
-Start new line for each parameters if any parameter needs a new line. And use parentheses to wrap parameters while add comma at the end of every parameter.
+Start new line for each parameters if any parameter needs a new line, and using parentheses to wrap parameters while adding comma at the end of every parameter.
 
 ```coffeescript
 # Yes
