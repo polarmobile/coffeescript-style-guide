@@ -121,7 +121,7 @@ Term ___whitespace___ term implies a **single space** on either hand side, multi
   foo = (bar) ->      
   console.log bar
   ```
-  
+
 - **Around** JavaScript binary operators:
   - Logical: `&&`, `||`
   - Equallity: `==`, `===`, `!==`
@@ -405,17 +405,18 @@ obj.value(10, 20) / obj.value(20, 10)
 (obj.value 10, 20) / (obj.value 20, 10)
 ```
 
-Start new line for each parameters if any parameter needs a new line.
+Start new line for each parameters if any parameter needs a new line. And use parentheses to wrap parameters while add comma at the end of every parameter.
 
 ```coffeescript
 # Yes
-foo
-  x
-,
-  y:
-    bar: 'baz' 
-,
-  z
+foo(
+  x,
+  {y: 'test'},
+  z:
+    bar: 'baz',
+  () ->
+    console.log 'test'
+)
 
 # No
 foo x ,
