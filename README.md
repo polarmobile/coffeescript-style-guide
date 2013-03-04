@@ -26,10 +26,10 @@ The contents of this guide is originated from [polarmobile/coffeescript-style-gu
   * [Conditionals](#conditionals)
   * [Looping and Comprehensions](#looping_and_comprehensions)
   * [Type Coercions](#coercion)
-  * [Other Preferences](#other_preferences)
   * [Exceptions](#exceptions)
   * [Module Imports](#module_imports)
   * [Extending Native Objects](#extending_native_objects)
+  * [Miscellaneous Preferences](#other_preferences)
 
 <a name="code_layout"/>
 ## Code layout
@@ -74,13 +74,13 @@ Term ___whitespace___ term implies a **single space** on either hand side, multi
 **USE** whitespace in the following situations:
 
 - **Around** assignments `=`, including:
-
   - Variable definition
 
       ```coffeescript
       foo = "bar"   # Yes
       foo="bar"   # No
       ```
+
   - Function declairation
 
      ```coffeescript
@@ -90,34 +90,36 @@ Term ___whitespace___ term implies a **single space** on either hand side, multi
      foo = (bar, baz) -> 
       ...
      ```
+
   - Default parameter value(s) in a function declaration
 
      ```coffeescript
      test: (param = null) # Yes
      test: (param=null) # No
      ```
+
 - Immediately **after** a comma `,` or colon `:`
 
     ```coffeescript
-       console.log x, y # Yes
+     console.log x, y # Yes
 
-       [foo, bar, baz] # Yes
-       [foo,bar,baz] # No
+     [foo, bar, baz] # Yes
+     [foo,bar,baz] # No
 
-       for foo, bar in Baz  # Yes
+     for foo, bar in Baz  # Yes
 
-       foo = bar: baz # Yes
-       foo = bar:baz  # No
+     foo = bar: baz # Yes
+     foo = bar:baz  # No
     ```
+
 - **Before and after** function indicator arrow `->` or `=>`
 
     ```coffeescript
-       foo = (bar) -> console.log bar   # Yes
-       
-       # The after space is not required if function body is onto the next line
-       foo = (bar) ->      
-        console.log bar
-
+     foo = (bar) -> console.log bar   # Yes
+     
+     # The after space is not required if function body is onto the next line
+     foo = (bar) ->      
+      console.log bar
     ```
 - **Around** JavaScript binary operators:
   - Logical: `&&`, `||`
@@ -127,10 +129,8 @@ Term ___whitespace___ term implies a **single space** on either hand side, multi
   - Arithmetic: `+`, `-`, `*`, `/`, `%`
   - Augmented assignment: `+=`, `-=`
 
-  
     ```coffeescript
     foo = bar && baz || qux -> # Yes
-
     foo = bar&&baz||qux -> # No
     ```
 
@@ -139,15 +139,14 @@ Term ___whitespace___ term implies a **single space** on either hand side, multi
   - Immediately inside ALL parentheses, brackets or braces
 
     ```coffeescript
-      foo(foo, bar) # Yes
-      foo( foo,bar )  # No
+    foo(foo, bar) # Yes
+    foo( foo,bar )  # No
 
-      [foo, bar]  # Yes
-      [ foo, bar ]  # No
+    [foo, bar]  # Yes
+    [ foo, bar ]  # No
 
-      {foo: bar}  # Yes
-      { foo: bar }  # No
-
+    {foo: bar}  # Yes
+    { foo: bar }  # No
     ```
 
 <a name="whitespace_alignment">
@@ -157,24 +156,25 @@ Use Alignment **in only** the following consequences:
 
 - Dependencies
   ```coffeescript
-      # Yes
-      coffeeScript = require "coffee-script"
-      foo          = require "foo"
+  # Yes
+  coffeeScript = require "coffee-script"
+  foo          = require "foo"
 
-      # No
-      coffeeScript = require "coffee-script"
-      foo = require "foo"
+  # No
+  coffeeScript = require "coffee-script"
+  foo = require "foo"
+  ```
 
-    ```
 - Routes
   ```coffeescript
-    # Yes
-    'MVName'            : 'render'
-    'MVName|_MVObjectId': 'refreshData'
+  # Yes
+  'MVName'            : 'render'
+  'MVName|_MVObjectId': 'refreshData'
 
-    # No
-    'MVName': 'render'
-    'MVName|_MVObjectId': 'refreshData'
+  # No
+  'MVName': 'render'
+  'MVName|_MVObjectId': 'refreshData'
+  ```
 
 You can install the **Alignment** package in Sublime Text Editor to make alignment quickly.
 
@@ -375,7 +375,11 @@ In functions calls, omit parentheses only if it **maintains readability**:
 baz 12
 print inspect value
 
+# No
+baz(12)
+print(inspect(value))
 ```
+
 Otherwise, use parentheses for clarity:
 
 ```coffeescript
@@ -393,30 +397,52 @@ When ambiguility exists in function calls, that requires explicit parentheses: a
 $('#selektor').addClass 'klass'
 obj.value(10, 20) / obj.value(20, 10)
 
-
 # No
 ($ '#selektor').addClass 'klass'
 (obj.value 10, 20) / (obj.value 20, 10)
 ```
 
+Start new line for each parameters if any parameter needs a new line.
+
+```coffeescript
+# Yes
+foo
+  x
+,
+  y:
+    bar: 'baz' 
+,
+  z
+
+# No
+foo x ,
+  y:
+    bar: 'baz' 
+  ,
+    z
+```
+
 <a name="strings"/>
 ## Strings
- - Prefer single quote `''` whenever possible
-  ```coffeescript
-  # Yes
-  foo = 'bar' 
-  foo = {bar: 'baz'}
 
-  # No
-  foo = "bar"
-  foo = {bar: "baz"}
-  ```
- - Use double quote `""` as string interpolation
+Use single quote `''` whenever possible
 
-  ```coffeescript
-  "this is an #{adjective} string" # Yes
-  "this is an " + adjective + " string" # No
-  ```
+```coffeescript
+# Yes
+foo = 'bar' 
+foo = {bar: 'baz'}
+
+# No
+foo = "bar"
+foo = {bar: "baz"}
+```
+
+Use double quote `""` as string interpolation
+
+```coffeescript
+"this is an #{adjective} string" # Yes
+"this is an " + adjective + " string" # No
+```
 
 <a name="conditionals"/>
 ## Conditionals
@@ -425,7 +451,7 @@ Favor `unless` over `if` for negative conditions.
 
 ```coffeescript
   # Yes
-  uless foo
+  unless foo
     ...
 
   # No
@@ -478,12 +504,13 @@ Favor truthy/falsy check for variable existence and nullity.
 ```coffeescript
   # Yes
   if array.length
-  if !array.length
+  unless array.length
 
   # No
   if array.length is 0
   if array.length isnt 0
 ```
+
 <a name="looping_and_comprehensions"/>
 ## Looping and Comprehensions
 
@@ -491,7 +518,7 @@ Take advantage of comprehensions whenever possible:
 
 ```coffeescript
 # Yes
-result = (item.name for item in array)
+result = item.name for item in array
 
 # No
 results = []
@@ -502,7 +529,7 @@ for item in array
 To filter array:
 
 ```coffeescript
-result = (item for item in array when item.name is "test")
+result = item for item in array when item.name is "test"
 ```
 
 To iterate over object:
@@ -522,6 +549,7 @@ foo = '1'
 bar = +foo  # Yes
 bar = Number foo   # No
 ```
+
 Convert to Boolean type with preceeding `!!`
 
 ```coffeescript
@@ -536,57 +564,6 @@ Convert to String type with appending `+''`
 foo = 1
 bar = foo + ''  # Yes
 bar = String foo   # No
-```
-
-<a name="other_preferences"/>
-## Miscellaneous Preferences
-
-Other syntax preferences over the original JavaScript forms:
-
-`and` is preferred over `&&`.
-
-`or` is preferred over `||`.
-
-`is` is preferred over `==`.
-
-`not` is preferred over `!`.
-
-`or=` should be used when possible:
-
-```coffeescript
-temp or= {} # Yes
-temp = temp || {} # No
-```
-
-Prefer shorthand notation (`::`) for accessing an object's prototype:
-
-```coffeescript
-Array::slice # Yes
-Array.prototype.slice # No
-```
-
-Prefer `@property` over `this.property`.
-
-```coffeescript
-return @property # Yes
-return this.property # No
-```
-
-However, avoid the use of **standalone** `@`:
-
-```coffeescript
-return this # Yes
-return @ # No
-```
-
-Avoid `return` where not required, unless the explicit return increases clarity.
-
-Use splats (`...`) when working with functions that accept variable numbers of arguments:
-
-```coffeescript
-console.log args... # Yes
-
-(a, b, c, rest...) -> # Yes
 ```
 
 <a name="exceptions"/>
@@ -608,6 +585,7 @@ If using a module system (CommonJS Modules, AMD, etc.), `require` statements sho
 require 'lib/setup'
 Backbone = require 'backbone'
 ```
+
 These statements should be grouped in the following order:
 
 1. Standard library imports _(if a standard library exists)_
@@ -620,3 +598,49 @@ These statements should be grouped in the following order:
 **DO NOT** modify native objects.
 
 For example, do not modify `Array.prototype` to introduce `Array#forEach`.
+
+<a name="other_preferences"/>
+## Miscellaneous Preferences
+
+Other syntax preferences over the original JavaScript forms:
+
+- Use `and` instead of `&&`
+- Use `or` instead of `||`
+- Use `is` instead of `==`
+- Use `not` instead of `!`
+- Use `or=` should be used when possible:
+
+  ```coffeescript
+  temp or= {} # Yes
+  temp = temp || {} # No
+  ```
+- Use shorthand notation (`::`) for accessing an object's prototype:
+
+  ```coffeescript
+  Array::slice # Yes
+  Array.prototype.slice # No
+  ```
+
+- Use `@property` instead of `this.property`. 
+
+  ```coffeescript
+  return @property # Yes
+  return this.property # No
+  ```
+  
+  However, avoid the use of **standalone** `@`:
+
+  ```coffeescript
+  return this # Yes
+  return @ # No
+  ```
+
+- Avoid `return` where not required, unless the explicit return increases clarity.
+
+- Use splats (`...`) when working with functions that accept variable numbers of arguments:
+
+  ```coffeescript
+  console.log args... # Yes
+  (a, b, c, rest...) -> # Yes
+  ```
+
