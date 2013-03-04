@@ -16,6 +16,8 @@ The contents of this guide is originated from [polarmobile/coffeescript-style-gu
     * [Trailing Whitespace](#trailing_whitespace)
     * [Encoding](#encoding)
   * [Whitespaces](#whitespace)
+    * [General](#whitespace_general)
+    * [Alignment](#whitespace_alignment)
   * [New Line](#newline)
   * [Comments](#comments)
   * [Variable Naming](#naming_conventions)
@@ -59,10 +61,13 @@ Use a single blank line within the bodies of methods or functions in cases where
 <a name="encoding"/>
 ### Encoding
 
-UTF-8 without BOM is the preferred source file encoding.
+Please use **UTF-8 without BOM** as source file encoding.
 
 <a name="whitespace"/>
 ## Whitespace Usages
+
+<a name="whitespace_general">
+### General
 
 Term ___whitespace___ term implies a **single space** on either hand side, multiple extraneous whitespaces should be always **avoided**. Whether or not to use whitespaces **variants** in different scopes:
 
@@ -144,6 +149,34 @@ Term ___whitespace___ term implies a **single space** on either hand side, multi
       { foo: bar }  # No
 
     ```
+
+<a name="whitespace_alignment">
+### Alignment
+
+Use Alignment **in only** the following consequences:
+
+- Dependencies
+  ```coffeescript
+      # Yes
+      coffeeScript = require "coffee-script"
+      foo          = require "foo"
+
+      # No
+      coffeeScript = require "coffee-script"
+      foo = require "foo"
+
+    ```
+- Routes
+  ```coffeescript
+    # Yes
+    'MVName'            : 'render'
+    'MVName|_MVObjectId': 'refreshData'
+
+    # No
+    'MVName': 'render'
+    'MVName|_MVObjectId': 'refreshData'
+
+You can install the **Alignment** package in Sublime Text Editor to make alignment quickly.
 
 <a name="newline"/>
 ## New Line
