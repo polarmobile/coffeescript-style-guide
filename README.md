@@ -1,9 +1,9 @@
 # CoffeeScript Style Guide
 
-This guide establishes a collection of CoffeeScript coding conventions for teambition dev team to create high-quality and easy-to-cooperte code.
+This guide establishes a collection of CoffeeScript coding conventions for creating high-quality and easy-to-cooperte CoffeeScript code.
 
 ## Variance
-The contents of this guide is originated from [polarmobile/coffeescript-style-guide](https://github.com/polarmobile/coffeescript-style-guide), with various additions and customization, with references to the following style guides:
+The contents of this guide is originated from [polarmobile/coffeescript-style-guide](https://github.com/polarmobile/coffeescript-style-guide), with various additions and modifies, with references to the following style guides:
  * [CoffeeScript](http://www.coffeescript.org/)
  * [CoffeeLint](http://www.coffeelint.org/)
  * [idiomatic.js](https://github.com/rwldrn/idiomatic.js)
