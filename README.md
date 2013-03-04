@@ -76,51 +76,52 @@ Term ___whitespace___ term implies a **single space** on either hand side, multi
 - **Around** assignments `=`, including:
   - Variable definition
 
-      ```coffeescript
-      foo = "bar"   # Yes
-      foo="bar"   # No
-      ```
+    ```coffeescript
+    foo = "bar"   # Yes
+    foo="bar"   # No
+    ```
 
   - Function declairation
 
-     ```coffeescript
-     # Yes
-     foo = (bar, baz) -> 
-     # No
-     foo = (bar, baz) -> 
-      ...
-     ```
+    ```coffeescript
+    # Yes
+    foo = (bar, baz) -> 
+    # No
+    foo = (bar, baz) -> 
+    ...
+    ```
 
   - Default parameter value(s) in a function declaration
 
-     ```coffeescript
-     test: (param = null) # Yes
-     test: (param=null) # No
-     ```
+    ```coffeescript
+    test: (param = null) # Yes
+    test: (param=null) # No
+    ```
 
 - Immediately **after** a comma `,` or colon `:`
 
-    ```coffeescript
-     console.log x, y # Yes
+  ```coffeescript
+  console.log x, y # Yes
 
-     [foo, bar, baz] # Yes
-     [foo,bar,baz] # No
+  [foo, bar, baz] # Yes
+  [foo,bar,baz] # No
 
-     for foo, bar in Baz  # Yes
+  for foo, bar in Baz  # Yes
 
-     foo = bar: baz # Yes
-     foo = bar:baz  # No
-    ```
+  foo = bar: baz # Yes
+  foo = bar:baz  # No
+  ```
 
 - **Before and after** function indicator arrow `->` or `=>`
 
-    ```coffeescript
-     foo = (bar) -> console.log bar   # Yes
-     
-     # The after space is not required if function body is onto the next line
-     foo = (bar) ->      
-      console.log bar
-    ```
+  ```coffeescript
+  foo = (bar) -> console.log bar   # Yes
+
+  # The after space is not required if function body is onto the next line
+  foo = (bar) ->      
+  console.log bar
+  ```
+  
 - **Around** JavaScript binary operators:
   - Logical: `&&`, `||`
   - Equallity: `==`, `===`, `!==`
@@ -182,66 +183,68 @@ You can install the **Alignment** package in Sublime Text Editor to make alignme
 ## New Line
 
 Keep simple statement in a single line.
+
 ```coffeescript
-  # Yes
-  square = (x) -> x * x
-  date = if friday then sue else jill
-  buy() while supply > demand
+# Yes
+square = (x) -> x * x
+date = if friday then sue else jill
+buy() while supply > demand
 ```
+
 Multi-line clauses should always open new line.
 
 ```coffeescript
-  # Yes
-  if true
-    foo()
-  else
-    bar()
-    baz()
+# Yes
+if true
+  foo()
+else
+  bar()
+  baz()
 
-  # No
-  if true then foo()
-  else
-    bar()
-    baz()
+# No
+if true then foo()
+else
+  bar()
+  baz()
 ```
 
 <a name="braces"/>
 ## Braces Usage
  - Always **use** braces with single-line object literal.
   ```coffeescript
-    # Yes
-    foo = {name: 'Max', age: 11}
-    foo = {name: 'Max'}
+  # Yes
+  foo = {name: 'Max', age: 11}
+  foo = {name: 'Max'}
 
-    # No
-    foo = name: 'Max', age: 11
-    foo = name: 'Max'
+  # No
+  foo = name: 'Max', age: 11
+  foo = name: 'Max'
   ```
  - Always **omit** braces with multi-line object literal.
   ```coffeescript
-    # Yes
-    kids =
-      brother:
-        name: 'Max'
-        age:  11
-      sister:
-        name: 'Ida'
-        age:  9    
+  # Yes
+  kids =
+    brother:
+      name: 'Max'
+      age:  11
+    sister:
+      name: 'Ida'
+      age:  9    
 
-    # No
-    kids = 
+  # No
+  kids = 
+  {
+    brother:
     {
-      brother:
-      {
-        name: "Max"
-        age:  11
-      }
-      sister:
-      {
-        name: "Ida"
-        age:  9
-      }
+      name: "Max"
+      age:  11
     }
+    sister:
+    {
+      name: "Ida"
+      age:  9
+    }
+  }
   ```
 
 <a name="comments"/>
@@ -264,15 +267,15 @@ The use of inline comments should be limited, because their existence is typical
 Do not use inline comments when they state the obvious:
 
 ```coffeescript
-  # No
-  x = x + 1 # Increment x
+# No
+x = x + 1 # Increment x
 ```
 
 However, inline comments can be useful in certain scenarios:
 
 ```coffeescript
-  # Yes
-  x = x + 1 # Compensate for border
+# Yes
+x = x + 1 # Compensate for border
 ```
 
 
@@ -285,16 +288,16 @@ Each line of a block comment starts with a `#` and a single space, and should be
 Paragraphs inside of block comments are separated by a line containing a single `#`.
 
 ```coffeescript
-  # This is a block comment. Note that if this were a real block
-  # comment, we would actually be describing the proceeding code.
-  #
-  # This is the second paragraph of the same block comment. Note
-  # that this paragraph was separated from the previous paragraph
-  # by a line containing a single comment character.
+# This is a block comment. Note that if this were a real block
+# comment, we would actually be describing the proceeding code.
+#
+# This is the second paragraph of the same block comment. Note
+# that this paragraph was separated from the previous paragraph
+# by a line containing a single comment character.
 
-  init()
-  start()
-  stop()
+init()
+start()
+stop()
 ```
 
 ### Annotations
@@ -450,29 +453,29 @@ Use double quote `""` as string interpolation
 Favor `unless` over `if` for negative conditions.
 
 ```coffeescript
-  # Yes
-  unless foo
-    ...
+# Yes
+unless foo
+  ...
 
-  # No
-  if !foo
-    ...
+# No
+if !foo
+  ...
 ```
 
 Instead of using `unless...else`, use `if...else`.
 
 ```coffeescript
-  # Yes
-  if true
-    ...
-  else
-    ...
+# Yes
+if true
+  ...
+else
+  ...
 
-  # No
-  unless false
-    ...
-  else
-    ...
+# No
+unless false
+  ...
+else
+  ...
 ```
 
 Favor if expression over ternary `? .. : ..` for conditional assignment.
