@@ -482,37 +482,37 @@ else
 Favor if expression over ternary `? .. : ..` for conditional assignment.
 
 ```coffeescript
-  # Yes
-  foo = if bar then true else false
+# Yes
+foo = if bar then true else false
 
-  # No
-  foo = bar? true : false
+# No
+foo = bar? true : false
 ```
 
 Favor existential operator `?` to check for variable existence and nullity.
 
 ```coffeescript
-  # Yes
-  if foo? then bar
-  foo = bar?.baz
-  foo ?= bar
+# Yes
+if foo? then bar
+foo = bar?.baz
+foo ?= bar
 
-  # No
-  if foo is null or foo is undefined then bar
-  if bar then foo = bar.baz
-  if foo is null then foo = bar
+# No
+if foo is null or foo is undefined then bar
+if bar then foo = bar.baz
+if foo is null then foo = bar
 ```
 
 Favor truthy/falsy check for variable existence and nullity.
 
 ```coffeescript
-  # Yes
-  if array.length
-  unless array.length
+# Yes
+if array.length
+unless array.length
 
-  # No
-  if array.length is 0
-  if array.length isnt 0
+# No
+if array.length is 0
+if array.length isnt 0
 ```
 
 <a name="looping_and_comprehensions"/>
