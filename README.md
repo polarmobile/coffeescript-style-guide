@@ -1,6 +1,6 @@
 # CoffeeScript Style Guide
 
-This guide establishes a collection of CoffeeScript coding conventions for Teambition code quality.
+This guide establishes a collection of CoffeeScript coding conventions for teambition dev team to create high-quality and easy-to-cooperte code.
 
 ## Variance
 The contents of this guide is originated from [polarmobile/coffeescript-style-guide](https://github.com/polarmobile/coffeescript-style-guide), with various additions and customization, with references to the following style guides:
@@ -10,7 +10,11 @@ The contents of this guide is originated from [polarmobile/coffeescript-style-gu
 
 ## Table of Contents
   * [Code Layout](#code_layout)
-  * [Indentation](#indentation)
+    * [Indentation](#indentation)
+    * [Maximum Line Length](#maximum_line_length)
+    * [Blank Lines](#blank_lines)
+    * [Trailing Whitespace](#trailing_whitespace)
+    * [Encoding](#encoding)
   * [Whitespaces](#whitespace)
   * [New Line](#newline)
   * [Comments](#comments)
@@ -28,10 +32,17 @@ The contents of this guide is originated from [polarmobile/coffeescript-style-gu
 <a name="code_layout"/>
 ## Code layout
 
+<a name="indentation"/>
+### Indentation
+
+Use **spaces only**, with **2 spaces** per indentation level. Never mix tabs and spaces.
+
+<a name="maximum_line_length"/>
 ### Maximum Line Length
 
 Limit all lines to a maximum of **79 characters** (80 column width).
 
+<a name="blank_lines"/>
 ### Blank Lines
 
 Separate function and class definitions with **a single** blank line.
@@ -40,18 +51,15 @@ Separate method definitions inside of a class with a **single** blank line.
 
 Use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
 
+<a name="trailing_whitespace"/>
 ### Trailing Whitespace
 
 **No trailing whitespace** on any lines.
 
+<a name="encoding"/>
 ### Encoding
 
 UTF-8 without BOM is the preferred source file encoding.
-
-<a name="indentation"/>
-## Indentation
-
-Use **spaces only**, with **2 spaces** per indentation level. Never mix tabs and spaces.
 
 <a name="whitespace"/>
 ## Whitespace Usages
