@@ -224,27 +224,27 @@ else
   ```coffeescript
   # Yes
   kids =
-    brother:
-      name: 'Max'
-      age:  11
-    sister:
-      name: 'Ida'
-      age:  9    
+      brother:
+        name: 'Max'
+        age:  11
+      sister:
+        name: 'Ida'
+        age:  9    
 
   # No
   kids = 
-  {
-    brother:
     {
-      name: "Max"
-      age:  11
+      brother:
+      {
+        name: "Max"
+        age:  11
+      }
+      sister:
+      {
+        name: "Ida"
+        age:  9
+      }
     }
-    sister:
-    {
-      name: "Ida"
-      age:  9
-    }
-  }
   ```
 
 <a name="comments"/>
