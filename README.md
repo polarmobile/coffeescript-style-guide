@@ -284,6 +284,13 @@ In cases where method calls are being chained, some adopters of this style prefe
 
 The function grouping style is not recommended. However, **if the function grouping style is adopted for a particular project, be consistent with its usage.**
 
+Don't assign default arguments in front of positional arguments:
+
+```coffeescript
+bad = (foo='bar', baz) -> # No
+bad = (foo, bar='baz') -> # Yes
+```
+
 <a name="strings"/>
 ## Strings
 
