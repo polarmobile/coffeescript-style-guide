@@ -114,11 +114,11 @@ Additional recommendations:
 
     - assignment: `=`
 
-        - _Note that this also applies when indicating default parameter value(s) in a function declaration_
+        - Exception in the case of default arguments:
 
            ```coffeescript
-           test: (param = null) -> # Yes
-           test: (param=null) -> # No
+           test: (param = null) -> # No
+           test: (param=null) -> # Yes
            ```
 
     - augmented assignment: `+=`, `-=`, etc.
