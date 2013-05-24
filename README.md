@@ -26,6 +26,7 @@ The contents of this guide is originated from [polarmobile/coffeescript-style-gu
   * [Conditionals](#conditionals)
   * [Looping and Comprehensions](#looping_and_comprehensions)
   * [Type Coercions](#coercion)
+  * [Class Inheritance](#inheritance)
   * [Exceptions](#exceptions)
   * [Module Imports](#module_imports)
   * [Extending Native Objects](#extending_native_objects)
@@ -371,19 +372,7 @@ In cases where method calls are being chained and the code does not fit on a sin
   .reduce((x, y) -> x + y)
 ```
 
-In functions calls, omit parentheses only if it **maintains readability**:
-
-```coffeescript
-# Yes
-baz 12
-print inspect value
-
-# No
-baz(12)
-print(inspect(value))
-```
-
-Otherwise, use parentheses for clarity:
+**Always** use parentheses to group params in function call for clarity:
 
 ```coffeescript
 # Yes
@@ -393,19 +382,7 @@ foo(bar, new Baz(qux))
 foo bar, new Baz qux
 ```
 
-When ambiguility exists in function calls, that requires explicit parentheses: always **group function parameters**, instead of grouping function calls.
-
-```coffeescript
-# Yes
-$('#selektor').addClass 'klass'
-obj.value(10, 20) / obj.value(20, 10)
-
-# No
-($ '#selektor').addClass 'klass'
-(obj.value 10, 20) / (obj.value 20, 10)
-```
-
-Start new line for each parameters if any parameter needs a new line, and using parentheses to wrap parameters while adding comma at the end of every parameter.
+Start a new line for each parameters once new line is required by one of the parameters, put comma at the end of every parameter.
 
 ```coffeescript
 # Yes
@@ -568,6 +545,46 @@ Convert to String type with appending `+''`
 foo = 1
 bar = foo + ''  # Yes
 bar = String foo   # No
+```
+
+<a name="inheritance"/>
+## Inheritance
+
+Always use coffeescript's class inheritance for sub-classing instead of using extend-alike method provided by various JS libraries:
+
+```
+#YES
+class foo extends bar
+#NO
+foo = extends(bar,...)
+```
+
+Use coffeescript's **super** in overriden methods to invoke parent method instead of explicitly calling parent's method, simply use ```super``` when no explicit params modification is required:
+
+```
+#YES
+class bar
+  baz : ->
+    ...
+
+class foo extends bar
+  baz : ->
+    super
+    ...
+
+```
+
+```
+#NO
+class bar
+  baz : ->
+    ...
+
+class foo extends bar
+  baz : ->
+    bar.prototype.baz.apply(this, arguments)
+    ...
+
 ```
 
 <a name="exceptions"/>
