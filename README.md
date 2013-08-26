@@ -2,50 +2,16 @@
 
 This guide establishes a collection of CoffeeScript coding conventions for creating high-quality and easy-to-cooperate CoffeeScript code.
 
-## Variance
-The contents of this guide is originated from [polarmobile/coffeescript-style-guide](https://github.com/polarmobile/coffeescript-style-guide), with various additions and modifies, with references to the following style guides:
- * [CoffeeScript](http://www.coffeescript.org/)
- * [CoffeeLint](http://www.coffeelint.org/)
- * [idiomatic.js](https://github.com/rwldrn/idiomatic.js)
-
-## Table of Contents
-  * [Code Layout](#code_layout)
-    * [Indentation](#indentation)
-    * [Maximum Line Length](#maximum_line_length)
-    * [Blank Lines](#blank_lines)
-    * [Trailing Whitespace](#trailing_whitespace)
-    * [Encoding](#encoding)
-  * [Whitespaces](#whitespace)
-    * [General](#whitespace_general)
-    * [Alignment](#whitespace_alignment)
-  * [New Line](#newline)
-  * [Comments](#comments)
-  * [Variable Naming](#naming_conventions)
-  * [Functions](#functions)
-  * [Strings](#strings)
-  * [Conditionals](#conditionals)
-  * [Looping and Comprehensions](#looping_and_comprehensions)
-  * [Type Coercions](#coercion)
-  * [Class Inheritance](#inheritance)
-  * [Exceptions](#exceptions)
-  * [Module Imports](#module_imports)
-  * [Extending Native Objects](#extending_native_objects)
-  * [Miscellaneous Preferences](#other_preferences)
-
-<a name="code_layout"/>
 ## Code layout
 
-<a name="indentation"/>
 ### Indentation
 
 Use **spaces only**, with **2 spaces** per indentation level. Never mix tabs and spaces.
 
-<a name="maximum_line_length"/>
 ### Maximum Line Length
 
 Limit all lines to a maximum of **79 characters** (80 column width).
 
-<a name="blank_lines"/>
 ### Blank Lines
 
 Separate function and class definitions with **a single** blank line.
@@ -54,20 +20,16 @@ Separate method definitions inside of a class with a **single** blank line.
 
 Use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
 
-<a name="trailing_whitespace"/>
 ### Trailing Whitespace
 
 **No trailing whitespace** on any lines.
 
-<a name="encoding"/>
 ### Encoding
 
 Please use **UTF-8 without BOM** as source file encoding.
 
-<a name="whitespace"/>
 ## Whitespace Usages
 
-<a name="whitespace_general">
 ### General
 
 Term ___whitespace___ term implies a **single space** on either hand side, multiple extraneous whitespaces should be always **avoided**. Whether or not to use whitespaces **variants** in different scopes:
@@ -86,9 +48,9 @@ Term ___whitespace___ term implies a **single space** on either hand side, multi
 
     ```coffeescript
     # Yes
-    foo = (bar, baz) -> 
+    foo = (bar, baz) ->
     # No
-    foo = (bar, baz) -> 
+    foo = (bar, baz) ->
     ...
     ```
 
@@ -119,21 +81,20 @@ Term ___whitespace___ term implies a **single space** on either hand side, multi
   foo = (bar) -> console.log bar   # Yes
 
   # The after space is not required if function body is onto the next line
-  foo = (bar) ->      
+  foo = (bar) ->
   console.log bar
   ```
 
-- **Around** JavaScript binary operators:
-  - Logical: `&&`, `||`
-  - Equallity: `==`, `===`, `!==`
+- **Around** binary operators:
+  - Logical: `and`, `or`
+  - Equallity: `is`, `isnt`
   - Relational: `<`, `>`, `<=`, `>=`
-  - Bitwise: `&`, `|`, `^`, `<<`, `>>`, `>>>`
   - Arithmetic: `+`, `-`, `*`, `/`, `%`
   - Augmented assignment: `+=`, `-=`
 
     ```coffeescript
-    foo = bar && baz || qux -> # Yes
-    foo = bar&&baz||qux -> # No
+    foo > bar # Yes
+    foo>bar # No
     ```
 
 **NO** whitespace in the following situations:
@@ -151,36 +112,6 @@ Term ___whitespace___ term implies a **single space** on either hand side, multi
     { foo: bar }  # No
     ```
 
-<a name="whitespace_alignment">
-### Alignment
-
-Use Alignment **in only** the following consequences:
-
-- Dependencies
-  ```coffeescript
-  # Yes
-  coffeeScript = require "coffee-script"
-  foo          = require "foo"
-
-  # No
-  coffeeScript = require "coffee-script"
-  foo = require "foo"
-  ```
-
-- Routes
-  ```coffeescript
-  # Yes
-  'MVName'            : 'render'
-  'MVName|_MVObjectId': 'refreshData'
-
-  # No
-  'MVName': 'render'
-  'MVName|_MVObjectId': 'refreshData'
-  ```
-
-You can install the **Alignment** package in Sublime Text Editor to make alignment quickly.
-
-<a name="newline"/>
 ## New Line
 
 Keep simple statement in a single line.
@@ -209,46 +140,28 @@ else
   baz()
 ```
 
-<a name="braces"/>
 ## Braces Usage
- - Always **use** braces with single-line object literal.
-  ```coffeescript
-  # Yes
-  foo = {name: 'Max', age: 11}
-  foo = {name: 'Max'}
 
-  # No
-  foo = name: 'Max', age: 11
-  foo = name: 'Max'
-  ```
- - Always **omit** braces with multi-line object literal.
-  ```coffeescript
-  # Yes
-  kids =
-      brother:
-        name: 'Max'
-        age:  11
-      sister:
-        name: 'Ida'
-        age:  9    
+Always **use** braces with object literal.
 
-  # No
-  kids = 
-    {
-      brother:
-      {
-        name: "Max"
-        age:  11
-      }
-      sister:
-      {
-        name: "Ida"
-        age:  9
-      }
-    }
-  ```
+```coffeescript
+# Yes
+foo = {name: 'Max', age: 11}
+foo = {name: 'Max'}
 
-<a name="comments"/>
+# Yes
+kids = {
+  brother: {
+    name: 'Max'
+    age:  11
+  }
+  sister: {
+    name: 'Ida'
+    age:  9
+  }
+}
+```
+
 ## Comments
 
 If modifying code that is described by an existing comment, update the comment such that it accurately reflects the new code. (Ideally, improve the code to obviate the need for the comment, and delete the comment entirely.)
@@ -278,7 +191,6 @@ However, inline comments can be useful in certain scenarios:
 # Yes
 x = x + 1 # Compensate for border
 ```
-
 
 ### Block Comments
 
@@ -331,7 +243,6 @@ Annotation types:
 - `HACK`: describe the use of a questionable (or ingenious) coding practice
 - `REVIEW`: describe code that should be reviewed to confirm implementation
 
-<a name="naming_conventions"/>
 ## Naming Conventions
 
 Use `camelCase` (with a leading lowercase character) to name all variables, methods, and object properties.
@@ -350,7 +261,6 @@ Methods and variables that are intended to be "private" should begin with a lead
 _privateMethod: ->
 ```
 
-<a name="functions"/>
 ## Functions
 
 _(These guidelines also apply to the methods of a class.)_
@@ -382,35 +292,21 @@ foo(bar, new Baz(qux))
 foo bar, new Baz qux
 ```
 
-Start a new line for each parameters once new line is required by one of the parameters, put comma at the end of every parameter.
+**Unless** the last param is a function:
 
 ```coffeescript
 # Yes
-foo(
-  x,
-  {y: 'test'},
-  z:
-    bar: 'baz',
-  () ->
-    console.log 'test'
-)
-
-# No
-foo x ,
-  y:
-    bar: 'baz' 
-  ,
-    z
+foo bar, (err) ->
+  console.log err
 ```
 
-<a name="strings"/>
 ## Strings
 
 Use single quote `''` whenever possible
 
 ```coffeescript
 # Yes
-foo = 'bar' 
+foo = 'bar'
 foo = {bar: 'baz'}
 
 # No
@@ -421,11 +317,13 @@ foo = {bar: "baz"}
 Use double quote `""` as string interpolation
 
 ```coffeescript
-"this is an #{adjective} string" # Yes
-"this is an " + adjective + " string" # No
+# Yes
+"this is an #{adjective} string"
+
+# No
+"this is an " + adjective + " string"
 ```
 
-<a name="conditionals"/>
 ## Conditionals
 
 Favor `unless` over `if` for negative conditions.
@@ -492,7 +390,6 @@ if array.length is 0
 if array.length isnt 0
 ```
 
-<a name="looping_and_comprehensions"/>
 ## Looping and Comprehensions
 
 Take advantage of comprehensions whenever possible:
@@ -520,62 +417,32 @@ object = one: 1, two: 2
 alert("#{key} = #{value}") for key, value of object
 ```
 
-<a name="coercion"/>
-## Type Coercions
-
-Convert to Number type with preceeding `+`
-
-```coffeescript
-foo = '1'
-bar = +foo  # Yes
-bar = Number foo   # No
-```
-
-Convert to Boolean type with preceeding `!!`
-
-```coffeescript
-foo = ''
-bar = !!foo  # Yes
-bar = Boolean foo   # No
-```
-
-Convert to String type with appending `+''`
-
-```coffeescript
-foo = 1
-bar = foo + ''  # Yes
-bar = String foo   # No
-```
-
-<a name="inheritance"/>
 ## Inheritance
 
 Always use coffeescript's class inheritance for sub-classing instead of using extend-alike method provided by various JS libraries:
 
-```
-#YES
+```coffeescript
+# Yes
 class foo extends bar
-#NO
+
+# No
 foo = extends(bar,...)
 ```
 
 Use coffeescript's **super** in overriden methods to invoke parent method instead of explicitly calling parent's method, simply use ```super``` when no explicit params modification is required:
 
-```
-#YES
+```coffeescript
+# Yes
 class bar
-  baz : ->
+  baz: ->
     ...
 
 class foo extends bar
-  baz : ->
+  baz: ->
     super
     ...
 
-```
-
-```
-#NO
+# No
 class bar
   baz : ->
     ...
@@ -587,24 +454,14 @@ class foo extends bar
 
 ```
 
-<a name="exceptions"/>
-## Exceptions
-
-Do not suppress exceptions.
-
-```coffeescript
-# No
-try somethingWrong() catch error
-```  
-
-<a name="module_imports"/>
 ## Module Imports
 
 If using a module system (CommonJS Modules, AMD, etc.), `require` statements should be placed on separate lines.
 
 ```coffeescript
-require 'lib/setup'
-Backbone = require 'backbone'
+# Yes
+Backbone = require('backbone')
+{Schema, Model} = require('mongoose')
 ```
 
 These statements should be grouped in the following order:
@@ -613,14 +470,7 @@ These statements should be grouped in the following order:
 2. Third party library imports
 3. Local imports _(imports specific to this application or library)_
 
-<a name="#extending_native_objects"/>
-## Extending Native Objects
 
-**DO NOT** modify native objects.
-
-For example, do not modify `Array.prototype` to introduce `Array#forEach`.
-
-<a name="other_preferences"/>
 ## Miscellaneous Preferences
 
 Other syntax preferences over the original JavaScript forms:
@@ -642,13 +492,13 @@ Other syntax preferences over the original JavaScript forms:
   Array.prototype.slice # No
   ```
 
-- Use `@property` instead of `this.property`. 
+- Use `@property` instead of `this.property`.
 
   ```coffeescript
   return @property # Yes
   return this.property # No
   ```
-  
+
   However, avoid the use of **standalone** `@`:
 
   ```coffeescript
@@ -661,7 +511,12 @@ Other syntax preferences over the original JavaScript forms:
 - Use splats (`...`) when working with functions that accept variable numbers of arguments:
 
   ```coffeescript
-  console.log args... # Yes
+  console.log(args...) # Yes
   (a, b, c, rest...) -> # Yes
   ```
 
+## Variance
+The contents of this guide is originated from [polarmobile/coffeescript-style-guide](https://github.com/polarmobile/coffeescript-style-guide), with various additions and modifies, with references to the following style guides:
+ * [CoffeeScript](http://www.coffeescript.org/)
+ * [CoffeeLint](http://www.coffeelint.org/)
+ * [idiomatic.js](https://github.com/rwldrn/idiomatic.js)
