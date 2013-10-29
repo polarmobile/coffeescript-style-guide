@@ -233,6 +233,13 @@ bar = -> # Yes
 bar = () -> # No
 ```
 
+Only use the fat arrow syntax when `this` is needed within the function body:
+
+```coffeescript
+baz = => 1 # No
+baz = => @bang # Yes
+```
+
 In cases where method calls are being chained and the code does not fit on a single line, each call should be placed on a separate line and indented by one level (i.e., two spaces), with a leading `.`.
 
 ```coffeescript
