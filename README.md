@@ -359,7 +359,7 @@ object = one: 1, two: 2
 alert("#{key} = #{value}") for key, value of object
 ```
 
-<a name="#extending_native_objects"/>
+<a name="extending_native_objects"/>
 ## Extending Native Objects
 
 Do not modify native objects.
