@@ -87,9 +87,14 @@ bar:
   value: 87
 
 # No
-foo = ['some', 'string', 'values']
+foo = [
+  'some',
+  'string',
+  'values'
+]
 bar:
-  label: 'test', value: 87
+  label: 'test',
+  value: 87
 ```
 
 <a name="encoding"/>
