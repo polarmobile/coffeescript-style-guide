@@ -73,16 +73,23 @@ Do not include trailing whitespace on any lines.
 <a name="optional_commas"/>
 ### Optional Commas
 
-Avoid the use of commas before newlines when each property of an Object or Array is listed on its own line.
+Avoid the use of commas before newlines when properties or elements of an Object or Array are listed on separate lines.
 
 ```coffeescript
-bitlist = [
-  1, 0, 1
-  1, 1, 0
+# Yes
+foo = [
+  'some'
+  'string'
+  'values'
 ]
-brother:
-  name: "Max"
-  age:  11
+bar:
+  label: 'test'
+  value: 87
+
+# No
+foo = ['some', 'string', 'values']
+bar:
+  label: 'test', value: 87
 ```
 
 <a name="encoding"/>
