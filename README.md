@@ -26,6 +26,7 @@ The details in this guide have been very heavily inspired by several existing st
         * [Maximum Line Length](#maximum_line_length)
         * [Blank Lines](#blank_lines)
         * [Trailing Whitespace](#trailing_whitespace)
+        * [Optional Commas](#optional_commas)
         * [Encoding](#encoding)
     * [Module Imports](#module_imports)
     * [Whitespace in Expressions and Statements](#whitespace)
@@ -68,6 +69,33 @@ Use a single blank line within the bodies of methods or functions in cases where
 ### Trailing Whitespace
 
 Do not include trailing whitespace on any lines.
+
+<a name="optional_commas"/>
+### Optional Commas
+
+Avoid the use of commas before newlines when properties or elements of an Object or Array are listed on separate lines.
+
+```coffeescript
+# Yes
+foo = [
+  'some'
+  'string'
+  'values'
+]
+bar:
+  label: 'test'
+  value: 87
+
+# No
+foo = [
+  'some',
+  'string',
+  'values'
+]
+bar:
+  label: 'test',
+  value: 87
+```
 
 <a name="encoding"/>
 ### Encoding
