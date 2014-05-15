@@ -326,6 +326,18 @@ Use double quote `""` as string interpolation
 
 ## Conditionals
 
+Use `true` instead of `yes`
+
+```coffeescript
+# Yes
+obj =
+  added: true
+
+# No
+obj =
+  added: yes
+```
+
 Favor `unless` over `if` for negative conditions.
 
 ```coffeescript
