@@ -61,9 +61,29 @@ Limit all lines to a maximum of 79 characters.
 
 Separate top-level function and class definitions with a single blank line.
 
+Class declarations are followed by a single blank line.
+
 Separate method definitions inside of a class with a single blank line.
 
+```coffeescript
+doThing: (arg1, arg2) ->
+   console.log arg1
+   console.log arg2
+
+class Foo
+
+   bar: ->
+      console.log 'stuff'
+
+   baz: ->
+      console.log 'other stuff'
+```
+
+
 Use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
+
+
+Leave one blank line at the end of a file.
 
 <a name="trailing_whitespace"/>
 ### Trailing Whitespace
@@ -125,8 +145,8 @@ Avoid extraneous whitespace in the following situations:
 - Immediately inside parentheses, brackets or braces
 
     ```coffeescript
-       ($ 'body') # Yes
-       ( $ 'body' ) # No
+       (x = 6) # Yes
+       ( x = 6 ) # No
     ```
 
 - Immediately before a comma
@@ -171,10 +191,6 @@ Additional recommendations:
 ## Comments
 
 If modifying code that is described by an existing comment, update the comment such that it accurately reflects the new code. (Ideally, improve the code to obviate the need for the comment, and delete the comment entirely.)
-
-The first word of the comment should be capitalized, unless the first word is an identifier that begins with a lower-case letter.
-
-If a comment is short, the period at the end can be omitted.
 
 <a name="block_comments"/>
 ### Block Comments
