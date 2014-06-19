@@ -1,0 +1,26 @@
+{
+  "name": "coffeescript-style-guide",
+  "version": "0.0.1",
+  "description": "lints coffeescript files",
+  "engines": {
+    "node": ">=0.10.x"
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Clever/coffeescript-style-guide.git"
+  },
+  "keywords": [
+    "scrub"
+  ],
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/Clever/coffeescript-style-guide/issues"
+  },
+  "dependencies": {
+    "coffeelint": "~1.5.0"
+  }
+}
