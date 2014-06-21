@@ -6,6 +6,11 @@ This guide is intended to be community-driven, and contributions are highly enco
 
 Please note that this is a work-in-progress: there is much more that can be specified, and some of the guidelines that have been specified may not be deemed to be idiomatic by the community (in which case, these offending guidelines will be modified or removed, as appropriate).
 
+Translations of this guide are available in the following languages:
+
+- [Chinese Simplified 「中文简体」](https://github.com/geekplux/coffeescript-style-guide/blob/master/README.md)
+
+
 ## Inspiration
 
 The details in this guide have been very heavily inspired by several existing style guides and other resources. In particular:
