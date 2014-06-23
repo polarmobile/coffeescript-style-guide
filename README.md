@@ -65,21 +65,21 @@ Separate top-level function and class definitions with a single blank line.
 Separate method definitions inside of a class with a single blank line. Don't separate Em.computed-properties by blank lines, group them by topic:
 
 ```coffeescript
-   DRINKING_AGE_US = 21
+   DRIVING_AGE_US = 16
    RUNTASTIC_AGE = 13
    
    Ember.Object.extend
      
      # Yes
-     allowedDrinking: Em.computed.gte('age', DRINKING_AGE_US)
-     notAllowedDrinking: Em.computed.not('allowedDrinking')
+     allowedToDrive: Em.computed.gte('age', DRIVING_AGE_US)
+     notAllowedToDrive: Em.computed.not('allowedToDrive')
      
      allowedRegistration: Em.computed.gte('age', RUNTASTIC_AGE)
     
      # No
-     allowedDrinking: Em.computed.gte('age', DRINKING_AGE_US)
+     allowedToDrive: Em.computed.gte('age', DRIVING_AGE_US)
 
-     notAllowedDrinking: Em.computed.not('allowedDrinking')
+     notAllowedToDrive: Em.computed.not('allowedToDrive')
      allowedRegistration: Em.computed.gte('age', RUNTASTIC_AGE)
 ```  
 
@@ -428,22 +428,22 @@ Ember.Object.extend
 
 Always use Em.computed instead of custom computed properties where possible: 
 ```coffeescript
-   DRINKING_AGE_US = 21
+   DRIVING_AGE_US = 16
    
    Ember.Object.extend
    
      # Yes
-     allowedDrinking: Em.computed.gte('age', DRINKING_AGE_US)
-     notAllowedDrinking: Em.computed.not('allowedDrinking')
+     allowedToDrive: Em.computed.gte('age', DRIVING_AGE_US)
+     notAllowedToDrive: Em.computed.not('allowedToDrive')
      
      # No
-     allowedDrinking: ( ->
-       @get('age') >= DRINKING_AGE_US
+     allowedToDrive: ( ->
+       @get('age') >= DRIVING_AGE_US
      ).property('age')
      
-     notAllowedDrinking: ( ->
-       !@get('allowedDrinking')
-     ).property('allowedDrinking')
+     notAllowedToDrive: ( ->
+       !@get('allowedToDrive')
+     ).property('allowedToDrive')
 ```  
 
 <a name="overriding_ember_object_methods"/>
