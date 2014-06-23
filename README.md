@@ -54,7 +54,7 @@ Use **spaces only**, with **2 spaces** per indentation level. Never mix tabs and
 <a name="maximum_line_length"/>
 ### Maximum Line Length
 
-Limit all lines to a maximum of 79 characters.
+Limit all lines to a maximum of 80 characters.
 
 <a name="blank_lines"/>
 ### Blank Lines
@@ -78,18 +78,21 @@ Avoid the use of commas before newlines when properties or elements of an Object
 ```coffeescript
 # Yes
 foo = [
-  'some'
-  'string'
+  'some',
+  'string',
   'values'
 ]
+
+bar = { name: 'xy', age: 10 }
+
 bar:
   label: 'test'
   value: 87
 
 # No
 foo = [
-  'some',
-  'string',
+  'some'
+  'string'
   'values'
 ]
 bar:
@@ -103,9 +106,9 @@ bar:
 UTF-8 is the preferred source file encoding.
 
 <a name="module_imports"/>
-## Module Imports
+## Module Imports (Ember) 
 
-If using a module system (CommonJS Modules, AMD, etc.), `require` statements should be placed on separate lines.
+If using a module system (CommonJS Modules, AMD, ES6-Modules, etc.), `require` statements should be placed on separate lines.
 
 ```coffeescript
 require 'lib/setup'
@@ -122,18 +125,21 @@ These statements should be grouped in the following order:
 
 Avoid extraneous whitespace in the following situations:
 
-- Immediately inside parentheses, brackets or braces
+- Immediately inside parentheses or brackets
 
     ```coffeescript
-       ($ 'body') # Yes
-       ( $ 'body' ) # No
+       $('body') # Yes
+       $( 'body' ) # No
+       
+       ["red", "blue"] # Yes
+       [ "red", "blue" ] # No
     ```
 
 - Immediately before a comma
 
     ```coffeescript
-       console.log x, y # Yes
-       console.log x , y # No
+       console.log(x, y) # Yes
+       console.log(x , y) # No
     ```
 
 Additional recommendations:
@@ -157,22 +163,23 @@ Additional recommendations:
 
         ```coffeescript
            # Yes
+           x      = 1
+           y      = 1
+           fooBar = 3
+           
+           # No
            x = 1
            y = 1
            fooBar = 3
 
-           # No
-           x      = 1
-           y      = 1
-           fooBar = 3
         ```
 
 <a name="comments"/>
 ## Comments
 
-If modifying code that is described by an existing comment, update the comment such that it accurately reflects the new code. (Ideally, improve the code to obviate the need for the comment, and delete the comment entirely.)
+Document your code following this style: [Biscotto](https://github.com/atom/biscotto)
 
-The first word of the comment should be capitalized, unless the first word is an identifier that begins with a lower-case letter.
+If modifying code that is described by an existing comment, update the comment such that it accurately reflects the new code. (Ideally, improve the code to obviate the need for the comment, and delete the comment entirely.)
 
 If a comment is short, the period at the end can be omitted.
 
@@ -201,24 +208,17 @@ Paragraphs inside of block comments are separated by a line containing a single 
 <a name="inline_comments"/>
 ### Inline Comments
 
-Inline comments are placed on the line immediately above the statement that they are describing. If the inline comment is sufficiently short, it can be placed on the same line as the statement (separated by a single space from the end of the statement).
-
-All inline comments should start with a `#` and a single space.
-
-The use of inline comments should be limited, because their existence is typically a sign of a code smell.
-
-Do not use inline comments when they state the obvious:
+Don't use inline comments. Use properly named functions instead.
 
 ```coffeescript
   # No
-  x = x + 1 # Increment x
-```
-
-However, inline comments can be useful in certain scenarios:
-
-```coffeescript
-  # Yes
   x = x + 1 # Compensate for border
+  
+  # Yes
+  compensateForBorder = (borderPx, offset) ->
+   borderPx + offset
+   
+  x = compensateForBorder(x, 1)
 ```
 
 <a name="naming_conventions"/>
@@ -236,7 +236,7 @@ For constants, use all uppercase with underscores:
 CONSTANT_LIKE_THIS
 ```
 
-Methods and variables that are intended to be "private" should begin with a leading underscore:
+Methods that are intended to be "private" should begin with a leading underscore:
 
 ```coffeescript
 _privateMethod: ->
@@ -264,53 +264,31 @@ bar = () -> # No
 In cases where method calls are being chained and the code does not fit on a single line, each call should be placed on a separate line and indented by one level (i.e., two spaces), with a leading `.`.
 
 ```coffeescript
+
+power = (value) ->
+   value * value
+
+add = (prev, current) ->
+   prev + current
+   
 [1..3]
-  .map((x) -> x * x)
+  .map(power)
   .concat([10..12])
-  .filter((x) -> x < 11)
-  .reduce((x, y) -> x + y)
+  .reduce(add)
 ```
 
-When calling functions, choose to omit or include parentheses in such a way that optimizes for readability. Keeping in mind that "readability" can be subjective, the following examples demonstrate cases where parentheses have been omitted or included in a manner that the community deems to be optimal:
+When calling functions, always use parentheses:
 
 ```coffeescript
-baz 12
+baz(12) # Yes
+baz 12 # No
 
-brush.ellipse x: 10, y: 20 # Braces can also be omitted or included for readability
+brush.ellipse({ x: 10, y: 20 }) # Yes
+brush.ellipse x: 10, y: 20 # No
 
-foo(4).bar(8)
-
-obj.value(10, 20) / obj.value(20, 10)
-
-print inspect value
-
-new Tag(new Value(a, b), new Arg(c))
+print(inspect(value)) # Yes
+print inspect value # No
 ```
-
-You will sometimes see parentheses used to group functions (instead of being used to group function parameters). Examples of using this style (hereafter referred to as the "function grouping style"):
-
-```coffeescript
-($ '#selektor').addClass 'klass'
-
-(foo 4).bar 8
-```
-
-This is in contrast to:
-
-```coffeescript
-$('#selektor').addClass 'klass'
-
-foo(4).bar 8
-```
-
-In cases where method calls are being chained, some adopters of this style prefer to use function grouping for the initial call only:
-
-```coffeescript
-($ '#selektor').addClass('klass').hide() # Initial call only
-(($ '#selektor').addClass 'klass').hide() # All calls
-```
-
-The function grouping style is not recommended. However, **if the function grouping style is adopted for a particular project, be consistent with its usage.**
 
 <a name="strings"/>
 ## Strings
@@ -320,6 +298,15 @@ Use string interpolation instead of string concatenation:
 ```coffeescript
 "this is an #{adjective} string" # Yes
 "this is an " + adjective + " string" # No
+```
+
+Use following style for inline javascript-templates: 
+```coffeescript
+ """
+   <div id='test'>
+      Hello
+   </div>
+ """
 ```
 
 Prefer single quoted strings (`''`) instead of double quoted (`""`) strings, unless features like string interpolation are being used for the given string.
@@ -359,34 +346,6 @@ Multi-line if/else clauses should use indentation:
   else ...
 ```
 
-<a name="looping_and_comprehensions"/>
-## Looping and Comprehensions
-
-Take advantage of comprehensions whenever possible:
-
-```coffeescript
-  # Yes
-  result = (item.name for item in array)
-
-  # No
-  results = []
-  for item in array
-    results.push item.name
-```
-
-To filter:
-
-```coffeescript
-result = (item for item in array when item.name is "test")
-```
-
-To iterate over the keys and values of objects:
-
-```coffeescript
-object = one: 1, two: 2
-alert("#{key} = #{value}") for key, value of object
-```
-
 <a name="extending_native_objects"/>
 ## Extending Native Objects
 
@@ -398,56 +357,20 @@ For example, do not modify `Array.prototype` to introduce `Array#forEach`.
 ## Exceptions
 
 Do not suppress exceptions.
-
-<a name="annotations"/>
-## Annotations
-
-Use annotations when necessary to describe a specific action that must be taken against the indicated block of code.
-
-Write the annotation on the line immediately above the code that the annotation is describing.
-
-The annotation keyword should be followed by a colon and a space, and a descriptive note.
-
-```coffeescript
-  # FIXME: The client's current state should *not* affect payload processing.
-  resetClientState()
-  processPayload()
-```
-
-If multiple lines are required by the description, indent subsequent lines with two spaces:
-
-```coffeescript
-  # TODO: Ensure that the value returned by this call falls within a certain
-  #   range, or throw an exception.
-  analyze()
-```
-
-Annotation types:
-
-- `TODO`: describe missing functionality that should be added at a later date
-- `FIXME`: describe broken code that must be fixed
-- `OPTIMIZE`: describe code that is inefficient and may become a bottleneck
-- `HACK`: describe the use of a questionable (or ingenious) coding practice
-- `REVIEW`: describe code that should be reviewed to confirm implementation
-
-If a custom annotation is required, the annotation should be documented in the project's README.
-
 <a name="miscellaneous"/>
 ## Miscellaneous
 
-`and` is preferred over `&&`.
+`&&`is preferred over `and` .
 
-`or` is preferred over `||`.
+`||` is preferred over `or`.
 
-`is` is preferred over `==`.
+`==` is preferred over `is`.
 
-`not` is preferred over `!`.
+`!` is preferred over `not`.
 
-`or=` should be used when possible:
-
+To make sure a namespace exists use the `?` operator: 
 ```coffeescript
-temp or= {} # Yes
-temp = temp || {} # No
+@rt = @rt ? {}
 ```
 
 Prefer shorthand notation (`::`) for accessing an object's prototype:
@@ -464,19 +387,19 @@ return @property # Yes
 return this.property # No
 ```
 
-However, avoid the use of **standalone** `@`:
+Always use `@` instead of `this`:
 
 ```coffeescript
-return this # Yes
-return @ # No
+return @ # Yes
+return this # No
 ```
 
-Avoid `return` where not required, unless the explicit return increases clarity.
+Avoid `return` where not required.
 
 Use splats (`...`) when working with functions that accept variable numbers of arguments:
 
 ```coffeescript
-console.log args... # Yes
+console.log(args...) # Yes
 
 (a, b, c, rest...) -> # Yes
 ```
