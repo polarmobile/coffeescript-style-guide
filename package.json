@@ -22,5 +22,8 @@
   },
   "dependencies": {
     "coffeelint": "~1.5.0"
+  },
+  "bin": {
+    "lint": "./run.sh"
   }
 }
