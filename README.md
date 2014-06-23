@@ -114,6 +114,7 @@ foo = [
   'string'
   'values'
 ]
+
 bar:
   label: 'test',
   value: 87
@@ -478,7 +479,7 @@ Instead of overriding the built-in Ember.Object-methods, use the `on`-syntax.
 <a name="miscellaneous"/>
 ## Miscellaneous
 
-`&&`is preferred over `and` .
+`&&` is preferred over `and` .
 
 `||` is preferred over `or`.
 
