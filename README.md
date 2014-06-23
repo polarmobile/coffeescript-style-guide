@@ -27,6 +27,7 @@ The details in this guide have been very heavily inspired by several existing st
         * [Blank Lines](#blank_lines)
         * [Trailing Whitespace](#trailing_whitespace)
         * [Optional Commas](#optional_commas)
+        * [Object declaration](#object_declaration)
         * [Encoding](#encoding)
     * [Module Imports](#module_imports)
     * [Whitespace in Expressions and Statements](#whitespace)
@@ -61,7 +62,27 @@ Limit all lines to a maximum of 80 characters.
 
 Separate top-level function and class definitions with a single blank line.
 
-Separate method definitions inside of a class with a single blank line.
+Separate method definitions inside of a class with a single blank line. Don't separate Em.computed-properties by blank lines, group them by topic:
+
+```coffeescript
+   DRINKING_AGE_US = 21
+   RUNTASTIC_AGE = 13
+   
+   Ember.Object.extend
+     
+     # Yes
+     allowedDrinking: Em.computed.gte('age', DRINKING_AGE_US)
+     notAllowedDrinking: Em.computed.not('allowedDrinking')
+     
+     allowedRegistration: Em.computed.gte('age', RUNTASTIC_AGE)
+    
+     # No
+     allowedDrinking: Em.computed.gte('age', DRINKING_AGE_US)
+
+     notAllowedDrinking: Em.computed.not('allowedDrinking')
+     allowedRegistration: Em.computed.gte('age', RUNTASTIC_AGE)
+```  
+
 
 Use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
 
@@ -83,7 +104,7 @@ foo = [
   'values'
 ]
 
-bar = { name: 'xy', age: 10 }
+
 
 bar:
   label: 'test'
@@ -100,25 +121,33 @@ bar:
   value: 87
 ```
 
+
+<a name="object_declaration"/>
+### Object declaration
+
+When an object declaration fits in a single line use 'inline-style': 
+```coffeescript
+   bar = { name: 'xy', age: 10 } # Yes
+   
+   # No
+   bar = 
+      name: 'xy'
+      age: 10
+```
+
+Unless objects are nested:
+```coffeescript   
+   article =
+     body: 'I am the body'
+     author: 
+      name: 'Author'
+      age: 20
+```
+
 <a name="encoding"/>
 ### Encoding
 
 UTF-8 is the preferred source file encoding.
-
-<a name="module_imports"/>
-## Module Imports (Ember) 
-
-If using a module system (CommonJS Modules, AMD, ES6-Modules, etc.), `require` statements should be placed on separate lines.
-
-```coffeescript
-require 'lib/setup'
-Backbone = require 'backbone'
-```
-These statements should be grouped in the following order:
-
-1. Standard library imports _(if a standard library exists)_
-2. Third party library imports
-3. Local imports _(imports specific to this application or library)_
 
 <a name="whitespace"/>
 ## Whitespace in Expressions and Statements
@@ -357,6 +386,97 @@ For example, do not modify `Array.prototype` to introduce `Array#forEach`.
 ## Exceptions
 
 Do not suppress exceptions.
+
+
+<a name="module_imports"/>
+## Module Imports (Ember) 
+
+If using a module system (CommonJS Modules, AMD, ES6-Modules, etc.), `require` statements should be placed on separate lines.
+
+```coffeescript
+`import Ember from 'ember'`
+`import RSVP from 'rsvp'`
+`import SliderMixin from '../mixins/slider-mixin'`
+
+controller = Ember.ArrayController.extend SliderMixin,
+  # ...controller code goes here ...
+  
+`export default controller;`
+```
+These statements should be grouped in the following order:
+
+1. Standard library imports _(if a standard library exists)_
+2. Third party library imports
+3. Local imports _(imports specific to this application or library)_
+
+<a name="computed_properties_observer"/>
+## Computed properties & observer syntax
+
+Use a single space between parentheses and function-arrow on Ember computed properties and observers.
+
+```coffeescript
+Ember.Object.extend
+  
+  fullName: ( ->
+    "#{@get('firstName') @get('lastName')"
+  ).property('firstName', 'lastName')
+
+  lastNameDidChange: ( ->
+    console.log('I just married! lol')
+  ).oberves('lastName')
+```  
+
+
+Always use Em.computed instead of custom computed properties where possible: 
+```coffeescript
+   DRINKING_AGE_US = 21
+   
+   Ember.Object.extend
+   
+     # Yes
+     allowedDrinking: Em.computed.gte('age', DRINKING_AGE_US)
+     notAllowedDrinking: Em.computed.not('allowedDrinking')
+     
+     # No
+     allowedDrinking: ( ->
+       @get('age') >= DRINKING_AGE_US
+     ).property('age')
+     
+     notAllowedDrinking: ( ->
+       !@get('allowedDrinking')
+     ).property('allowedDrinking')
+```  
+
+<a name="overriding_ember_object_methods"/>
+## Overriding Ember.Object-methods
+
+Instead of overriding the built-in Ember.Object-methods, use the `on`-syntax.
+```coffeescript
+   Ember.Component.extend
+   
+     # Yes
+     setupEventListener: ( ->
+       # ... setup event listeners ...
+     ).on('didInsertElement')
+     
+     # No
+     didInsertElement: ->
+       @_super()
+       # ... setup event listeners ...
+   
+   Ember.Object.extend
+   
+     # Yes
+     fetchData: ( ->
+       # ... init Ember.Object ...
+     ).on('init')
+     
+     # No
+     init: ->
+       @_super()
+       # ... init Ember.Object ...
+```  
+
 <a name="miscellaneous"/>
 ## Miscellaneous
 
