@@ -104,8 +104,6 @@ foo = [
   'values'
 ]
 
-
-
 bar:
   label: 'test'
   value: 87
