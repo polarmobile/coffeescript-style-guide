@@ -71,22 +71,23 @@ Separate method definitions inside of a class with a single blank line. Don't se
 ```coffeescript
 DRIVING_AGE_US = 16
 RUNTASTIC_AGE  = 13
+gte = Em.computed.gte
+not = Em.computed.not
 
 Ember.Object.extend
   
   # Yes
-  allowedToDrive: Em.computed.gte('age', DRIVING_AGE_US)
-  notAllowedToDrive: Em.computed.not('allowedToDrive')
+  allowedToDrive: gte('age', DRIVING_AGE_US)
+  notAllowedToDrive: not('allowedToDrive')
   
-  allowedRegistration: Em.computed.gte('age', RUNTASTIC_AGE)
+  allowedRegistration: gte('age', RUNTASTIC_AGE)
  
   # No
-  allowedToDrive: Em.computed.gte('age', DRIVING_AGE_US)
+  allowedToDrive: gte('age', DRIVING_AGE_US)
 
-  notAllowedToDrive: Em.computed.not('allowedToDrive')
-  allowedRegistration: Em.computed.gte('age', RUNTASTIC_AGE)
+  notAllowedToDrive: not('allowedToDrive')
+  allowedRegistration: gte('age', RUNTASTIC_AGE)
 ```  
-
 
 Use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
 
@@ -282,9 +283,9 @@ $element = $('#element')
 <a name="js_specific_classes" />
 ## Javascript-specific classes
 Use additional JS-specific classes to seperate logic and styling. Use following naming convention for JS-specific classes:
-  * Choose meaningful classes
-  * If a 'styling' class already exists then prefix it with 'js-'
-  * If the element has no 'styling' class, choose your own with 'js-' prefix.
+  * Choose meaningful class names
+  * If a 'styling' class already exists, prefix it with 'js-'
+  * If the element has no 'styling' class, choose your own with 'js-' prefix
 
 ```coffeescript
   <div class='image-wrapper js-image-wrapper' />
@@ -295,14 +296,14 @@ Always use promises (`RSVP.Promise`, `Ember.RSVP.Promise`).
 For Ajax calls use the `ic-ajax` library ([IC-Ajax](https://github.com/instructure/ic-ajax)).
 
 ```coffeescript
-  success = (data) ->
-    # ... handle success ...
-   
-  error = ->
-    # ... handle error ...
+success = (data) ->
+ # ... handle success ...
 
-  ic.ajax.request(url)
-    .then(success, error)
+error = ->
+ # ... handle error ...
+
+ic.ajax.request(url)
+ .then(success, error)
 ```
 
 <a name="functions"/>
@@ -420,14 +421,14 @@ else
  ...
 ```
 
-When an if/else clause fits in a single line:
+When an `if...else` clause fits in a single line:
 ```coffeescript
 color = if true then 'green' else 'blue' # Yes
 
 if true then color = 'green' else color = 'blue' # No
 ```
 
-Multi-line if/else clauses should use indentation:
+Multi-line `if...else` clauses should use indentation:
 
 ```coffeescript
 # Yes
@@ -441,7 +442,7 @@ if true then ...
 else ...
 ```
 
-When an if clause fits in a single line: 
+When an `if` clause fits in a single line: 
 ```coffeescript
 # Yes
 doSomething() if true
@@ -490,7 +491,7 @@ These statements should be grouped in the following order:
 <a name="computed_properties_observer"/>
 ### Computed properties & observer syntax
 
-Use a single space between parentheses and function-arrow on Ember computed properties and observers.
+Use a single space between parentheses and function-arrow on `Ember` computed properties and observers.
 
 ```coffeescript
 Ember.Object.extend
@@ -504,15 +505,17 @@ Ember.Object.extend
   ).observes('lastName')
 ```  
 
-Always use Em.computed instead of custom computed properties where possible: 
+Always use `Ember.computed` instead of custom computed properties where possible: 
 ```coffeescript
 DRIVING_AGE_US = 16
+gte = Ember.computed.gte
+not = Ember.computed.not
 
 Ember.Object.extend
 
   # Yes
-  allowedToDrive: Em.computed.gte('age', DRIVING_AGE_US)
-  notAllowedToDrive: Em.computed.not('allowedToDrive')
+  allowedToDrive: gte('age', DRIVING_AGE_US)
+  notAllowedToDrive: not('allowedToDrive')
   
   # No
   allowedToDrive: ( ->
@@ -527,7 +530,7 @@ Ember.Object.extend
 <a name="overriding_ember_object_methods"/>
 ### Overriding Ember.Object-methods
 
-Instead of overriding the built-in Ember.Object-methods, use the `on`-syntax.
+Instead of overriding the built-in `Ember.Object`-methods, use the `on`-syntax.
 ```coffeescript
 Ember.Component.extend
 
@@ -557,7 +560,7 @@ Ember.Object.extend
 <a name"define_abbreviations" />
 ### Define abbreviations
 
-Always define abbreviations for 'long' Ember functions:
+Always define abbreviations for 'long' `Ember` functions:
 ```coffeescript
 # Yes
 attr  = DS.attr
