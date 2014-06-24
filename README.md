@@ -352,18 +352,32 @@ print(inspect(value)) # Yes
 print inspect value # No
 ```
 
-Always use named functions instead of anonymous functions: 
+Always use named functions instead of anonymous functions.
 ```coffeescript
 # Yes
 power = (value) ->
-   value * value
+  value * value
 
 [1..3].map(power)
 
 # No
 [1..3].map( (value) -> value * value) 
 ```
-
+If you need access to a specific scope in a named function, use function.bind: 
+```coffeescript
+class Test
+  handleSuccess: (data) ->
+    # ... handle success ...
+   
+  handleError: (error) ->
+    # ... handle error ...
+  
+  queryRecords: ->
+    success = @handleSuccess.bind(@)
+    error   = @handleError.bind(@)
+    ic.ajax.request(url)
+      .then(success, error)
+```
 <a name="strings"/>
 ## Strings
 
