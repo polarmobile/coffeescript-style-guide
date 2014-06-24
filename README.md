@@ -66,13 +66,13 @@ Limit all lines to a maximum of 80 characters.
 
 Separate top-level function and class definitions with a single blank line.
 
-Separate method definitions inside of a class with a single blank line. Don't separate Em.computed-properties by blank lines, group them by topic:
+Separate method definitions inside of a class with a single blank line. Don't separate `Ember.computed`-properties by blank lines, group them by topic:
 
 ```coffeescript
 DRIVING_AGE_US = 16
 RUNTASTIC_AGE  = 13
-gte = Em.computed.gte
-not = Em.computed.not
+gte = Ember.computed.gte
+not = Ember.computed.not
 
 Ember.Object.extend
   
@@ -162,18 +162,18 @@ Avoid extraneous whitespace in the following situations:
 - Immediately inside parentheses or brackets
 
  ```coffeescript
-    $('body') # Yes
-    $( 'body' ) # No
-    
-    ["red", "blue"] # Yes
-    [ "red", "blue" ] # No
+ $('body') # Yes
+ $( 'body' ) # No
+ 
+ ["red", "blue"] # Yes
+ [ "red", "blue" ] # No
  ```
 
 - Immediately before a comma
 
  ```coffeescript
-    console.log(x, y) # Yes
-    console.log(x , y) # No
+ console.log(x, y) # Yes
+ console.log(x , y) # No
  ```
 
 Additional recommendations:
@@ -275,7 +275,7 @@ Methods that are intended to be "private" should begin with a leading underscore
 _privateMethod: ->
 ```
 
-Use a leading dollar sign for jQuery elements or collections: 
+Use a leading `$` for jQuery elements or collections: 
 ```coffeescript
 $element = $('#element')
 ```
@@ -288,7 +288,7 @@ Use additional JS-specific classes to seperate logic and styling. Use following 
   * If the element has no 'styling' class, choose your own with 'js-' prefix
 
 ```coffeescript
-  <div class='image-wrapper js-image-wrapper' />
+<div class='image-wrapper js-image-wrapper' />
 ```
 <a name="promises" />
 ## Promises
@@ -557,7 +557,7 @@ Ember.Object.extend
     # ... init Ember.Object ...
 ```  
 
-<a name"define_abbreviations" />
+<a name="define_abbreviations" />
 ### Define abbreviations
 
 Always define abbreviations for 'long' `Ember` functions:
