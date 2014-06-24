@@ -581,10 +581,11 @@ DS.Model.extend
 Define property/observer-functions for code that can be used mulitple times for different 'properties' or 'observers':
 ```coffeescript
 # Yes
-KM_IN_METER = 1000
+METRES_IN_KM = 1000
+
 kilometerInMeter = (distance) ->
   ( ->
-    @get(distance) * KM_IN_METER
+    @get(distance) * METRES_IN_KM
   ).property(distance)
 
 notifyEveryKilometer = (distance) ->
@@ -600,14 +601,15 @@ Ember.ObjectController.extend
   distancePerWeekObserver: notifyEveryKilometer('distancePerWeekInKm')
   
 # No
-KM_IN_METER = 1000
+METRES_IN_KM = 1000
+
 Ember.ObjectController.extend
   distancePerDayInMeter: ( ->
-    @get('distancePerDayInKm') * KM_IN_METER
+    @get('distancePerDayInKm') * METRES_IN_KM
   ).property('distancePerDayInKm')
   
   distancePerWeekInMeter: ( ->
-    @get('distancePerWeekInKm') * KM_IN_METER
+    @get('distancePerWeekInKm') * METRES_IN_KM
   ).property('distancePerWeekInKm')
   
   distancePerDayObserver: ( ->
@@ -669,9 +671,10 @@ console.log(args...) # Yes
 Use constants for improved readability:
 ```coffeescript
 # Yes
-KM_IN_METER = 1000
+METRES_IN_KM = 1000
+
 convertKmToMeter = (km) ->
-  km * KM_IN_METER
+  km * METRES_IN_KM
 
 # No
 convertKmToMeter = (km) ->
