@@ -29,7 +29,6 @@ The details in this guide have been very heavily inspired by several existing st
         * [Optional Commas](#optional_commas)
         * [Object declaration](#object_declaration)
         * [Encoding](#encoding)
-    * [Module Imports](#module_imports)
     * [Whitespace in Expressions and Statements](#whitespace)
     * [Comments](#comments)
         * [Block Comments](#block_comments)
@@ -41,7 +40,10 @@ The details in this guide have been very heavily inspired by several existing st
     * [Looping and Comprehensions](#looping_and_comprehensions)
     * [Extending Native Objects](#extending_native_objects)
     * [Exceptions](#exceptions)
-    * [Annotations](#annotations)
+    * [Ember](#ember)
+        * [Module Imports](#module_imports)
+        * [Computed properties & observer syntax](#computed_properties_observer)
+        * [Overriding Ember.Object-methods](#overriding_ember_object_methods)
     * [Miscellaneous](#miscellaneous)
 
 <a name="code_layout"/>
@@ -65,22 +67,22 @@ Separate top-level function and class definitions with a single blank line.
 Separate method definitions inside of a class with a single blank line. Don't separate Em.computed-properties by blank lines, group them by topic:
 
 ```coffeescript
-   DRIVING_AGE_US = 16
-   RUNTASTIC_AGE = 13
-   
-   Ember.Object.extend
-     
-     # Yes
-     allowedToDrive: Em.computed.gte('age', DRIVING_AGE_US)
-     notAllowedToDrive: Em.computed.not('allowedToDrive')
-     
-     allowedRegistration: Em.computed.gte('age', RUNTASTIC_AGE)
-    
-     # No
-     allowedToDrive: Em.computed.gte('age', DRIVING_AGE_US)
+DRIVING_AGE_US = 16
+RUNTASTIC_AGE = 13
 
-     notAllowedToDrive: Em.computed.not('allowedToDrive')
-     allowedRegistration: Em.computed.gte('age', RUNTASTIC_AGE)
+Ember.Object.extend
+  
+  # Yes
+  allowedToDrive: Em.computed.gte('age', DRIVING_AGE_US)
+  notAllowedToDrive: Em.computed.not('allowedToDrive')
+  
+  allowedRegistration: Em.computed.gte('age', RUNTASTIC_AGE)
+ 
+  # No
+  allowedToDrive: Em.computed.gte('age', DRIVING_AGE_US)
+
+  notAllowedToDrive: Em.computed.not('allowedToDrive')
+  allowedRegistration: Em.computed.gte('age', RUNTASTIC_AGE)
 ```  
 
 
@@ -107,6 +109,7 @@ foo = [
 bar:
   label: 'test'
   value: 87
+  options: 100
 
 # No
 foo = [
@@ -117,30 +120,30 @@ foo = [
 
 bar:
   label: 'test',
-  value: 87
+  value: 87,
+  options: 100
 ```
-
 
 <a name="object_declaration"/>
 ### Object declaration
 
 When an object declaration fits in a single line use 'inline-style': 
 ```coffeescript
-   bar = { name: 'xy', age: 10 } # Yes
-   
-   # No
-   bar = 
-      name: 'xy'
-      age: 10
+bar = { name: 'xy', age: 10 } # Yes
+
+# No
+bar = 
+   name: 'xy'
+   age: 10
 ```
 
 Unless objects are nested:
 ```coffeescript   
-   article =
-     body: 'I am the body'
-     author: 
-      name: 'Author'
-      age: 20
+article =
+  body: 'I am the body'
+  author: 
+   name: 'Author'
+   age: 20
 ```
 
 <a name="encoding"/>
@@ -155,20 +158,20 @@ Avoid extraneous whitespace in the following situations:
 
 - Immediately inside parentheses or brackets
 
-    ```coffeescript
-       $('body') # Yes
-       $( 'body' ) # No
-       
-       ["red", "blue"] # Yes
-       [ "red", "blue" ] # No
-    ```
+ ```coffeescript
+    $('body') # Yes
+    $( 'body' ) # No
+    
+    ["red", "blue"] # Yes
+    [ "red", "blue" ] # No
+ ```
 
 - Immediately before a comma
 
-    ```coffeescript
-       console.log(x, y) # Yes
-       console.log(x , y) # No
-    ```
+ ```coffeescript
+    console.log(x, y) # Yes
+    console.log(x , y) # No
+ ```
 
 Additional recommendations:
 
@@ -187,19 +190,18 @@ Additional recommendations:
     - comparisons: `==`, `<`, `>`, `<=`, `>=`, `unless`, etc.
     - arithmetic operators: `+`, `-`, `*`, `/`, etc.
 
-    - _(Do not use more than one space around these operators)_
+    - Always align multiple variable assignments:
 
         ```coffeescript
-           # Yes
-           x      = 1
-           y      = 1
-           fooBar = 3
-           
-           # No
-           x = 1
-           y = 1
-           fooBar = 3
-
+        # Yes
+        x      = 1
+        y      = 1
+        fooBar = 3
+        
+        # No
+        x = 1
+        y = 1
+        fooBar = 3
         ```
 
 <a name="comments"/>
@@ -221,16 +223,16 @@ Each line of a block comment starts with a `#` and a single space, and should be
 Paragraphs inside of block comments are separated by a line containing a single `#`.
 
 ```coffeescript
-  # This is a block comment. Note that if this were a real block
-  # comment, we would actually be describing the proceeding code.
-  #
-  # This is the second paragraph of the same block comment. Note
-  # that this paragraph was separated from the previous paragraph
-  # by a line containing a single comment character.
+# This is a block comment. Note that if this were a real block
+# comment, we would actually be describing the proceeding code.
+#
+# This is the second paragraph of the same block comment. Note
+# that this paragraph was separated from the previous paragraph
+# by a line containing a single comment character.
 
-  init()
-  start()
-  stop()
+init()
+start()
+stop()
 ```
 
 <a name="inline_comments"/>
@@ -239,14 +241,14 @@ Paragraphs inside of block comments are separated by a line containing a single 
 Don't use inline comments. Use properly named functions instead.
 
 ```coffeescript
-  # No
-  x = x + 1 # Compensate for border
-  
-  # Yes
-  compensateForBorder = (borderPx, offset) ->
-   borderPx + offset
-   
-  x = compensateForBorder(x, 1)
+# Yes
+compensateForBorder = (borderPx, offset) ->
+borderPx + offset
+
+x = compensateForBorder(x, 1)
+
+# No
+x = x + 1 # Compensate for border
 ```
 
 <a name="naming_conventions"/>
@@ -292,7 +294,6 @@ bar = () -> # No
 In cases where method calls are being chained and the code does not fit on a single line, each call should be placed on a separate line and indented by one level (i.e., two spaces), with a leading `.`.
 
 ```coffeescript
-
 power = (value) ->
    value * value
 
@@ -330,11 +331,11 @@ Use string interpolation instead of string concatenation:
 
 Use following style for inline javascript-templates: 
 ```coffeescript
- """
-   <div id='test'>
-      Hello
-   </div>
- """
+"""
+  <div id='test'>
+    Hello
+  </div>
+"""
 ```
 
 Prefer single quoted strings (`''`) instead of double quoted (`""`) strings, unless features like string interpolation are being used for the given string.
@@ -347,31 +348,31 @@ Favor `unless` over `if` for negative conditions.
 Instead of using `unless...else`, use `if...else`:
 
 ```coffeescript
-  # Yes
-  if true
-    ...
-  else
-    ...
+# Yes
+if true
+ ...
+else
+ ...
 
-  # No
-  unless false
-    ...
-  else
-    ...
+# No
+unless false
+ ...
+else
+ ...
 ```
 
 Multi-line if/else clauses should use indentation:
 
 ```coffeescript
-  # Yes
-  if true
-    ...
-  else
-    ...
+# Yes
+if true
+ ...
+else
+ ...
 
-  # No
-  if true then ...
-  else ...
+# No
+if true then ...
+else ...
 ```
 
 <a name="extending_native_objects"/>
@@ -386,11 +387,13 @@ For example, do not modify `Array.prototype` to introduce `Array#forEach`.
 
 Do not suppress exceptions.
 
+<a name="ember"/>
+## Ember
 
 <a name="module_imports"/>
-## Module Imports (Ember) 
+### Module Imports 
 
-If using a module system (CommonJS Modules, AMD, ES6-Modules, etc.), `require` statements should be placed on separate lines.
+If using a module system (CommonJS Modules, AMD, ES6-Modules, etc.), `import` statements should be placed on separate lines.
 
 ```coffeescript
 `import Ember from 'ember'`
@@ -409,7 +412,7 @@ These statements should be grouped in the following order:
 3. Local imports _(imports specific to this application or library)_
 
 <a name="computed_properties_observer"/>
-## Computed properties & observer syntax
+### Computed properties & observer syntax
 
 Use a single space between parentheses and function-arrow on Ember computed properties and observers.
 
@@ -417,63 +420,62 @@ Use a single space between parentheses and function-arrow on Ember computed prop
 Ember.Object.extend
   
   fullName: ( ->
-    "#{@get('firstName') @get('lastName')"
+    "#{@get('firstName')} #{@get('lastName')}"
   ).property('firstName', 'lastName')
 
   lastNameDidChange: ( ->
     console.log('I just married! lol')
-  ).oberves('lastName')
+  ).observes('lastName')
 ```  
-
 
 Always use Em.computed instead of custom computed properties where possible: 
 ```coffeescript
-   DRIVING_AGE_US = 16
-   
-   Ember.Object.extend
-   
-     # Yes
-     allowedToDrive: Em.computed.gte('age', DRIVING_AGE_US)
-     notAllowedToDrive: Em.computed.not('allowedToDrive')
-     
-     # No
-     allowedToDrive: ( ->
-       @get('age') >= DRIVING_AGE_US
-     ).property('age')
-     
-     notAllowedToDrive: ( ->
-       !@get('allowedToDrive')
-     ).property('allowedToDrive')
+DRIVING_AGE_US = 16
+
+Ember.Object.extend
+
+  # Yes
+  allowedToDrive: Em.computed.gte('age', DRIVING_AGE_US)
+  notAllowedToDrive: Em.computed.not('allowedToDrive')
+  
+  # No
+  allowedToDrive: ( ->
+    @get('age') >= DRIVING_AGE_US
+  ).property('age')
+  
+  notAllowedToDrive: ( ->
+    !@get('allowedToDrive')
+  ).property('allowedToDrive')
 ```  
 
 <a name="overriding_ember_object_methods"/>
-## Overriding Ember.Object-methods
+### Overriding Ember.Object-methods
 
 Instead of overriding the built-in Ember.Object-methods, use the `on`-syntax.
 ```coffeescript
-   Ember.Component.extend
-   
-     # Yes
-     setupEventListener: ( ->
-       # ... setup event listeners ...
-     ).on('didInsertElement')
-     
-     # No
-     didInsertElement: ->
-       @_super()
-       # ... setup event listeners ...
-   
-   Ember.Object.extend
-   
-     # Yes
-     fetchData: ( ->
-       # ... init Ember.Object ...
-     ).on('init')
-     
-     # No
-     init: ->
-       @_super()
-       # ... init Ember.Object ...
+Ember.Component.extend
+
+  # Yes
+  setupEventListener: ( ->
+    # ... setup event listeners ...
+  ).on('didInsertElement')
+  
+  # No
+  didInsertElement: ->
+    @_super()
+    # ... setup event listeners ...
+
+Ember.Object.extend
+
+  # Yes
+  fetchData: ( ->
+    # ... init Ember.Object ...
+  ).on('init')
+  
+  # No
+  init: ->
+    @_super()
+    # ... init Ember.Object ...
 ```  
 
 <a name="miscellaneous"/>
