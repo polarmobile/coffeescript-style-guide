@@ -34,10 +34,11 @@ The details in this guide have been very heavily inspired by several existing st
         * [Block Comments](#block_comments)
         * [Inline Comments](#inline_comments)
     * [Naming Conventions](#naming_conventions)
+    * [Javascript-specific classes](#js_specific_classes)
+    * [Promises](#promises)
     * [Functions](#functions)
     * [Strings](#strings)
     * [Conditionals](#conditionals)
-    * [Looping and Comprehensions](#looping_and_comprehensions)
     * [Extending Native Objects](#extending_native_objects)
     * [Exceptions](#exceptions)
     * [Ember](#ember)
@@ -69,7 +70,7 @@ Separate method definitions inside of a class with a single blank line. Don't se
 
 ```coffeescript
 DRIVING_AGE_US = 16
-RUNTASTIC_AGE = 13
+RUNTASTIC_AGE  = 13
 
 Ember.Object.extend
   
@@ -273,6 +274,37 @@ Methods that are intended to be "private" should begin with a leading underscore
 _privateMethod: ->
 ```
 
+Use a leading dollar sign for jQuery elements or collections: 
+```coffeescript
+$element = $('#element')
+```
+
+<a name="js_specific_classes" />
+## Javascript-specific classes
+Use additional JS-specific classes to seperate logic and styling. Use following naming convention for JS-specific classes:
+  * Choose meaningful classes
+  * If a 'styling' class already exists then prefix it with 'js-'
+  * If the element has no 'styling' class, choose your own with 'js-' prefix.
+
+```coffeescript
+  <div class='image-wrapper js-image-wrapper' />
+```
+<a name="promises" />
+## Promises
+Always use promises (`RSVP.Promise`, `Ember.RSVP.Promise`).
+For Ajax calls use the `ic-ajax` library ([IC-Ajax](https://github.com/instructure/ic-ajax)).
+
+```coffeescript
+  success = (data) ->
+    # ... handle success ...
+   
+  error = ->
+    # ... handle error ...
+
+  ic.ajax.request(url)
+    .then(success, error)
+```
+
 <a name="functions"/>
 ## Functions
 
@@ -374,7 +406,7 @@ else
  ...
 ```
 
-When a if/else clause fits in a single line:
+When an if/else clause fits in a single line:
 ```coffeescript
 color = if true then 'green' else 'blue' # Yes
 
@@ -393,6 +425,16 @@ else
 # No
 if true then ...
 else ...
+```
+
+When an if clause fits in a single line: 
+```coffeescript
+# Yes
+doSomething() if true
+
+# No
+if true
+  doSomething()
 ```
 
 <a name="extending_native_objects"/>
@@ -416,9 +458,9 @@ Do not suppress exceptions.
 If using a module system (CommonJS Modules, AMD, ES6-Modules, etc.), `import` statements should be placed on separate lines.
 
 ```coffeescript
-`import Ember from 'ember'`
-`import RSVP from 'rsvp'`
-`import SliderMixin from '../mixins/slider-mixin'`
+`import Ember from 'ember';`
+`import RSVP from 'rsvp';`
+`import SliderMixin from '../mixins/slider-mixin';`
 
 controller = Ember.ArrayController.extend SliderMixin,
   # ...controller code goes here ...
@@ -522,9 +564,10 @@ DS.Model.extend
 Define property/observer-functions for code that can be used mulitple times for different 'properties' or 'observers':
 ```coffeescript
 # Yes
+KM_IN_METER = 1000
 kilometerInMeter = (distance) ->
   ( ->
-    @get(distance) * 1000
+    @get(distance) * KM_IN_METER
   ).property(distance)
 
 notifyEveryKilometer = (distance) ->
@@ -541,13 +584,14 @@ Ember.ObjectController.extend
   distancePerWeekObserver: notifyEveryKilometer('distancePerWeekInKm')
   
 # No
+KM_IN_METER = 1000
 Ember.ObjectController.extend
   distancePerDayInMeter: ( ->
-    @get('distancePerDayInKm') * 1000
+    @get('distancePerDayInKm') * KM_IN_METER
   ).property('distancePerDayInKm')
   
   distancePerWeekInMeter: ( ->
-    @get('distancePerWeekInKm') * 1000
+    @get('distancePerWeekInKm') * KM_IN_METER
   ).property('distancePerWeekInKm')
   
   distancePerDayObserver: ( ->
@@ -606,6 +650,17 @@ console.log(args...) # Yes
 (a, b, c, rest...) -> # Yes
 ```
 
+Use constants for better readability of the code:
+```coffeescript
+# Yes
+KM_IN_METER = 1000
+convertKmToMeter = (km) ->
+  km * KM_IN_METER
+
+# No
+convertKmToMeter = (km) ->
+  km * 1000
+```
 [coffeescript]: http://jashkenas.github.com/coffee-script/
 [coffeescript-issue-425]: https://github.com/jashkenas/coffee-script/issues/425
 [spine-js]: http://spinejs.com/
