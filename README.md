@@ -44,6 +44,7 @@ The details in this guide have been very heavily inspired by several existing st
         * [Module Imports](#module_imports)
         * [Computed properties & observer syntax](#computed_properties_observer)
         * [Overriding Ember.Object-methods](#overriding_ember_object_methods)
+        * [Define abbreviations](#define_abbreviations)
     * [Miscellaneous](#miscellaneous)
 
 <a name="code_layout"/>
@@ -319,6 +320,18 @@ print(inspect(value)) # Yes
 print inspect value # No
 ```
 
+Always use named functions instead of anonymous functions: 
+```coffeescript
+# Yes
+power = (value) ->
+   value * value
+
+[1..3].map(power)
+
+# No
+[1..3].map( (value) -> value * value) 
+```
+
 <a name="strings"/>
 ## Strings
 
@@ -359,6 +372,13 @@ unless false
  ...
 else
  ...
+```
+
+When a if/else clause fits in a single line:
+```coffeescript
+color = if true then 'green' else 'blue' # Yes
+
+if true then color = 'green' else color = 'blue' # No
 ```
 
 Multi-line if/else clauses should use indentation:
@@ -478,6 +498,67 @@ Ember.Object.extend
     # ... init Ember.Object ...
 ```  
 
+<a name"define_abbreviations" />
+### Define abbreviations
+
+Always define abbreviations for 'long' Ember functions:
+```coffeescript
+# Yes
+attr  = DS.attr
+equal = Ember.computed.equal
+
+DS.Model.extend
+  age: attr('number')
+  gold: attr('string')
+  isGoldUser: equal('gold', 'Gold')
+  
+# No
+DS.Model.extend
+  age: DS.attr('number')
+  gold: DS.attr('string')
+  isGoldUser: Ember.computed.equal('gold', 'Gold')
+```
+
+Define property/observer-functions for code that can be used mulitple times for different 'properties' or 'observers':
+```coffeescript
+# Yes
+kilometerInMeter = (distance) ->
+  ( ->
+    @get(distance) * 1000
+  ).property(distance)
+
+notifyEveryKilometer = (distance) ->
+  ( ->
+     # ... notifiy ....
+  ).observes(distance)
+
+
+Ember.ObjectController.extend
+  distancePerDayInMeter: kilometerInMeter('distancePerDayInKm')
+  distancePerWeekInMeter: kilometerInMeter('distancePerWeekInKm')
+  
+  distancePerDayObserver: notifyEveryKilometer('distancePerDayInKm')
+  distancePerWeekObserver: notifyEveryKilometer('distancePerWeekInKm')
+  
+# No
+Ember.ObjectController.extend
+  distancePerDayInMeter: ( ->
+    @get('distancePerDayInKm') * 1000
+  ).property('distancePerDayInKm')
+  
+  distancePerWeekInMeter: ( ->
+    @get('distancePerWeekInKm') * 1000
+  ).property('distancePerWeekInKm')
+  
+  distancePerDayObserver: ( ->
+    # ... notify ....
+  ).observes('distancePerDayInKm')
+  
+  distancePerWeekObserver: ( ->
+    # ... notify ....
+  ).observes('distancePerWeekInKm')
+```  
+ 
 <a name="miscellaneous"/>
 ## Miscellaneous
 
