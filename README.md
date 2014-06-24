@@ -71,8 +71,8 @@ Separate method definitions inside of a class with a single blank line. Don't se
 ```coffeescript
 DRIVING_AGE_US = 16
 RUNTASTIC_AGE  = 13
-gte = Ember.computed.gte
-not = Ember.computed.not
+gte            = Ember.computed.gte
+not            = Ember.computed.not
 
 Ember.Object.extend
   
@@ -246,7 +246,7 @@ Don't use inline comments. Use properly named functions instead.
 ```coffeescript
 # Yes
 compensateForBorder = (borderPx, offset) ->
-borderPx + offset
+  borderPx + offset
 
 x = compensateForBorder(x, 1)
 
@@ -282,7 +282,7 @@ $element = $('#element')
 
 <a name="js_specific_classes" />
 ## Javascript-specific classes
-Use additional JS-specific classes to seperate logic and styling. Use following naming convention for JS-specific classes:
+Use additional JS-specific classes to seperate logic and styling. Use following naming conventions:
   * Choose meaningful class names
   * If a 'styling' class already exists, prefix it with 'js-'
   * If the element has no 'styling' class, choose your own with 'js-' prefix
@@ -293,7 +293,7 @@ Use additional JS-specific classes to seperate logic and styling. Use following 
 <a name="promises" />
 ## Promises
 Always use promises (`RSVP.Promise`, `Ember.RSVP.Promise`).
-For Ajax calls use the `ic-ajax` library ([IC-Ajax](https://github.com/instructure/ic-ajax)).
+For `ajax` calls use the `ic-ajax` library ([ic-ajax](https://github.com/instructure/ic-ajax)).
 
 ```coffeescript
 success = (data) ->
@@ -353,7 +353,7 @@ print(inspect(value)) # Yes
 print inspect value # No
 ```
 
-Always use named functions instead of anonymous functions.
+Always use named functions instead of anonymous ones:
 ```coffeescript
 # Yes
 power = (value) ->
@@ -491,7 +491,7 @@ These statements should be grouped in the following order:
 <a name="computed_properties_observer"/>
 ### Computed properties & observer syntax
 
-Use a single space between parentheses and function-arrow on `Ember` computed properties and observers.
+Use a single space between parentheses and function-arrow on `Ember`-computed properties and observers.
 
 ```coffeescript
 Ember.Object.extend
@@ -560,7 +560,7 @@ Ember.Object.extend
 <a name="define_abbreviations" />
 ### Define abbreviations
 
-Always define abbreviations for 'long' `Ember` functions:
+Always define abbreviations for 'long' `Ember`-functions:
 ```coffeescript
 # Yes
 attr  = DS.attr
@@ -591,7 +591,6 @@ notifyEveryKilometer = (distance) ->
   ( ->
      # ... notifiy ....
   ).observes(distance)
-
 
 Ember.ObjectController.extend
   distancePerDayInMeter: kilometerInMeter('distancePerDayInKm')
@@ -667,7 +666,7 @@ console.log(args...) # Yes
 (a, b, c, rest...) -> # Yes
 ```
 
-Use constants for better readability of the code:
+Use constants for improved readability:
 ```coffeescript
 # Yes
 KM_IN_METER = 1000
