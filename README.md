@@ -99,7 +99,7 @@ Do not include trailing whitespace on any lines.
 <a name="optional_commas"/>
 ### Optional Commas
 
-Avoid the use of commas before newlines when properties or elements of an Object or Array are listed on separate lines.
+Use commas in arrays and avoid them on properties of objects.
 
 ```coffeescript
 # Yes
@@ -125,6 +125,16 @@ bar:
   label: 'test',
   value: 87,
   options: 100
+```
+
+Pass an array to a function:
+
+```coffeescript
+mergedColors = mergeColors([
+  red,
+  blue,
+  green
+])
 ```
 
 <a name="object_declaration"/>
