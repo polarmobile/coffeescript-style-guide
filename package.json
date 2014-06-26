@@ -23,5 +23,8 @@
   },
   "bin": {
     "lint": "run.sh"
+  },
+  "publishConfig": {
+    "registry": "https://clever.registry.nodejitsu.com"
   }
 }
