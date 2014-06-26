@@ -27,20 +27,25 @@ The details in this guide have been very heavily inspired by several existing st
         * [Blank Lines](#blank_lines)
         * [Trailing Whitespace](#trailing_whitespace)
         * [Optional Commas](#optional_commas)
+        * [Object declaration](#object_declaration)
         * [Encoding](#encoding)
-    * [Module Imports](#module_imports)
     * [Whitespace in Expressions and Statements](#whitespace)
     * [Comments](#comments)
         * [Block Comments](#block_comments)
         * [Inline Comments](#inline_comments)
     * [Naming Conventions](#naming_conventions)
+    * [Javascript-specific classes](#js_specific_classes)
+    * [Promises](#promises)
     * [Functions](#functions)
     * [Strings](#strings)
     * [Conditionals](#conditionals)
-    * [Looping and Comprehensions](#looping_and_comprehensions)
     * [Extending Native Objects](#extending_native_objects)
     * [Exceptions](#exceptions)
-    * [Annotations](#annotations)
+    * [Ember](#ember)
+        * [Module Imports](#module_imports)
+        * [Computed properties & observer syntax](#computed_properties_observer)
+        * [Overriding Ember.Object-methods](#overriding_ember_object_methods)
+        * [Define abbreviations](#define_abbreviations)
     * [Miscellaneous](#miscellaneous)
 
 <a name="code_layout"/>
@@ -61,7 +66,28 @@ Limit all lines to a maximum of 79 characters.
 
 Separate top-level function and class definitions with a single blank line.
 
-Separate method definitions inside of a class with a single blank line.
+Separate method definitions inside of a class with a single blank line. Don't separate `Ember.computed`-properties by blank lines, group them by topic:
+
+```coffeescript
+DRIVING_AGE_US = 16
+RUNTASTIC_AGE  = 13
+gte            = Ember.computed.gte
+not            = Ember.computed.not
+
+Ember.Object.extend
+  
+  # Yes
+  allowedToDrive: gte('age', DRIVING_AGE_US)
+  notAllowedToDrive: not('allowedToDrive')
+  
+  allowedRegistration: gte('age', RUNTASTIC_AGE)
+ 
+  # No
+  allowedToDrive: gte('age', DRIVING_AGE_US)
+
+  notAllowedToDrive: not('allowedToDrive')
+  allowedRegistration: gte('age', RUNTASTIC_AGE)
+```  
 
 Use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
 
@@ -73,28 +99,64 @@ Do not include trailing whitespace on any lines.
 <a name="optional_commas"/>
 ### Optional Commas
 
-Avoid the use of commas before newlines when properties or elements of an Object or Array are listed on separate lines.
+Use commas in arrays and avoid them on properties of objects.
 
 ```coffeescript
 # Yes
-foo = [
-  'some'
-  'string'
-  'values'
-]
-bar:
-  label: 'test'
-  value: 87
-
-# No
 foo = [
   'some',
   'string',
   'values'
 ]
+
+bar:
+  label: 'test'
+  value: 87
+  options: 100
+
+# No
+foo = [
+  'some'
+  'string'
+  'values'
+]
+
 bar:
   label: 'test',
-  value: 87
+  value: 87,
+  options: 100
+```
+
+Pass an array to a function:
+
+```coffeescript
+mergedColors = mergeColors([
+  red,
+  blue,
+  green
+])
+```
+
+<a name="object_declaration"/>
+### Object declaration
+
+When an object declaration fits in a single line use 'inline-style': 
+```coffeescript
+bar = { name: 'xy', age: 10 } # Yes
+
+# No
+bar = 
+   name: 'xy'
+   age: 10
+```
+
+Unless objects are nested:
+```coffeescript   
+article =
+  body: 'I am the body'
+  author: 
+   name: 'Author'
+   age: 20
 ```
 
 <a name="encoding"/>
@@ -102,39 +164,27 @@ bar:
 
 UTF-8 is the preferred source file encoding.
 
-<a name="module_imports"/>
-## Module Imports
-
-If using a module system (CommonJS Modules, AMD, etc.), `require` statements should be placed on separate lines.
-
-```coffeescript
-require 'lib/setup'
-Backbone = require 'backbone'
-```
-These statements should be grouped in the following order:
-
-1. Standard library imports _(if a standard library exists)_
-2. Third party library imports
-3. Local imports _(imports specific to this application or library)_
-
 <a name="whitespace"/>
 ## Whitespace in Expressions and Statements
 
 Avoid extraneous whitespace in the following situations:
 
-- Immediately inside parentheses, brackets or braces
+- Immediately inside parentheses or brackets
 
-    ```coffeescript
-       ($ 'body') # Yes
-       ( $ 'body' ) # No
-    ```
+ ```coffeescript
+ $('body') # Yes
+ $( 'body' ) # No
+ 
+ ["red", "blue"] # Yes
+ [ "red", "blue" ] # No
+ ```
 
 - Immediately before a comma
 
-    ```coffeescript
-       console.log x, y # Yes
-       console.log x , y # No
-    ```
+ ```coffeescript
+ console.log(x, y) # Yes
+ console.log(x , y) # No
+ ```
 
 Additional recommendations:
 
@@ -153,26 +203,26 @@ Additional recommendations:
     - comparisons: `==`, `<`, `>`, `<=`, `>=`, `unless`, etc.
     - arithmetic operators: `+`, `-`, `*`, `/`, etc.
 
-    - _(Do not use more than one space around these operators)_
+    - Always align multiple variable assignments:
 
         ```coffeescript
-           # Yes
-           x = 1
-           y = 1
-           fooBar = 3
-
-           # No
-           x      = 1
-           y      = 1
-           fooBar = 3
+        # Yes
+        x      = 1
+        y      = 1
+        fooBar = 3
+        
+        # No
+        x = 1
+        y = 1
+        fooBar = 3
         ```
 
 <a name="comments"/>
 ## Comments
 
-If modifying code that is described by an existing comment, update the comment such that it accurately reflects the new code. (Ideally, improve the code to obviate the need for the comment, and delete the comment entirely.)
+Document your code following this style: [Biscotto](https://github.com/atom/biscotto)
 
-The first word of the comment should be capitalized, unless the first word is an identifier that begins with a lower-case letter.
+If modifying code that is described by an existing comment, update the comment such that it accurately reflects the new code. (Ideally, improve the code to obviate the need for the comment, and delete the comment entirely.)
 
 If a comment is short, the period at the end can be omitted.
 
@@ -186,39 +236,32 @@ Each line of a block comment starts with a `#` and a single space, and should be
 Paragraphs inside of block comments are separated by a line containing a single `#`.
 
 ```coffeescript
-  # This is a block comment. Note that if this were a real block
-  # comment, we would actually be describing the proceeding code.
-  #
-  # This is the second paragraph of the same block comment. Note
-  # that this paragraph was separated from the previous paragraph
-  # by a line containing a single comment character.
+# This is a block comment. Note that if this were a real block
+# comment, we would actually be describing the proceeding code.
+#
+# This is the second paragraph of the same block comment. Note
+# that this paragraph was separated from the previous paragraph
+# by a line containing a single comment character.
 
-  init()
-  start()
-  stop()
+init()
+start()
+stop()
 ```
 
 <a name="inline_comments"/>
 ### Inline Comments
 
-Inline comments are placed on the line immediately above the statement that they are describing. If the inline comment is sufficiently short, it can be placed on the same line as the statement (separated by a single space from the end of the statement).
-
-All inline comments should start with a `#` and a single space.
-
-The use of inline comments should be limited, because their existence is typically a sign of a code smell.
-
-Do not use inline comments when they state the obvious:
+Don't use inline comments. Use properly named functions instead.
 
 ```coffeescript
-  # No
-  x = x + 1 # Increment x
-```
+# Yes
+compensateForBorder = (borderPx, offset) ->
+  borderPx + offset
 
-However, inline comments can be useful in certain scenarios:
+x = compensateForBorder(x, 1)
 
-```coffeescript
-  # Yes
-  x = x + 1 # Compensate for border
+# No
+x = x + 1 # Compensate for border
 ```
 
 <a name="naming_conventions"/>
@@ -236,10 +279,41 @@ For constants, use all uppercase with underscores:
 CONSTANT_LIKE_THIS
 ```
 
-Methods and variables that are intended to be "private" should begin with a leading underscore:
+Methods that are intended to be "private" should begin with a leading underscore:
 
 ```coffeescript
 _privateMethod: ->
+```
+
+Use a leading `$` for jQuery elements or collections: 
+```coffeescript
+$element = $('#element')
+```
+
+<a name="js_specific_classes" />
+## Javascript-specific classes
+Use additional JS-specific classes to seperate logic and styling. Use following naming conventions:
+  * Choose meaningful class names
+  * If a 'styling' class already exists, prefix it with 'js-'
+  * If the element has no 'styling' class, choose your own with 'js-' prefix
+
+```coffeescript
+<div class='image-wrapper js-image-wrapper' />
+```
+<a name="promises" />
+## Promises
+Always use promises (`RSVP.Promise`, `Ember.RSVP.Promise`).
+For `ajax` calls use the `ic-ajax` library ([ic-ajax](https://github.com/instructure/ic-ajax)).
+
+```coffeescript
+success = (data) ->
+ # ... handle success ...
+
+error = ->
+ # ... handle error ...
+
+ic.ajax.request(url)
+ .then(success, error)
 ```
 
 <a name="functions"/>
@@ -264,54 +338,57 @@ bar = () -> # No
 In cases where method calls are being chained and the code does not fit on a single line, each call should be placed on a separate line and indented by one level (i.e., two spaces), with a leading `.`.
 
 ```coffeescript
+power = (value) ->
+   value * value
+
+add = (prev, current) ->
+   prev + current
+   
 [1..3]
-  .map((x) -> x * x)
+  .map(power)
   .concat([10..12])
-  .filter((x) -> x < 11)
-  .reduce((x, y) -> x + y)
+  .reduce(add)
 ```
 
-When calling functions, choose to omit or include parentheses in such a way that optimizes for readability. Keeping in mind that "readability" can be subjective, the following examples demonstrate cases where parentheses have been omitted or included in a manner that the community deems to be optimal:
+When calling functions, always use parentheses:
 
 ```coffeescript
-baz 12
+baz(12) # Yes
+baz 12 # No
 
-brush.ellipse x: 10, y: 20 # Braces can also be omitted or included for readability
+brush.ellipse({ x: 10, y: 20 }) # Yes
+brush.ellipse x: 10, y: 20 # No
 
-foo(4).bar(8)
-
-obj.value(10, 20) / obj.value(20, 10)
-
-print inspect value
-
-new Tag(new Value(a, b), new Arg(c))
+print(inspect(value)) # Yes
+print inspect value # No
 ```
 
-You will sometimes see parentheses used to group functions (instead of being used to group function parameters). Examples of using this style (hereafter referred to as the "function grouping style"):
-
+Always use named functions instead of anonymous ones:
 ```coffeescript
-($ '#selektor').addClass 'klass'
+# Yes
+power = (value) ->
+  value * value
 
-(foo 4).bar 8
+[1..3].map(power)
+
+# No
+[1..3].map( (value) -> value * value) 
 ```
-
-This is in contrast to:
-
+If you need access to a specific scope in a named function, use function.bind: 
 ```coffeescript
-$('#selektor').addClass 'klass'
-
-foo(4).bar 8
+class Test
+  handleSuccess: (data) ->
+    # ... handle success ...
+   
+  handleError: (error) ->
+    # ... handle error ...
+  
+  queryRecords: ->
+    success = @handleSuccess.bind(@)
+    error   = @handleError.bind(@)
+    ic.ajax.request(url)
+      .then(success, error)
 ```
-
-In cases where method calls are being chained, some adopters of this style prefer to use function grouping for the initial call only:
-
-```coffeescript
-($ '#selektor').addClass('klass').hide() # Initial call only
-(($ '#selektor').addClass 'klass').hide() # All calls
-```
-
-The function grouping style is not recommended. However, **if the function grouping style is adopted for a particular project, be consistent with its usage.**
-
 <a name="strings"/>
 ## Strings
 
@@ -320,6 +397,15 @@ Use string interpolation instead of string concatenation:
 ```coffeescript
 "this is an #{adjective} string" # Yes
 "this is an " + adjective + " string" # No
+```
+
+Use following style for inline javascript-templates: 
+```coffeescript
+"""
+  <div id='test'>
+    Hello
+  </div>
+"""
 ```
 
 Prefer single quoted strings (`''`) instead of double quoted (`""`) strings, unless features like string interpolation are being used for the given string.
@@ -332,59 +418,48 @@ Favor `unless` over `if` for negative conditions.
 Instead of using `unless...else`, use `if...else`:
 
 ```coffeescript
-  # Yes
-  if true
-    ...
-  else
-    ...
+# Yes
+if true
+ ...
+else
+ ...
 
-  # No
-  unless false
-    ...
-  else
-    ...
+# No
+unless false
+ ...
+else
+ ...
 ```
 
-Multi-line if/else clauses should use indentation:
-
+When an `if...else` clause fits in a single line:
 ```coffeescript
-  # Yes
-  if true
-    ...
-  else
-    ...
+color = if true then 'green' else 'blue' # Yes
 
-  # No
-  if true then ...
-  else ...
+if true then color = 'green' else color = 'blue' # No
 ```
 
-<a name="looping_and_comprehensions"/>
-## Looping and Comprehensions
-
-Take advantage of comprehensions whenever possible:
+Multi-line `if...else` clauses should use indentation:
 
 ```coffeescript
-  # Yes
-  result = (item.name for item in array)
+# Yes
+if true
+ ...
+else
+ ...
 
-  # No
-  results = []
-  for item in array
-    results.push item.name
+# No
+if true then ...
+else ...
 ```
 
-To filter:
-
+When an `if` clause fits in a single line: 
 ```coffeescript
-result = (item for item in array when item.name is "test")
-```
+# Yes
+doSomething() if true
 
-To iterate over the keys and values of objects:
-
-```coffeescript
-object = one: 1, two: 2
-alert("#{key} = #{value}") for key, value of object
+# No
+if true
+  doSomething()
 ```
 
 <a name="extending_native_objects"/>
@@ -399,55 +474,177 @@ For example, do not modify `Array.prototype` to introduce `Array#forEach`.
 
 Do not suppress exceptions.
 
-<a name="annotations"/>
-## Annotations
+<a name="ember"/>
+## Ember
 
-Use annotations when necessary to describe a specific action that must be taken against the indicated block of code.
+<a name="module_imports"/>
+### Module Imports 
 
-Write the annotation on the line immediately above the code that the annotation is describing.
-
-The annotation keyword should be followed by a colon and a space, and a descriptive note.
-
-```coffeescript
-  # FIXME: The client's current state should *not* affect payload processing.
-  resetClientState()
-  processPayload()
-```
-
-If multiple lines are required by the description, indent subsequent lines with two spaces:
+If using a module system (CommonJS Modules, AMD, ES6-Modules, etc.), `import` statements should be placed on separate lines.
 
 ```coffeescript
-  # TODO: Ensure that the value returned by this call falls within a certain
-  #   range, or throw an exception.
-  analyze()
+`import Ember from 'ember';`
+`import RSVP from 'rsvp';`
+`import SliderMixin from '../mixins/slider-mixin';`
+
+controller = Ember.ArrayController.extend SliderMixin,
+  # ...controller code goes here ...
+  
+`export default controller;`
+```
+These statements should be grouped in the following order:
+
+1. Standard library imports _(if a standard library exists)_
+2. Third party library imports
+3. Local imports _(imports specific to this application or library)_
+
+<a name="computed_properties_observer"/>
+### Computed properties & observer syntax
+
+Use a single space between parentheses and function-arrow on `Ember`-computed properties and observers.
+
+```coffeescript
+Ember.Object.extend
+  
+  fullName: ( ->
+    "#{@get('firstName')} #{@get('lastName')}"
+  ).property('firstName', 'lastName')
+
+  lastNameDidChange: ( ->
+    console.log('I just married! lol')
+  ).observes('lastName')
+```  
+
+Always use `Ember.computed` instead of custom computed properties where possible: 
+```coffeescript
+DRIVING_AGE_US = 16
+gte = Ember.computed.gte
+not = Ember.computed.not
+
+Ember.Object.extend
+
+  # Yes
+  allowedToDrive: gte('age', DRIVING_AGE_US)
+  notAllowedToDrive: not('allowedToDrive')
+  
+  # No
+  allowedToDrive: ( ->
+    @get('age') >= DRIVING_AGE_US
+  ).property('age')
+  
+  notAllowedToDrive: ( ->
+    !@get('allowedToDrive')
+  ).property('allowedToDrive')
+```  
+
+<a name="overriding_ember_object_methods"/>
+### Overriding Ember.Object-methods
+
+Instead of overriding the built-in `Ember.Object`-methods, use the `on`-syntax.
+```coffeescript
+Ember.Component.extend
+
+  # Yes
+  setupEventListener: ( ->
+    # ... setup event listeners ...
+  ).on('didInsertElement')
+  
+  # No
+  didInsertElement: ->
+    @_super()
+    # ... setup event listeners ...
+
+Ember.Object.extend
+
+  # Yes
+  fetchData: ( ->
+    # ... init Ember.Object ...
+  ).on('init')
+  
+  # No
+  init: ->
+    @_super()
+    # ... init Ember.Object ...
+```  
+
+<a name="define_abbreviations" />
+### Define abbreviations
+
+Always define abbreviations for 'long' `Ember`-functions:
+```coffeescript
+# Yes
+attr  = DS.attr
+equal = Ember.computed.equal
+
+DS.Model.extend
+  age: attr('number')
+  gold: attr('string')
+  isGoldUser: equal('gold', 'Gold')
+  
+# No
+DS.Model.extend
+  age: DS.attr('number')
+  gold: DS.attr('string')
+  isGoldUser: Ember.computed.equal('gold', 'Gold')
 ```
 
-Annotation types:
+Define property/observer-functions for code that can be used mulitple times for different 'properties' or 'observers':
+```coffeescript
+# Yes
+METRES_IN_KM = 1000
 
-- `TODO`: describe missing functionality that should be added at a later date
-- `FIXME`: describe broken code that must be fixed
-- `OPTIMIZE`: describe code that is inefficient and may become a bottleneck
-- `HACK`: describe the use of a questionable (or ingenious) coding practice
-- `REVIEW`: describe code that should be reviewed to confirm implementation
+kilometerInMeter = (distance) ->
+  ( ->
+    @get(distance) * METRES_IN_KM
+  ).property(distance)
 
-If a custom annotation is required, the annotation should be documented in the project's README.
+notifyEveryKilometer = (distance) ->
+  ( ->
+     # ... notifiy ....
+  ).observes(distance)
 
+Ember.ObjectController.extend
+  distancePerDayInMeter: kilometerInMeter('distancePerDayInKm')
+  distancePerWeekInMeter: kilometerInMeter('distancePerWeekInKm')
+  
+  distancePerDayObserver: notifyEveryKilometer('distancePerDayInKm')
+  distancePerWeekObserver: notifyEveryKilometer('distancePerWeekInKm')
+  
+# No
+METRES_IN_KM = 1000
+
+Ember.ObjectController.extend
+  distancePerDayInMeter: ( ->
+    @get('distancePerDayInKm') * METRES_IN_KM
+  ).property('distancePerDayInKm')
+  
+  distancePerWeekInMeter: ( ->
+    @get('distancePerWeekInKm') * METRES_IN_KM
+  ).property('distancePerWeekInKm')
+  
+  distancePerDayObserver: ( ->
+    # ... notify ....
+  ).observes('distancePerDayInKm')
+  
+  distancePerWeekObserver: ( ->
+    # ... notify ....
+  ).observes('distancePerWeekInKm')
+```  
+ 
 <a name="miscellaneous"/>
 ## Miscellaneous
 
-`and` is preferred over `&&`.
+`&&` is preferred over `and` .
 
-`or` is preferred over `||`.
+`||` is preferred over `or`.
 
-`is` is preferred over `==`.
+`==` is preferred over `is`.
 
-`not` is preferred over `!`.
+`!` is preferred over `not`.
 
-`or=` should be used when possible:
-
+To make sure a namespace exists use the `?` operator: 
 ```coffeescript
-temp or= {} # Yes
-temp = temp || {} # No
+@rt = @rt ? {}
 ```
 
 Prefer shorthand notation (`::`) for accessing an object's prototype:
@@ -464,23 +661,35 @@ return @property # Yes
 return this.property # No
 ```
 
-However, avoid the use of **standalone** `@`:
+Always use `@` instead of `this`:
 
 ```coffeescript
-return this # Yes
-return @ # No
+return @ # Yes
+return this # No
 ```
 
-Avoid `return` where not required, unless the explicit return increases clarity.
+Avoid `return` where not required.
 
 Use splats (`...`) when working with functions that accept variable numbers of arguments:
 
 ```coffeescript
-console.log args... # Yes
+console.log(args...) # Yes
 
 (a, b, c, rest...) -> # Yes
 ```
 
+Use constants for improved readability:
+```coffeescript
+# Yes
+METRES_IN_KM = 1000
+
+convertKmToMeter = (km) ->
+  km * METRES_IN_KM
+
+# No
+convertKmToMeter = (km) ->
+  km * 1000
+```
 [coffeescript]: http://jashkenas.github.com/coffee-script/
 [coffeescript-issue-425]: https://github.com/jashkenas/coffee-script/issues/425
 [spine-js]: http://spinejs.com/
