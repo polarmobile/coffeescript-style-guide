@@ -24,10 +24,10 @@ This repository can be installed and used to lint coffescript files using the co
 
 ```
 lint:
-  node_modules/.bin/lint
-# Suggest making 'lint' the final dependency of 'test'.
+  node_modules/.bin/lint [files]
 ```
 
+Files must either be specified by their absolute path, or their path relative to the directory that the Makefile is in. If no files are specified and you are in a git repository, all coffeescript files in that repository will be linted. If you are not in a git repository, all files with the `.coffee` extension, except those in `node_modules`, in the current directory and all subdirectories will be linted.
 
 ## Table of Contents
 
