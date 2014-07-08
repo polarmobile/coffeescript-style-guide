@@ -18,6 +18,19 @@ The details in this guide have been very heavily inspired by several existing st
 - Jeremy Ashkenas' [code review][spine-js-code-review] of [Spine][spine-js]
 - The [CoffeeScript FAQ][coffeescript-faq]
 
+## Run coffeelint with this guide
+
+This repository can be installed and used to lint coffescript files using the configuration found in the [coffeelint config file](coffeelint-config.json). List this repository as a dependency in the `package.json` and add the following to your Makefile:
+
+```
+lint:
+  node_modules/.bin/lint [files]
+```
+
+`lint` can also be added as the final dependency of `test` to increase its visibility.
+
+Files must either be specified by their absolute path, or their path relative to the Makefile's directory. If no files are specified and you are in a git repository all `.coffee` files in that repository will be linted. If you are not in a git repository all `.coffee` files in the current directory and all subdirectories (except `node_modules`) will be linted.
+
 ## Table of Contents
 
 * [The CoffeeScript Style Guide](#guide)

@@ -1,0 +1,30 @@
+{
+  "name": "coffeescript-style-guide",
+  "version": "0.0.1",
+  "description": "Configuration and script to lint coffeescript",
+  "engines": {
+    "node": ">=0.10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Clever/coffeescript-style-guide.git"
+  },
+  "keywords": [
+    "lint",
+    "coffeescript",
+    "coffeelint"
+  ],
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/Clever/coffeescript-style-guide/issues"
+  },
+  "dependencies": {
+    "coffeelint": "~1.5.0"
+  },
+  "bin": {
+    "lint": "run.sh"
+  },
+  "publishConfig": {
+    "registry": "https://clever.registry.nodejitsu.com"
+  }
+}
