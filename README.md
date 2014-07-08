@@ -27,7 +27,9 @@ lint:
   node_modules/.bin/lint [files]
 ```
 
-Files must either be specified by their absolute path, or their path relative to the directory that the Makefile is in. If no files are specified and you are in a git repository, all coffeescript files in that repository will be linted. If you are not in a git repository, all files with the `.coffee` extension, except those in `node_modules`, in the current directory and all subdirectories will be linted.
+`lint` can also be added as the final dependency of `test` to increase its visibility.
+
+Files must either be specified by their absolute path, or their path relative to the Makefile's directory. If no files are specified and you are in a git repository all `.coffee` files in that repository will be linted. If you are not in a git repository all `.coffee` files in the current directory and all subdirectories (except `node_modules`) will be linted.
 
 ## Table of Contents
 
