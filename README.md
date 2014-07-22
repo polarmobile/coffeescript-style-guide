@@ -261,6 +261,16 @@ If multiple lines are required by the description, indent subsequent lines with 
 analyze()
 ```
 
+### Functions
+Comments on head of functions should indicate the usage and the definitions of params:
+
+```coffeescript
+# Say hello to customer
+# @param {String} name of customer
+# @return {String} welcoming message
+sayHello = (customer) -> "Hello, #{customer}"
+```
+
 Annotation types:
 
 - `TODO`: describe missing functionality that should be added at a later date
