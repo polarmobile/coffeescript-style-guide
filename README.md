@@ -168,14 +168,27 @@ else
 
 ## Braces Usage
 
-Always **use** braces with object literal.
+braces in object literal is **not recommended**.
 
 ```coffeescript
 # Yes
+foo = name: 'Max', age: 11
+foo = name: 'Max'
+
+# Yes
+kids =
+  brother:
+    name: 'Max'
+    age:  11
+  sister:
+    name: 'Ida'
+    age:  9
+
+# No
 foo = {name: 'Max', age: 11}
 foo = {name: 'Max'}
 
-# Yes
+# No
 kids = {
   brother: {
     name: 'Max'
