@@ -4,6 +4,32 @@ This guide establishes a collection of CoffeeScript coding conventions for creat
 
 ## Code layout
 
+### Optional Commas
+
+Avoid the use of commas before newlines when properties or elements of an Object or Array are listed on separate lines.
+
+```coffeescript
+# Yes
+foo = [
+  'some'
+  'string'
+  'values'
+]
+bar:
+  label: 'test'
+  value: 87
+
+# No
+foo = [
+  'some',
+  'string',
+  'values'
+]
+bar:
+  label: 'test',
+  value: 87
+```
+
 ### Indentation
 
 Use **spaces only**, with **2 spaces** per indentation level. Never mix tabs and spaces.
