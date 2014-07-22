@@ -331,22 +331,21 @@ In cases where method calls are being chained and the code does not fit on a sin
   .reduce((x, y) -> x + y)
 ```
 
-**Always** use parentheses to group params in function call for clarity:
+Do not use parentheses when function can be easily read
 
 ```coffeescript
 # Yes
-foo(bar, new Baz(qux))
+require 'util'
+foo 'a', 'b'
+bar = new Bar
+foo bar
+foo 1, ->
 
 # No
-foo bar, new Baz qux
-```
-
-**Unless** the last param is a function:
-
-```coffeescript
-# Yes
-foo bar, (err) ->
-  console.log err
+require('util')
+foo('a', 'b')
+foo(new Bar())
+foo(1, (->))
 ```
 
 ## Strings
@@ -356,11 +355,11 @@ Use single quote `''` whenever possible
 ```coffeescript
 # Yes
 foo = 'bar'
-foo = {bar: 'baz'}
+foo = bar: 'baz'
 
 # No
 foo = "bar"
-foo = {bar: "baz"}
+foo = bar: "baz"
 ```
 
 Use double quote `""` as string interpolation
@@ -422,7 +421,7 @@ Favor if expression over ternary `? .. : ..` for conditional assignment.
 foo = if bar then true else false
 
 # No
-foo = bar? true : false
+foo = bar ? true : false
 ```
 
 Favor existential operator `?` to check for variable existence and nullity.
