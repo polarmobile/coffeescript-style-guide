@@ -1,14 +1,14 @@
-# CoffeeScript Style Guide
+# CoffeeScript 风格指南
 
-This guide presents a collection of best-practices and coding conventions for the [CoffeeScript][coffeescript] programming language.
+这份文档包含了一系列[CoffeeScript][coffeescript]编程语言的最佳实战。
 
-This guide is intended to be community-driven, and contributions are highly encouraged.
+希望能有更多的人一起做贡献，不断丰富文档。
 
-Please note that this is a work-in-progress: there is much more that can be specified, and some of the guidelines that have been specified may not be deemed to be idiomatic by the community (in which case, these offending guidelines will be modified or removed, as appropriate).
+请知晓，这是一个仍然在编写的项目：一些内容可能不符合社区习惯，这些内容会根据实际情况修改或删除。
 
-## Inspiration
+## 灵感
 
-The details in this guide have been very heavily inspired by several existing style guides and other resources. In particular:
+这份文档的灵感来自与许多风格指南，例如：
 
 - [PEP-8][pep8]: Style Guide for Python Code
 - Bozhidar Batsov's [Ruby Style Guide][ruby-style-guide]
@@ -18,65 +18,65 @@ The details in this guide have been very heavily inspired by several existing st
 - Jeremy Ashkenas' [code review][spine-js-code-review] of [Spine][spine-js]
 - The [CoffeeScript FAQ][coffeescript-faq]
 
-## Table of Contents
+## 目录
 
-* [The CoffeeScript Style Guide](#guide)
-    * [Code Layout](#code_layout)
-        * [Tabs or Spaces?](#tabs_or_spaces)
-        * [Maximum Line Length](#maximum_line_length)
-        * [Blank Lines](#blank_lines)
-        * [Trailing Whitespace](#trailing_whitespace)
-        * [Optional Commas](#optional_commas)
-        * [Encoding](#encoding)
-    * [Module Imports](#module_imports)
-    * [Whitespace in Expressions and Statements](#whitespace)
-    * [Comments](#comments)
-        * [Block Comments](#block_comments)
-        * [Inline Comments](#inline_comments)
-    * [Naming Conventions](#naming_conventions)
-    * [Functions](#functions)
-    * [Strings](#strings)
-    * [Conditionals](#conditionals)
-    * [Looping and Comprehensions](#looping_and_comprehensions)
-    * [Extending Native Objects](#extending_native_objects)
-    * [Exceptions](#exceptions)
-    * [Annotations](#annotations)
-    * [Miscellaneous](#miscellaneous)
+* [风格指南](#guide)
+    * [代码布局](#code_layout)
+        * [制表符和空格](#tabs_or_spaces)
+        * [最大行长](#maximum_line_length)
+        * [空行](#blank_lines)
+        * [留白的捷径](#trailing_whitespace)
+        * [可选的逗号](#optional_commas)
+        * [编码](#encoding)
+    * [模块引入](#module_imports)
+    * [声明、表达式中的空格](#whitespace)
+    * [注释](#comments)
+        * [块级注释](#block_comments)
+        * [行内注释](#inline_comments)
+    * [命名](#naming_conventions)
+    * [函数](#functions)
+    * [字符串](#strings)
+    * [条件](#conditionals)
+    * [循环](#looping_and_comprehensions)
+    * [扩展](#extending_native_objects)
+    * [异常](#exceptions)
+    * [注](#annotations)
+    * [其他](#miscellaneous)
 
 <a name="code_layout"/>
-## Code layout
+## 代码布局
 
 <a name="tabs_or_spaces"/>
-### Tabs or Spaces?
+### 制表符还是空格？
 
-Use **spaces only**, with **2 spaces** per indentation level. Never mix tabs and spaces.
+建议**只使用空格键**，每 **2个空格** 作为一个缩进级别，不要混用制表符和空格键。
 
 <a name="maximum_line_length"/>
-### Maximum Line Length
+### 最大行长
 
-Limit all lines to a maximum of 79 characters.
+每行最多包含79个字符
 
 <a name="blank_lines"/>
-### Blank Lines
+### 空行
 
-Separate top-level function and class definitions with a single blank line.
+顶层函数和类声明语句后应空一行。
 
-Separate method definitions inside of a class with a single blank line.
+在类中的函数声明语句后也应当空一行。
 
-Use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
+在方法或函数内头尾各空一行可以提高代码的可读性。（例如，为了勾勒出代码逻辑部分）
 
 <a name="trailing_whitespace"/>
-### Trailing Whitespace
+### 留白的捷径
 
-Do not include trailing whitespace on any lines.
+在任意行不要直接引入留白捷径。
 
 <a name="optional_commas"/>
-### Optional Commas
+### 可选的逗号
 
-Avoid the use of commas before newlines when properties or elements of an Object or Array are listed on separate lines.
+在对象属性或者元素定义，以及需要多行定义的数组中，尽量避免使用逗号。
 
 ```coffeescript
-# Yes
+# 正确
 foo = [
   'some'
   'string'
@@ -86,7 +86,7 @@ bar:
   label: 'test'
   value: 87
 
-# No
+# 错误
 foo = [
   'some',
   'string',
@@ -98,77 +98,77 @@ bar:
 ```
 
 <a name="encoding"/>
-### Encoding
+### 编码
 
-UTF-8 is the preferred source file encoding.
+建议使用UTF-8进行源文件编码
 
 <a name="module_imports"/>
-## Module Imports
+## 模块引入
 
-If using a module system (CommonJS Modules, AMD, etc.), `require` statements should be placed on separate lines.
+如果使用模块结构（例如CommonJs 模块 AMD 等）,`require`语句应当独立成行。
 
 ```coffeescript
 require 'lib/setup'
 Backbone = require 'backbone'
 ```
-These statements should be grouped in the following order:
+模块引入语句应当更具如下顺序进行分组：
 
-1. Standard library imports _(if a standard library exists)_
-2. Third party library imports
-3. Local imports _(imports specific to this application or library)_
+1. 标准库 _(如果引入了标准库)_
+2. 第三方库
+3. 本地库 _(如果引入了本地库)_
 
 <a name="whitespace"/>
-## Whitespace in Expressions and Statements
+## 声明、表达式中的空格
 
-Avoid extraneous whitespace in the following situations:
+在下述情况中，避免使用额外的空格
 
-- Immediately inside parentheses, brackets or braces
-
-    ```coffeescript
-       ($ 'body') # Yes
-       ( $ 'body' ) # No
-    ```
-
-- Immediately before a comma
+- 在括号中
 
     ```coffeescript
-       console.log x, y # Yes
-       console.log x , y # No
+       ($ 'body') # 正确
+       ( $ 'body' ) # 错误
     ```
 
-Additional recommendations:
+- 逗号前
 
-- Always surround these binary operators with a **single space** on either side
+    ```coffeescript
+       console.log x, y # 正确
+       console.log x , y # 错误
+    ```
 
-    - assignment: `=`
+额外建议:
 
-        - _Note that this also applies when indicating default parameter value(s) in a function declaration_
+- 在下列操作符两边加上 **一个空格**
+
+    - 赋值: `=`
+
+        - _定义默认参数的时候也是这样
 
            ```coffeescript
-           test: (param = null) -> # Yes
-           test: (param=null) -> # No
+           test: (param = null) -> # 正确
+           test: (param=null) -> # 错误
            ```
 
-    - augmented assignment: `+=`, `-=`, etc.
-    - comparisons: `==`, `<`, `>`, `<=`, `>=`, `unless`, etc.
-    - arithmetic operators: `+`, `-`, `*`, `/`, etc.
+    - 运算操作: `+=`, `-=`, etc.
+    - 比较操作: `==`, `<`, `>`, `<=`, `>=`, `unless`, etc.
+    - 四则运算: `+`, `-`, `*`, `/`, etc.
 
-    - _(Do not use more than one space around these operators)_
+    - _(不要用多余一个的空格去包围操作符)_
 
         ```coffeescript
-           # Yes
+           # 正确
            x = 1
            y = 1
            fooBar = 3
 
-           # No
+           # 错误
            x      = 1
            y      = 1
            fooBar = 3
         ```
 
 <a name="comments"/>
-## Comments
+## 注释
 
 If modifying code that is described by an existing comment, update the comment such that it accurately reflects the new code. (Ideally, improve the code to obviate the need for the comment, and delete the comment entirely.)
 
