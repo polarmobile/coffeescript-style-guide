@@ -40,7 +40,7 @@
     * [循环](#looping_and_comprehensions)
     * [扩展](#extending_native_objects)
     * [异常](#exceptions)
-    * [注](#annotations)
+    * [注解](#annotations)
     * [其他](#miscellaneous)
 
 <a name="code_layout"/>
@@ -170,20 +170,20 @@ Backbone = require 'backbone'
 <a name="comments"/>
 ## 注释
 
-If modifying code that is described by an existing comment, update the comment such that it accurately reflects the new code. (Ideally, improve the code to obviate the need for the comment, and delete the comment entirely.)
+如果修改的代码有相关注释，也应当对注释进行更新，总之，注释应当和代码功能保持一致。
 
-The first word of the comment should be capitalized, unless the first word is an identifier that begins with a lower-case letter.
+注释的第一个单词应当大写，除非第一个单词必须使用小写字母。
 
-If a comment is short, the period at the end can be omitted.
+如果注释内容很少，结尾的内容可以省略
 
 <a name="block_comments"/>
-### Block Comments
+### 块级注释
 
-Block comments apply to the block of code that follows them.
+块级注释应当写在所要解释的代码块之前。
 
-Each line of a block comment starts with a `#` and a single space, and should be indented at the same level of the code that it describes.
+每行块级注释都应当用`#`和一个空格作为开头，并且应当和所要注释的代码保持同样的缩进。
 
-Paragraphs inside of block comments are separated by a line containing a single `#`.
+块级注释由仅包含`#`的那行行进行分段。
 
 ```coffeescript
   # This is a block comment. Note that if this were a real block
@@ -199,22 +199,22 @@ Paragraphs inside of block comments are separated by a line containing a single 
 ```
 
 <a name="inline_comments"/>
-### Inline Comments
+### 行内注释
 
-Inline comments are placed on the line immediately above the statement that they are describing. If the inline comment is sufficiently short, it can be placed on the same line as the statement (separated by a single space from the end of the statement).
+行内注释应当紧跟所要注释的代码语句之后，如果行内注释内容特别短，可以直接和语句写在一行内（通常在注释前多加一个空格）。
 
-All inline comments should start with a `#` and a single space.
+所有的行内注释都应当由一个`#`号和一个空格作为开头。
 
-The use of inline comments should be limited, because their existence is typically a sign of a code smell.
+应当尽量限制行内注释的数量，因为他们看起来很像一行代码。
 
-Do not use inline comments when they state the obvious:
+不要去描述那些显而易见的代码运行结果。
 
 ```coffeescript
   # No
   x = x + 1 # Increment x
 ```
 
-However, inline comments can be useful in certain scenarios:
+而应当着重描述代码的运行逻辑。
 
 ```coffeescript
   # Yes
@@ -222,46 +222,45 @@ However, inline comments can be useful in certain scenarios:
 ```
 
 <a name="naming_conventions"/>
-## Naming Conventions
+## 命名
 
-Use `camelCase` (with a leading lowercase character) to name all variables, methods, and object properties.
+使用 `camelCase` （驼峰式）的格式去命名所有的变量、方法和对象属性。
 
-Use `CamelCase` (with a leading uppercase character) to name all classes. _(This style is also commonly referred to as `PascalCase`, `CamelCaps`, or `CapWords`, among [other alternatives][camel-case-variations].)_
+使用 `CamelCase` 去命名所有的类 _(这种风格参照了`PascalCase`, `CamelCaps`, 以及 `CapWords`, 在[other alternatives][camel-case-variations]中有描述.)_
 
-_(The **official** CoffeeScript convention is camelcase, because this simplifies interoperability with JavaScript. For more on this decision, see [here][coffeescript-issue-425].)_
+_（CoffeeScript的**官方**命名方式是camelcase，这是为了尽可能的和javascript协作，详情可以参照[这里][coffeescript-issue-425]。）_
 
-For constants, use all uppercase with underscores:
+对于常量，命名需要使用大写字母和下划线。
 
 ```coffeescript
 CONSTANT_LIKE_THIS
 ```
-
-Methods and variables that are intended to be "private" should begin with a leading underscore:
+对于私有的函数和变量在开头应当用下划线标注。
 
 ```coffeescript
 _privateMethod: ->
 ```
 
 <a name="functions"/>
-## Functions
+## 函数
 
-_(These guidelines also apply to the methods of a class.)_
+_(这些规则同样适用于类的定义)_
 
-When declaring a function that takes arguments, always use a single space after the closing parenthesis of the arguments list:
+当声明的函数中有参数列表，每个参数之间应当也有一个空格进行间隔。
 
 ```coffeescript
 foo = (arg1, arg2) -> # Yes
 foo = (arg1, arg2)-> # No
 ```
 
-Do not use parentheses when declaring functions that take no arguments:
+当声明的函数不需要参数，不要插入额外的括号。
 
 ```coffeescript
 bar = -> # Yes
 bar = () -> # No
 ```
 
-In cases where method calls are being chained and the code does not fit on a single line, each call should be placed on a separate line and indented by one level (i.e., two spaces), with a leading `.`.
+如果需要进行多次链式调用，不要将他们写在一起，每次调用都应当独立成行，并用两个空格进行缩进，用`.`开头。
 
 ```coffeescript
 [1..3]
@@ -271,7 +270,7 @@ In cases where method calls are being chained and the code does not fit on a sin
   .reduce((x, y) -> x + y)
 ```
 
-When calling functions, choose to omit or include parentheses in such a way that optimizes for readability. Keeping in mind that "readability" can be subjective, the following examples demonstrate cases where parentheses have been omitted or included in a manner that the community deems to be optimal:
+当调用方法时，为了保持代码的可读性，尽可能的省略不必要的括号。记住一点，"可读性"是主观的，下面的例子，是社区认为处理省略括号比较恰当的方式。
 
 ```coffeescript
 baz 12
@@ -287,7 +286,7 @@ print inspect value
 new Tag(new Value(a, b), new Arg(c))
 ```
 
-You will sometimes see parentheses used to group functions (instead of being used to group function parameters). Examples of using this style (hereafter referred to as the "function grouping style"):
+有时候，你会发现括号被用来进行函数分组（而不是进行参数分组）。例如使用这种风格。
 
 ```coffeescript
 ($ '#selektor').addClass 'klass'
@@ -295,92 +294,90 @@ You will sometimes see parentheses used to group functions (instead of being use
 (foo 4).bar 8
 ```
 
-This is in contrast to:
+这和这种风格不一致:
 
 ```coffeescript
 $('#selektor').addClass 'klass'
 
 foo(4).bar 8
 ```
-
-In cases where method calls are being chained, some adopters of this style prefer to use function grouping for the initial call only:
+当使用链式调用函数时，一些这种风格的实现更倾向于只在第一次调用的时候使用函数分组。
 
 ```coffeescript
 ($ '#selektor').addClass('klass').hide() # Initial call only
 (($ '#selektor').addClass 'klass').hide() # All calls
 ```
-
-The function grouping style is not recommended. However, **if the function grouping style is adopted for a particular project, be consistent with its usage.**
+这里不推荐使用函数分组，但是，**如果某个项目使用函数分组，也请和项目保持一致，使用函数分组的风格**
 
 <a name="strings"/>
-## Strings
+## 字符串
 
-Use string interpolation instead of string concatenation:
+在字符串中插入变量而不要手动拼接字符串:
 
 ```coffeescript
-"this is an #{adjective} string" # Yes
-"this is an " + adjective + " string" # No
+"this is an #{adjective} string" # 正确
+"this is an " + adjective + " string" # 错误
 ```
 
-Prefer single quoted strings (`''`) instead of double quoted (`""`) strings, unless features like string interpolation are being used for the given string.
+除非需求是插入双引号，尽可能的使用单引号 (`''`) 而不是双引号 (`""`) 字符串,.
 
 <a name="conditionals"/>
-## Conditionals
+## 条件
 
-Favor `unless` over `if` for negative conditions.
+使用 `unless` 而不是 `if` 处理期望条件不成立的情况.
 
-Instead of using `unless...else`, use `if...else`:
+但是不要使用 `unless...else`, 而使用 `if...else`:
 
 ```coffeescript
-  # Yes
+  # 正确
   if true
     ...
   else
     ...
 
-  # No
+  # 错误
   unless false
     ...
   else
     ...
 ```
 
-Multi-line if/else clauses should use indentation:
+多行的 if/else 应当独立成行并使用缩进:
 
 ```coffeescript
-  # Yes
+  # 正确
   if true
     ...
   else
     ...
 
-  # No
+  # 错误
   if true then ...
   else ...
 ```
 
 <a name="looping_and_comprehensions"/>
-## Looping and Comprehensions
+## 循环
 
-Take advantage of comprehensions whenever possible:
+尽可能的使用omprehensions进行遍历:
 
 ```coffeescript
-  # Yes
+  # 正确
   result = (item.name for item in array)
 
-  # No
+  # 错误
   results = []
   for item in array
     results.push item.name
 ```
 
-To filter:
+处理筛选:
 
 ```coffeescript
 result = (item for item in array when item.name is "test")
 ```
 
-To iterate over the keys and values of objects:
+遍历键值对:
 
 ```coffeescript
 object = one: 1, two: 2
@@ -388,25 +385,25 @@ alert("#{key} = #{value}") for key, value of object
 ```
 
 <a name="extending_native_objects"/>
-## Extending Native Objects
+## 扩展类
 
-Do not modify native objects.
+不要修改原来的类
 
-For example, do not modify `Array.prototype` to introduce `Array#forEach`.
+例如不要修改`Array.prototype`上的方法去实现`Array#forEach`功能。
 
 <a name="exceptions"/>
-## Exceptions
+## 异常
 
-Do not suppress exceptions.
+不要总是忽略异常.
 
 <a name="annotations"/>
-## Annotations
+## 注解
 
-Use annotations when necessary to describe a specific action that must be taken against the indicated block of code.
+如果为了说明一个动作执行的原因，应当使用注解
 
-Write the annotation on the line immediately above the code that the annotation is describing.
+将注释写在所要描述的代码片段之前
 
-The annotation keyword should be followed by a colon and a space, and a descriptive note.
+注解的关键字应当由一个＃和空格以及一个描述性的单词作为开头。
 
 ```coffeescript
   # FIXME: The client's current state should *not* affect payload processing.
@@ -414,7 +411,7 @@ The annotation keyword should be followed by a colon and a space, and a descript
   processPayload()
 ```
 
-If multiple lines are required by the description, indent subsequent lines with two spaces:
+如果描述有很多行，后续内容用两个空格进行缩进。
 
 ```coffeescript
   # TODO: Ensure that the value returned by this call falls within a certain
@@ -422,63 +419,63 @@ If multiple lines are required by the description, indent subsequent lines with 
   analyze()
 ```
 
-Annotation types:
+注解类型:
 
-- `TODO`: describe missing functionality that should be added at a later date
-- `FIXME`: describe broken code that must be fixed
-- `OPTIMIZE`: describe code that is inefficient and may become a bottleneck
-- `HACK`: describe the use of a questionable (or ingenious) coding practice
-- `REVIEW`: describe code that should be reviewed to confirm implementation
+- `TODO`: 标注今后会添加的方法和功能
+- `FIXME`: 标注需要被修复的代码
+- `OPTIMIZE`: 标注造成性能瓶颈亟须优化的代码
+- `HACK`: 标注可疑地或是精巧的代码
+- `REVIEW`: 标注需要对实现需要进行确认的代码
 
-If a custom annotation is required, the annotation should be documented in the project's README.
+如果需要自定义注解类型，注解应当记录的项目的README文件中。
 
 <a name="miscellaneous"/>
-## Miscellaneous
+## 其他
 
-`and` is preferred over `&&`.
+使用`and`替代`&&`.
 
-`or` is preferred over `||`.
+使用`or`替代`||`.
 
-`is` is preferred over `==`.
+使用`is`替代`==`.
 
-`not` is preferred over `!`.
+使用`not`替代`!`.
 
-`or=` should be used when possible:
+尽可能使用`or=`:
 
 ```coffeescript
-temp or= {} # Yes
-temp = temp || {} # No
+temp or= {} # 正确
+temp = temp || {} # 错误
 ```
 
-Prefer shorthand notation (`::`) for accessing an object's prototype:
+使用(`::`)调用项目的原型链:
 
 ```coffeescript
-Array::slice # Yes
-Array.prototype.slice # No
+Array::slice # 正确
+Array.prototype.slice # 错误
 ```
 
-Prefer `@property` over `this.property`.
+使用`@property`替代`this.property`
 
 ```coffeescript
-return @property # Yes
-return this.property # No
+return @property # 正确
+return this.property # 错误
 ```
 
-However, avoid the use of **standalone** `@`:
+但是要避免**独立**使用 `@`:
 
 ```coffeescript
-return this # Yes
-return @ # No
+return this # 正确
+return @ # 错误
 ```
 
-Avoid `return` where not required, unless the explicit return increases clarity.
+除非返回结果显而易见，不需要避免使用`return`。
 
-Use splats (`...`) when working with functions that accept variable numbers of arguments:
+当函数有非常多个参数时，使用splats (`...`) :
 
 ```coffeescript
-console.log args... # Yes
+console.log args... # 正确
 
-(a, b, c, rest...) -> # Yes
+(a, b, c, rest...) -> # 正确
 ```
 
 [coffeescript]: http://jashkenas.github.com/coffee-script/
