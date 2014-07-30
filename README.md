@@ -536,25 +536,21 @@ These statements should be grouped in the following order:
 # Yes
 # class
 class A
-  foo: ->
-    return 'bar'
+  foo: -> 'bar'
 
 module.exports = A
 
 # functions
-modouleName = module.exports
-moduleName.foo = ->
-  return 'bar'
+moduleName = module.exports
+moduleName.foo = -> 'bar'
 
 # No
 # class
 module.exports = class A
-  foo: ->
-    return 'bar'
+  foo: -> 'bar'
 
 # functions
-exports.foo = ->
-  return 'bar'
+exports.foo = -> 'bar'
 ```
 
 ## Miscellaneous Preferences
