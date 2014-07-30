@@ -530,6 +530,32 @@ These statements should be grouped in the following order:
 2. Third party library imports
 3. Local imports _(imports specific to this application or library)_
 
+## Module Exports
+
+```coffeescript
+# Yes
+# class
+class A
+  foo: ->
+    return 'bar'
+
+module.exports = A
+
+# functions
+modouleName = module.exports
+moduleName.foo = ->
+  return 'bar'
+
+# No
+# class
+module.exports = class A
+  foo: ->
+    return 'bar'
+
+# functions
+exports.foo = ->
+  return 'bar'
+```
 
 ## Miscellaneous Preferences
 
