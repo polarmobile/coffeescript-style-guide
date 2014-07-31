@@ -1,4 +1,7 @@
 image: node0.10
+script:
+  - nvm install 0.10.29
+  - nvm use 0.10.29
 notify:
   email:
     recipients:
@@ -14,6 +17,5 @@ publish:
     email: {{npm_drone_email}}
     username: {{npm_drone_username}}
     password: {{npm_drone_password}}
-    branch: master
     registry: "https://clever.registry.nodejitsu.com"
     branch: master
