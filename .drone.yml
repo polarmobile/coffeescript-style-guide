@@ -12,6 +12,12 @@ notify:
     on_started: true
     on_success: true
     on_failure: true
+  hipchat:
+    room: Clever-Dev-CI
+    token: {{hipchatToken}}
+    on_started: true
+    on_success: true
+    on_failure: true
 publish:
   npm:
     email: {{npm_drone_email}}
