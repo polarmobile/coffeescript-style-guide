@@ -1,15 +1,15 @@
 {
     "arrow_spacing": {
-        "level": "error"
+        "level": "warn"
     },
     "camel_case_classes": {
-        "level": "error"
+        "level": "warn"
     },
     "coffeescript_error": {
-        "level": "error"
+        "level": "warn"
     },
     "colon_assignment_spacing": {
-        "level": "error",
+        "level": "warn",
         "spacing": {
             "left": 0,
             "right": 1
@@ -43,7 +43,7 @@
     },
     "newlines_after_classes": {
         "value": 3,
-        "level": "error"
+        "level": "warn"
     },
     "no_backticks": {
         "level": "error"
@@ -84,12 +84,12 @@
         "level": "error"
     },
     "no_trailing_whitespace": {
-        "level": "error",
+        "level": "warn",
         "allowed_in_comments": false,
-        "allowed_in_empty_lines": true
+        "allowed_in_empty_lines": false
     },
     "no_unnecessary_double_quotes": {
-        "level": "error"
+        "level": "warn"
     },
     "no_unnecessary_fat_arrows": {
         "level": "warn"
