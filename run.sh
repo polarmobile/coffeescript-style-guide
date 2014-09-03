@@ -18,11 +18,7 @@ function update_exit {
 
 if [ $# -eq 0 ]; then
   if [ -d ".git" ]; then
-    if [ `git rev-parse --abbrev-ref HEAD` = 'master' ]; then
-      files=`git ls-files | grep -E .coffee$`
-    else
-      files=`git diff --name-only \`git merge-base origin/master HEAD\` | grep -E .coffee$`
-    fi
+    files=`git ls-files | grep -E .coffee$`
   else
     files=`find . -type f -path "*.coffee" | grep -v node_modules`
   fi
