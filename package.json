@@ -1,6 +1,6 @@
 {
   "name": "coffeescript-style-guide",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Configuration and script to lint coffeescript",
   "engines": {
     "node": ">=0.10.x"
