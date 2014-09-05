@@ -441,6 +441,8 @@ If a custom annotation is required, the annotation should be documented in the p
 
 `is` is preferred over `==`.
 
+`is not` is preferred over `!=`.
+
 `not` is preferred over `!`.
 
 `or=` should be used when possible:
