@@ -26,6 +26,7 @@ The details in this guide have been very heavily inspired by several existing st
         * [Maximum Line Length](#maximum_line_length)
         * [Blank Lines](#blank_lines)
         * [Trailing Whitespace](#trailing_whitespace)
+        * [Object Braces](#object_braces)
         * [Optional Commas](#optional_commas)
         * [Encoding](#encoding)
     * [Module Imports](#module_imports)
@@ -64,6 +65,10 @@ Separate top-level function and class definitions with a single blank line.
 Separate method definitions inside of a class with a single blank line.
 
 Use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
+
+<a name="object_braces"/>
+### Object Braces
+Omit braces for objects unless they are inlined and are followed by other parameters
 
 <a name="trailing_whitespace"/>
 ### Trailing Whitespace
