@@ -327,7 +327,7 @@ Use string interpolation instead of string concatenation:
 "this is an " + adjective + " string" # No
 ```
 
-Prefer single quoted strings (`''`) instead of double quoted (`""`) strings, unless features like string interpolation are being used for the given string.
+Prefer single quoted strings (`''`) instead of double quoted (`""`) strings, unless features like string interpolation are being used for the given string, or single quotes are in the string (eg. "It's a beautiful day in the clayborhood").
 
 <a name="conditionals"/>
 ## Conditionals
