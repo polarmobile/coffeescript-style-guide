@@ -38,7 +38,6 @@ The details in this guide have been very heavily inspired by several existing st
     * [Strings](#strings)
     * [Conditionals](#conditionals)
     * [Looping and Comprehensions](#looping_and_comprehensions)
-    * [Extending Native Objects](#extending_native_objects)
     * [Exceptions](#exceptions)
     * [Annotations](#annotations)
     * [Miscellaneous](#miscellaneous)
@@ -54,7 +53,7 @@ Use **spaces only**, with **2 spaces** per indentation level. Never mix tabs and
 <a name="maximum_line_length"/>
 ### Maximum Line Length
 
-Limit all lines to a maximum of 79 characters.
+Limit all lines to a maximum of 100 characters.
 
 <a name="blank_lines"/>
 ### Blank Lines
@@ -108,10 +107,10 @@ UTF-8 is the preferred source file encoding.
 If using a module system (CommonJS Modules, AMD, etc.), `require` statements should be placed on separate lines.
 
 ```coffeescript
-require 'lib/setup'
-Backbone = require 'backbone'
+require('lib/setup')
+Backbone = require('backbone')
 ```
-These statements should be grouped in the following order:
+These statements should be grouped in the following order (in addition to alphabetically):
 
 1. Standard library imports _(if a standard library exists)_
 2. Third party library imports
@@ -122,18 +121,11 @@ These statements should be grouped in the following order:
 
 Avoid extraneous whitespace in the following situations:
 
-- Immediately inside parentheses, brackets or braces
-
-    ```coffeescript
-       ($ 'body') # Yes
-       ( $ 'body' ) # No
-    ```
-
 - Immediately before a comma
 
     ```coffeescript
-       console.log x, y # Yes
-       console.log x , y # No
+       console.log(x, y) # Yes
+       console.log(x , y) # No
     ```
 
 Additional recommendations:
@@ -152,20 +144,6 @@ Additional recommendations:
     - augmented assignment: `+=`, `-=`, etc.
     - comparisons: `==`, `<`, `>`, `<=`, `>=`, `unless`, etc.
     - arithmetic operators: `+`, `-`, `*`, `/`, etc.
-
-    - _(Do not use more than one space around these operators)_
-
-        ```coffeescript
-           # Yes
-           x = 1
-           y = 1
-           fooBar = 3
-
-           # No
-           x      = 1
-           y      = 1
-           fooBar = 3
-        ```
 
 <a name="comments"/>
 ## Comments
@@ -196,6 +174,19 @@ Paragraphs inside of block comments are separated by a line containing a single 
   init()
   start()
   stop()
+```
+
+Generally it's also acceptable to add comment headers to sections of a given file if it happens to improve readability. For example:
+
+```coffeescript
+class CoolThing
+  
+  #-----------------------------------------------------------------------------
+  # Instance Methods
+  #-----------------------------------------------------------------------------
+
+  someMethod: ->
+    # ...
 ```
 
 <a name="inline_comments"/>
@@ -270,47 +261,33 @@ In cases where method calls are being chained and the code does not fit on a sin
   .filter((x) -> x < 11)
   .reduce((x, y) -> x + y)
 ```
-
-When calling functions, choose to omit or include parentheses in such a way that optimizes for readability. Keeping in mind that "readability" can be subjective, the following examples demonstrate cases where parentheses have been omitted or included in a manner that the community deems to be optimal:
+When calling functions, it's generally preferred (here at uniiverse) to use parenthesis. This is due to CoffeeScript's poor grammar/semantics which lead to a lot of inconsistencies. This section does not apply to @kieran.
 
 ```coffeescript
-baz 12
+baz(12)
 
-brush.ellipse x: 10, y: 20 # Braces can also be omitted or included for readability
+brush.ellipse(x: 10, y: 20)
 
 foo(4).bar(8)
 
 obj.value(10, 20) / obj.value(20, 10)
 
-print inspect value
+print(inspect(value))
 
 new Tag(new Value(a, b), new Arg(c))
 ```
 
-You will sometimes see parentheses used to group functions (instead of being used to group function parameters). Examples of using this style (hereafter referred to as the "function grouping style"):
+Note that it **is** appropriate to omit parenthesis on multi-line function calls. For example:
 
 ```coffeescript
-($ '#selektor').addClass 'klass'
+brush.ellipse
+  x: 10
+  y: 20
 
-(foo 4).bar 8
+setTimeout ->
+  # ...
+, 1000
 ```
-
-This is in contrast to:
-
-```coffeescript
-$('#selektor').addClass 'klass'
-
-foo(4).bar 8
-```
-
-In cases where method calls are being chained, some adopters of this style prefer to use function grouping for the initial call only:
-
-```coffeescript
-($ '#selektor').addClass('klass').hide() # Initial call only
-(($ '#selektor').addClass 'klass').hide() # All calls
-```
-
-The function grouping style is not recommended. However, **if the function grouping style is adopted for a particular project, be consistent with its usage.**
 
 <a name="strings"/>
 ## Strings
@@ -387,13 +364,6 @@ object = one: 1, two: 2
 alert("#{key} = #{value}") for key, value of object
 ```
 
-<a name="extending_native_objects"/>
-## Extending Native Objects
-
-Do not modify native objects.
-
-For example, do not modify `Array.prototype` to introduce `Array#forEach`.
-
 <a name="exceptions"/>
 ## Exceptions
 
@@ -435,21 +405,6 @@ If a custom annotation is required, the annotation should be documented in the p
 <a name="miscellaneous"/>
 ## Miscellaneous
 
-`and` is preferred over `&&`.
-
-`or` is preferred over `||`.
-
-`is` is preferred over `==`.
-
-`not` is preferred over `!`.
-
-`or=` should be used when possible:
-
-```coffeescript
-temp or= {} # Yes
-temp = temp || {} # No
-```
-
 Prefer shorthand notation (`::`) for accessing an object's prototype:
 
 ```coffeescript
@@ -476,7 +431,7 @@ Avoid `return` where not required, unless the explicit return increases clarity.
 Use splats (`...`) when working with functions that accept variable numbers of arguments:
 
 ```coffeescript
-console.log args... # Yes
+console.log(args...) # Yes
 
 (a, b, c, rest...) -> # Yes
 ```
