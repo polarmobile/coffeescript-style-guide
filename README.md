@@ -49,12 +49,12 @@ The details in this guide have been very heavily inspired by several existing st
 <a name="tabs_or_spaces"/>
 ### Tabs or Spaces?
 
-Use **spaces only**, with **2 spaces** per indentation level. Never mix tabs and spaces.
+Use **spaces only**, with **4 spaces** per indentation level. Never mix tabs and spaces.
 
 <a name="maximum_line_length"/>
 ### Maximum Line Length
 
-Limit all lines to a maximum of 79 characters.
+No limit
 
 <a name="blank_lines"/>
 ### Blank Lines
