@@ -99,5 +99,8 @@
     },
     "space_operators": {
         "level": "warn"
+    },
+    "prefer_english_operator": {
+        "level": "warn"
     }
 }
