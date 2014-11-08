@@ -42,8 +42,7 @@
         "level": "warn"
     },
     "newlines_after_classes": {
-        "value": 3,
-        "level": "warn"
+        "level": "ignore"
     },
     "no_backticks": {
         "level": "error"
