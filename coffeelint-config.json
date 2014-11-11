@@ -13,7 +13,8 @@
     "no_trailing_whitespace": {
         "name": "no_trailing_whitespace",
         "level": "error",
-        "allowed_in_comments": false
+        "allowed_in_comments": false,
+        "allowed_in_empty_lines": false
     },
     "max_line_length": {
         "name": "max_line_length",
