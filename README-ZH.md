@@ -359,7 +359,7 @@ foo(4).bar 8
 <a name="looping_and_comprehensions"/>
 ## 循环
 
-尽可能的使用omprehensions进行遍历:
+尽可能的使用comprehensions进行遍历:
 
 ```coffeescript
   # 正确
