@@ -25,7 +25,7 @@
         * [制表符和空格](#tabs_or_spaces)
         * [最大行长](#maximum_line_length)
         * [空行](#blank_lines)
-        * [留白的捷径](#trailing_whitespace)
+        * [尾随空白](#trailing_whitespace)
         * [可选的逗号](#optional_commas)
         * [编码](#encoding)
     * [模块引入](#module_imports)
@@ -40,7 +40,7 @@
     * [循环](#looping_and_comprehensions)
     * [扩展](#extending_native_objects)
     * [异常](#exceptions)
-    * [注解](#annotations)
+    * [注释](#annotations)
     * [其他](#miscellaneous)
 
 <a name="code_layout"/>
@@ -66,9 +66,9 @@
 在方法或函数内头尾各空一行可以提高代码的可读性。（例如，为了勾勒出代码逻辑部分）
 
 <a name="trailing_whitespace"/>
-### 留白的捷径
+### 尾随空白
 
-在任意行不要直接引入留白捷径。
+任何一行都不应该包含有尾随空白。
 
 <a name="optional_commas"/>
 ### 可选的逗号
@@ -105,7 +105,7 @@ bar:
 <a name="module_imports"/>
 ## 模块引入
 
-如果使用模块结构（例如CommonJs 模块 AMD 等）,`require`语句应当独立成行。
+当采用模块化系统（例如CommonJs 模块 AMD 等）时,`require`语句应当独立成行。
 
 ```coffeescript
 require 'lib/setup'
@@ -387,9 +387,9 @@ alert("#{key} = #{value}") for key, value of object
 <a name="extending_native_objects"/>
 ## 扩展类
 
-不要修改原来的类
+不要修改原生对象
 
-例如不要修改`Array.prototype`上的方法去实现`Array#forEach`功能。
+比如不要在`Array.prototype`上实现`Array#forEach`方法
 
 <a name="exceptions"/>
 ## 异常
@@ -397,13 +397,13 @@ alert("#{key} = #{value}") for key, value of object
 不要总是忽略异常.
 
 <a name="annotations"/>
-## 注解
+## 注释
 
-如果为了说明一个动作执行的原因，应当使用注解
+注释应该用于解释代码执行的特定功能
 
 将注释写在所要描述的代码片段之前
 
-注解的关键字应当由一个＃和空格以及一个描述性的单词作为开头。
+注释关键字和注释正文之间应当由一个冒号和一个空格分隔
 
 ```coffeescript
   # FIXME: The client's current state should *not* affect payload processing.
@@ -411,7 +411,7 @@ alert("#{key} = #{value}") for key, value of object
   processPayload()
 ```
 
-如果描述有很多行，后续内容用两个空格进行缩进。
+如果注释有很多行，后续内容用两个空格进行缩进。
 
 ```coffeescript
   # TODO: Ensure that the value returned by this call falls within a certain
@@ -419,7 +419,7 @@ alert("#{key} = #{value}") for key, value of object
   analyze()
 ```
 
-注解类型:
+注释类型:
 
 - `TODO`: 标注今后会添加的方法和功能
 - `FIXME`: 标注需要被修复的代码
@@ -427,18 +427,18 @@ alert("#{key} = #{value}") for key, value of object
 - `HACK`: 标注可疑地或是精巧的代码
 - `REVIEW`: 标注需要对实现需要进行确认的代码
 
-如果需要自定义注解类型，注解应当记录的项目的README文件中。
+如果需要自定义注释类型，该注释类型应当记录在项目的README文件中。
 
 <a name="miscellaneous"/>
 ## 其他
 
-使用`and`替代`&&`.
+`and`优于`&&`.
 
-使用`or`替代`||`.
+`or`优于`||`.
 
-使用`is`替代`==`.
+`is`优于`==`.
 
-使用`not`替代`!`.
+`not`优于`!`.
 
 尽可能使用`or=`:
 
@@ -447,30 +447,30 @@ temp or= {} # 正确
 temp = temp || {} # 错误
 ```
 
-使用(`::`)调用项目的原型链:
+使用(`::`)访问对象的prototype:
 
 ```coffeescript
 Array::slice # 正确
 Array.prototype.slice # 错误
 ```
 
-使用`@property`替代`this.property`
+`@property`优于`this.property`
 
 ```coffeescript
 return @property # 正确
 return this.property # 错误
 ```
 
-但是要避免**独立**使用 `@`:
+但是要避免**单独**使用 `@`:
 
 ```coffeescript
 return this # 正确
 return @ # 错误
 ```
 
-除非返回结果显而易见，不需要避免使用`return`。
+除非显式`return`有助于可读性，否则应尽量避免显式`return`
 
-当函数有非常多个参数时，使用splats (`...`) :
+当函数的参数数量不固定时，使用splats (`...`) :
 
 ```coffeescript
 console.log args... # 正确
