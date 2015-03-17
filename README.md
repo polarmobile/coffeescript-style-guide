@@ -13,10 +13,13 @@ The details in this guide have been very heavily inspired by several existing st
 - [PEP-8][pep8]: Style Guide for Python Code
 - Bozhidar Batsov's [Ruby Style Guide][ruby-style-guide]
 - [Google's JavaScript Style Guide][google-js-styleguide]
+- [Variables and Scope][coffeescript-variables-scope]
 - [Common CoffeeScript Idioms][common-coffeescript-idioms]
 - Thomas Reynolds' [CoffeeScript-specific Style Guide][coffeescript-specific-style-guide]
 - Jeremy Ashkenas' [code review][spine-js-code-review] of [Spine][spine-js]
+- Alex McCaw and Jeremy Ashkenas' [The Little Book On CoffeeScript][little-book-coffeescript]
 - The [CoffeeScript FAQ][coffeescript-faq]
+
 
 ## Table of Contents
 
@@ -34,6 +37,7 @@ The details in this guide have been very heavily inspired by several existing st
         * [Block Comments](#block_comments)
         * [Inline Comments](#inline_comments)
     * [Naming Conventions](#naming_conventions)
+    * [Variables and Scope](#variables_and_scope)
     * [Functions](#functions)
     * [Strings](#strings)
     * [Conditionals](#conditionals)
@@ -241,7 +245,21 @@ Methods and variables that are intended to be "private" should begin with a lead
 ```coffeescript
 _privateMethod: ->
 ```
+<a name="variables_and_scope"/>
+## Variables and Scope
 
+Variable assignment is always local to the scope of the function in which it is declared. To explicitly declare a global variable, either directly setting it as a property on the global object:
+
+```coffeescript
+# in browsers
+window.foo = "bar"
+```
+or with the following pattern:
+
+```coffeescript
+exports = this
+exports.foo = "bar"
+```
 <a name="functions"/>
 ## Functions
 
@@ -490,6 +508,7 @@ console.log args... # Yes
 [pep8]: http://www.python.org/dev/peps/pep-0008/
 [ruby-style-guide]: https://github.com/bbatsov/ruby-style-guide
 [google-js-styleguide]: http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
+[coffeescript-variables-scope]: http://arcturo.github.com/library/coffeescript/02_syntax.html
 [common-coffeescript-idioms]: http://arcturo.github.com/library/coffeescript/04_idioms.html
 [coffeescript-specific-style-guide]: http://awardwinningfjords.com/2011/05/13/coffeescript-specific-style-guide.html
 [coffeescript-faq]: https://github.com/jashkenas/coffee-script/wiki/FAQ
