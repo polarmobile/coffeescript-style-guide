@@ -261,6 +261,24 @@ bar = -> # Yes
 bar = () -> # No
 ```
 
+Use defaults for optional parameters:
+
+```
+foo = (arg1, arg2 = "default value") ->
+```
+
+Sometimes a function has so many optional parameters that its declaration can't fit on a single 79-character line. In this case, use a [splat](http://coffeescript.org/#splats) to pack up all the optional parameters, and then unpack with [destructuring assignment](http://coffeescript.org/#destructuring).
+
+```
+foo = (arg1, options...) ->
+  [arg2, arg3, arg4, arg5, arg6] = options
+  arg2 or= "default value 2"
+  arg3 or= "default value 3"
+  arg4 or= "default value 4"
+  arg5 or= "default value 5"
+  arg6 or= "default value 6"
+```
+
 In cases where method calls are being chained and the code does not fit on a single line, each call should be placed on a separate line and indented by one level (i.e., two spaces), with a leading `.`.
 
 ```coffeescript
