@@ -447,6 +447,26 @@ Annotation types:
 
 If a custom annotation is required, the annotation should be documented in the project's README.
 
+<a name="magic_number"/>
+## The Magic Number
+
+A classic psychological paper "(The Magical Number Seven, Plus or Minus Two)[https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two]"
+proposes that human beings can handle lists of about 7±2 items in short-term
+memory. Although later studies show that the principle is not universal, it is
+a convenient boundary for thinking about groups and hierarchies.
+
+**If a list of things gets longer than 7±2, consider breaking it up into a
+hierarchy of sub-lists.**
+
+This principle applies in a few ways.
+
+If a class has more than 5-9 methods, consider re-factoring it into multiple
+classes.
+
+If a function has more than 5-9 lines of code, consider grouping the code into
+helper functions, each of which is less than 5-9 lines long, and call those
+helper functions from your main function.
+
 <a name="miscellaneous"/>
 ## Miscellaneous
 
