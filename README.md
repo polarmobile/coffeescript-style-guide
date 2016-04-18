@@ -1,15 +1,12 @@
-# CoffeeScript Style Guide
+# Fuzzy.io CoffeeScript Style Guide
 
-This guide presents a collection of best-practices and coding conventions for the [CoffeeScript][coffeescript] programming language.
-
-This guide is intended to be community-driven, and contributions are highly encouraged.
-
-Please note that this is a work-in-progress: there is much more that can be specified, and some of the guidelines that have been specified may not be deemed to be idiomatic by the community (in which case, these offending guidelines will be modified or removed, as appropriate).
+This is the [fuzzy.io](https://fuzzy.io/) style guide for the [CoffeeScript][coffeescript] programming language.
 
 ## Inspiration
 
 The details in this guide have been very heavily inspired by several existing style guides and other resources. In particular:
 
+- [https://github.com/polarmobile/coffeescript-style-guide](CoffeeScript Style Guide): Originally forked from.
 - [PEP-8][pep8]: Style Guide for Python Code
 - Bozhidar Batsov's [Ruby Style Guide][ruby-style-guide]
 - [Google's JavaScript Style Guide][google-js-styleguide]
@@ -261,6 +258,24 @@ bar = -> # Yes
 bar = () -> # No
 ```
 
+Use defaults for optional parameters:
+
+```
+foo = (arg1, arg2 = "default value") ->
+```
+
+Sometimes a function has so many optional parameters that its declaration can't fit on a single 79-character line. In this case, use a [splat](http://coffeescript.org/#splats) to pack up all the optional parameters, and then unpack with [destructuring assignment](http://coffeescript.org/#destructuring).
+
+```
+foo = (arg1, options...) ->
+  [arg2, arg3, arg4, arg5, arg6] = options
+  arg2 or= "default value 2"
+  arg3 or= "default value 3"
+  arg4 or= "default value 4"
+  arg5 or= "default value 5"
+  arg6 or= "default value 6"
+```
+
 In cases where method calls are being chained and the code does not fit on a single line, each call should be placed on a separate line and indented by one level (i.e., two spaces), with a leading `.`.
 
 ```coffeescript
@@ -431,6 +446,26 @@ Annotation types:
 - `REVIEW`: describe code that should be reviewed to confirm implementation
 
 If a custom annotation is required, the annotation should be documented in the project's README.
+
+<a name="magic_number"/>
+## The Magic Number
+
+A classic psychological paper "(The Magical Number Seven, Plus or Minus Two)[https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two]"
+proposes that human beings can handle lists of about 7±2 items in short-term
+memory. Although later studies show that the principle is not universal, it is
+a convenient boundary for thinking about groups and hierarchies.
+
+**If a list of things gets longer than 7±2, consider breaking it up into a
+hierarchy of sub-lists.**
+
+This principle applies in a few ways.
+
+If a class has more than 5-9 methods, consider re-factoring it into multiple
+classes.
+
+If a function has more than 5-9 lines of code, consider grouping the code into
+helper functions, each of which is less than 5-9 lines long, and call those
+helper functions from your main function.
 
 <a name="miscellaneous"/>
 ## Miscellaneous
