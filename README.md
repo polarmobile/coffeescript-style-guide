@@ -1,15 +1,12 @@
-# CoffeeScript Style Guide
+# Fuzzy.io CoffeeScript Style Guide
 
-This guide presents a collection of best-practices and coding conventions for the [CoffeeScript][coffeescript] programming language.
-
-This guide is intended to be community-driven, and contributions are highly encouraged.
-
-Please note that this is a work-in-progress: there is much more that can be specified, and some of the guidelines that have been specified may not be deemed to be idiomatic by the community (in which case, these offending guidelines will be modified or removed, as appropriate).
+This is the [fuzzy.io](https://fuzzy.io/) style guide for the [CoffeeScript][coffeescript] programming language.
 
 ## Inspiration
 
 The details in this guide have been very heavily inspired by several existing style guides and other resources. In particular:
 
+- [https://github.com/polarmobile/coffeescript-style-guide](CoffeeScript Style Guide): Originally forked from.
 - [PEP-8][pep8]: Style Guide for Python Code
 - Bozhidar Batsov's [Ruby Style Guide][ruby-style-guide]
 - [Google's JavaScript Style Guide][google-js-styleguide]
