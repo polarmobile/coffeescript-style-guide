@@ -36,6 +36,7 @@ The details in this guide have been very heavily inspired by several existing st
     * [Naming Conventions](#naming_conventions)
     * [Functions](#functions)
     * [Strings](#strings)
+    * [Booleans](#booleans)
     * [Conditionals](#conditionals)
     * [Looping and Comprehensions](#looping_and_comprehensions)
     * [Extending Native Objects](#extending_native_objects)
@@ -323,6 +324,22 @@ Use string interpolation instead of string concatenation:
 ```
 
 Prefer single quoted strings (`''`) instead of double quoted (`""`) strings, unless features like string interpolation are being used for the given string.
+
+<a name="booleans"/>
+## Booleans
+
+Favor `yes` and `no` over `true` and `false`.
+
+```coffeescript
+  # Yes
+  someMethod yes
+  anotherMethod no
+
+  # No
+  someMethod true
+  anotherMethod false
+```
+
 
 <a name="conditionals"/>
 ## Conditionals
