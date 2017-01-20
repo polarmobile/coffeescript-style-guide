@@ -18,6 +18,19 @@ The details in this guide have been very heavily inspired by several existing st
 - Jeremy Ashkenas' [code review][spine-js-code-review] of [Spine][spine-js]
 - The [CoffeeScript FAQ][coffeescript-faq]
 
+## Run coffeelint with this guide
+
+This repository can be installed and used to lint coffescript files using the configuration found in the [coffeelint config file](coffeelint-config.json). List this repository as a dependency in the `package.json` and add the following to your Makefile:
+
+```
+lint:
+  node_modules/.bin/lint [files]
+```
+
+`lint` can also be added as the final dependency of `test` to increase its visibility.
+
+Files must either be specified by their absolute path, or their path relative to the Makefile's directory. If no files are specified and you are in a git repository all `.coffee` files in that repository will be linted. If you are not in a git repository all `.coffee` files in the current directory and all subdirectories (except `node_modules`) will be linted.
+
 ## Table of Contents
 
 * [The CoffeeScript Style Guide](#guide)
@@ -54,7 +67,7 @@ Use **spaces only**, with **2 spaces** per indentation level. Never mix tabs and
 <a name="maximum_line_length"/>
 ### Maximum Line Length
 
-Limit all lines to a maximum of 79 characters.
+Limit all lines to a maximum of 100 characters.
 
 <a name="blank_lines"/>
 ### Blank Lines
@@ -224,7 +237,7 @@ However, inline comments can be useful in certain scenarios:
 <a name="naming_conventions"/>
 ## Naming Conventions
 
-Use `camelCase` (with a leading lowercase character) to name all variables, methods, and object properties.
+Use `snake_case` (with a leading lowercase character) to name all variables, methods, and object properties.
 
 Use `CamelCase` (with a leading uppercase character) to name all classes. _(This style is also commonly referred to as `PascalCase`, `CamelCaps`, or `CapWords`, among [other alternatives][camel-case-variations].)_
 
@@ -259,6 +272,13 @@ Do not use parentheses when declaring functions that take no arguments:
 ```coffeescript
 bar = -> # Yes
 bar = () -> # No
+```
+
+Only use the fat arrow syntax when `this` is needed within the function body:
+
+```coffeescript
+baz = => 1 # No
+baz = => @bang # Yes
 ```
 
 In cases where method calls are being chained and the code does not fit on a single line, each call should be placed on a separate line and indented by one level (i.e., two spaces), with a leading `.`.
@@ -311,6 +331,13 @@ In cases where method calls are being chained, some adopters of this style prefe
 ```
 
 The function grouping style is not recommended. However, **if the function grouping style is adopted for a particular project, be consistent with its usage.**
+
+Don't assign default arguments in front of positional arguments:
+
+```coffeescript
+bad = (foo='bar', baz) -> # No
+bad = (foo, bar='baz') -> # Yes
+```
 
 <a name="strings"/>
 ## Strings
@@ -459,18 +486,14 @@ Array::slice # Yes
 Array.prototype.slice # No
 ```
 
-Prefer `@property` over `this.property`.
+Prefer `@` over `this`.
 
 ```coffeescript
 return @property # Yes
 return this.property # No
-```
 
-However, avoid the use of **standalone** `@`:
-
-```coffeescript
-return this # Yes
-return @ # No
+return @ # Yes
+return this # No
 ```
 
 Avoid `return` where not required, unless the explicit return increases clarity.

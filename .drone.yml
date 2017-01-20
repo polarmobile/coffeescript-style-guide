@@ -1,0 +1,27 @@
+image: node0.10
+script:
+  - nvm install 0.10.29
+  - nvm use 0.10.29
+notify:
+  email:
+    recipients:
+      - drone@clever.com
+  hipchat:
+    room: Clever-Dev-CI
+    token: {{hipchatToken}}
+    on_started: true
+    on_success: true
+    on_failure: true
+  hipchat:
+    room: Clever-Dev-CI
+    token: {{hipchatToken}}
+    on_started: true
+    on_success: true
+    on_failure: true
+publish:
+  npm:
+    email: {{npm_drone_email}}
+    username: {{npm_drone_username}}
+    password: {{npm_drone_password}}
+    registry: "https://clever.registry.nodejitsu.com"
+    branch: master
