@@ -22,6 +22,7 @@ The details in this guide have been very heavily inspired by several existing st
 
 * [The CoffeeScript Style Guide](#guide)
     * [Code Layout](#code_layout)
+        * [Parentheses](#parentheses)
         * [Tabs or Spaces?](#tabs_or_spaces)
         * [Maximum Line Length](#maximum_line_length)
         * [Blank Lines](#blank_lines)
@@ -45,6 +46,20 @@ The details in this guide have been very heavily inspired by several existing st
 
 <a name="code_layout"/>
 ## Code layout
+
+<a name="parentheses"/>
+### Parentheses
+
+Surround arguments for functions with parentheses!
+
+```coffeescript
+# bad
+console.log 'Some bad stuff'
+
+# good
+console.log('This is better')
+
+```
 
 <a name="tabs_or_spaces"/>
 ### Tabs or Spaces?
@@ -125,15 +140,15 @@ Avoid extraneous whitespace in the following situations:
 - Immediately inside parentheses, brackets or braces
 
     ```coffeescript
-       ($ 'body') # Yes
-       ( $ 'body' ) # No
+       $('body') # Yes
+       $( 'body' ) # No
     ```
 
 - Immediately before a comma
 
     ```coffeescript
-       console.log x, y # Yes
-       console.log x , y # No
+       console.log(x, y) # Yes
+       console.log(x , y) # No
     ```
 
 Additional recommendations:
@@ -271,47 +286,6 @@ In cases where method calls are being chained and the code does not fit on a sin
   .reduce((x, y) -> x + y)
 ```
 
-When calling functions, choose to omit or include parentheses in such a way that optimizes for readability. Keeping in mind that "readability" can be subjective, the following examples demonstrate cases where parentheses have been omitted or included in a manner that the community deems to be optimal:
-
-```coffeescript
-baz 12
-
-brush.ellipse x: 10, y: 20 # Braces can also be omitted or included for readability
-
-foo(4).bar(8)
-
-obj.value(10, 20) / obj.value(20, 10)
-
-print inspect value
-
-new Tag(new Value(a, b), new Arg(c))
-```
-
-You will sometimes see parentheses used to group functions (instead of being used to group function parameters). Examples of using this style (hereafter referred to as the "function grouping style"):
-
-```coffeescript
-($ '#selektor').addClass 'klass'
-
-(foo 4).bar 8
-```
-
-This is in contrast to:
-
-```coffeescript
-$('#selektor').addClass 'klass'
-
-foo(4).bar 8
-```
-
-In cases where method calls are being chained, some adopters of this style prefer to use function grouping for the initial call only:
-
-```coffeescript
-($ '#selektor').addClass('klass').hide() # Initial call only
-(($ '#selektor').addClass 'klass').hide() # All calls
-```
-
-The function grouping style is not recommended. However, **if the function grouping style is adopted for a particular project, be consistent with its usage.**
-
 <a name="strings"/>
 ## Strings
 
@@ -371,7 +345,7 @@ Take advantage of comprehensions whenever possible:
   # No
   results = []
   for item in array
-    results.push item.name
+    results.push(item.name)
 ```
 
 To filter:
