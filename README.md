@@ -54,7 +54,7 @@ Use **spaces only**, with **2 spaces** per indentation level. Never mix tabs and
 <a name="maximum_line_length"/>
 ### Maximum Line Length
 
-Limit all lines to a maximum of 79 characters.
+Limit all lines to a maximum of 100 characters.
 
 <a name="blank_lines"/>
 ### Blank Lines
@@ -142,11 +142,11 @@ Additional recommendations:
 
     - assignment: `=`
 
-        - _Note that this also applies when indicating default parameter value(s) in a function declaration_
+        - Exception in the case of default arguments:
 
            ```coffeescript
-           test: (param = null) -> # Yes
-           test: (param=null) -> # No
+           test: (param = null) -> # No
+           test: (param=null) -> # Yes
            ```
 
     - augmented assignment: `+=`, `-=`, etc.
@@ -224,7 +224,7 @@ However, inline comments can be useful in certain scenarios:
 <a name="naming_conventions"/>
 ## Naming Conventions
 
-Use `camelCase` (with a leading lowercase character) to name all variables, methods, and object properties.
+Use `snake_case` (with a leading lowercase character) to name all variables, methods, and object properties.
 
 Use `CamelCase` (with a leading uppercase character) to name all classes. _(This style is also commonly referred to as `PascalCase`, `CamelCaps`, or `CapWords`, among [other alternatives][camel-case-variations].)_
 
@@ -311,6 +311,13 @@ In cases where method calls are being chained, some adopters of this style prefe
 ```
 
 The function grouping style is not recommended. However, **if the function grouping style is adopted for a particular project, be consistent with its usage.**
+
+Don't assign default arguments in front of positional arguments:
+
+```coffeescript
+bad = (foo='bar', baz) -> # No
+bad = (foo, bar='baz') -> # Yes
+```
 
 <a name="strings"/>
 ## Strings
@@ -464,13 +471,6 @@ Prefer `@property` over `this.property`.
 ```coffeescript
 return @property # Yes
 return this.property # No
-```
-
-However, avoid the use of **standalone** `@`:
-
-```coffeescript
-return this # Yes
-return @ # No
 ```
 
 Avoid `return` where not required, unless the explicit return increases clarity.
