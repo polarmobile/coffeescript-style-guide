@@ -273,6 +273,8 @@ In cases where method calls are being chained and the code does not fit on a sin
 
 When calling functions, choose to omit or include parentheses in such a way that optimizes for readability. Keeping in mind that "readability" can be subjective, the following examples demonstrate cases where parentheses have been omitted or included in a manner that the community deems to be optimal:
 
+[SUGGESTED FOR PORTAL]: always use parentheses for function calls
+
 ```coffeescript
 baz 12
 
@@ -296,6 +298,7 @@ You will sometimes see parentheses used to group functions (instead of being use
 ```
 
 This is in contrast to:
+[SUGGESTED FOR PORTAL]: use below grouping with parentheses around each function's argument
 
 ```coffeescript
 $('#selektor').addClass 'klass'
