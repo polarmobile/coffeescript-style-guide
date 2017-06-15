@@ -34,6 +34,7 @@ The details in this guide have been very heavily inspired by several existing st
         * [Block Comments](#block_comments)
         * [Inline Comments](#inline_comments)
     * [Naming Conventions](#naming_conventions)
+    * [Objects](#objects)
     * [Functions](#functions)
     * [Strings](#strings)
     * [Conditionals](#conditionals)
@@ -122,7 +123,7 @@ These statements should be grouped in the following order:
 
 Avoid extraneous whitespace in the following situations:
 
-- Immediately inside parentheses, brackets or braces
+- Immediately inside parentheses or brackets
 
     ```coffeescript
        ($ 'body') # Yes
@@ -242,6 +243,43 @@ Methods and variables that are intended to be "private" should begin with a lead
 _privateMethod: ->
 ```
 
+<a name="objects"></a>
+## Objects
+
+When declaring object literals:
+
+- With one key, value pair use a single line
+
+```coffeescript
+car = make: "Toyota"
+```
+
+- With more than one key, value pair use multi-line declarations
+
+```coffeescript
+pets =
+  dog: 'Fido'
+  cat: 'Garfield'
+  fetch: (pet) -> alert(pet)
+```
+
+To access object properties, use dot notation where possible otherwise use bracket notation
+
+```coffeescript
+pets =
+  dog: 'fido'
+  cat: 'garfield'
+
+console.log('dog name: ', pets.dog) # 'dog name: fido'
+
+showPetName = (petType) ->
+  console.log('pet name: ', pets[petType])
+
+showPetName('cat') # 'pet name: garfield'
+showPetName('dog') # 'pet name: fido'
+
+```
+
 <a name="functions"></a>
 ## Functions
 
@@ -271,49 +309,21 @@ In cases where method calls are being chained and the code does not fit on a sin
   .reduce((x, y) -> x + y)
 ```
 
-When calling functions, choose to omit or include parentheses in such a way that optimizes for readability. Keeping in mind that "readability" can be subjective, the following examples demonstrate cases where parentheses have been omitted or included in a manner that the community deems to be optimal:
-
-[SUGGESTED FOR PORTAL]: always use parentheses for function calls
+When calling functions, always use parentheses around function arguments for readability.
 
 ```coffeescript
-baz 12
+baz(12)
 
-brush.ellipse x: 10, y: 20 # Braces can also be omitted or included for readability
+brush.ellipse(x: 10, y: 20) # Braces can be omitted or included for readability
 
 foo(4).bar(8)
 
 obj.value(10, 20) / obj.value(20, 10)
 
-print inspect value
+print(inspect(value))
 
 new Tag(new Value(a, b), new Arg(c))
 ```
-
-You will sometimes see parentheses used to group functions (instead of being used to group function parameters). Examples of using this style (hereafter referred to as the "function grouping style"):
-
-```coffeescript
-($ '#selektor').addClass 'klass'
-
-(foo 4).bar 8
-```
-
-This is in contrast to:
-[SUGGESTED FOR PORTAL]: use below grouping with parentheses around each function's argument
-
-```coffeescript
-$('#selektor').addClass 'klass'
-
-foo(4).bar 8
-```
-
-In cases where method calls are being chained, some adopters of this style prefer to use function grouping for the initial call only:
-
-```coffeescript
-($ '#selektor').addClass('klass').hide() # Initial call only
-(($ '#selektor').addClass 'klass').hide() # All calls
-```
-
-The function grouping style is not recommended. However, **if the function grouping style is adopted for a particular project, be consistent with its usage.**
 
 <a name="strings"></a>
 ## Strings
@@ -330,9 +340,16 @@ Prefer single quoted strings (`''`) instead of double quoted (`""`) strings, unl
 <a name="conditionals"></a>
 ## Conditionals
 
-Favor `unless` over `if` for negative conditions.
+Favor `if` over `unless` for negative conditions.
 
-Instead of using `unless...else`, use `if...else`:
+```coffeescript
+# No
+result = y unless x
+
+# Yes
+result = y if not x
+```
+
 
 ```coffeescript
   # Yes
@@ -365,28 +382,33 @@ Multi-line if/else clauses should use indentation:
 <a name="looping_and_comprehensions"></a>
 ## Looping and Comprehensions
 
-Take advantage of comprehensions whenever possible:
+For arrays, try to use native Array.prototype methods
 
 ```coffeescript
-  # Yes
+  # No
   result = (item.name for item in array)
 
   # No
   results = []
   for item in array
     results.push item.name
+
+  # Yes
+  result = array.map((item) -> item.name)
 ```
 
 To filter:
 
 ```coffeescript
-result = (item for item in array when item.name is "test")
+result = items.filter((item) -> item.name is 'test')
 ```
 
 To iterate over the keys and values of objects:
 
 ```coffeescript
-object = one: 1, two: 2
+object =
+  one: 1
+  two: 2
 alert("#{key} = #{value}") for key, value of object
 ```
 
@@ -485,6 +507,8 @@ console.log args... # Yes
 
 (a, b, c, rest...) -> # Yes
 ```
+
+Use `+= 1` in favor of `++` to avoid confusion and unexpected behavior.
 
 [coffeescript]: http://jashkenas.github.com/coffee-script/
 [coffeescript-issue-425]: https://github.com/jashkenas/coffee-script/issues/425
