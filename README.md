@@ -34,6 +34,7 @@ The details in this guide have been very heavily inspired by several existing st
         * [Block Comments](#block_comments)
         * [Inline Comments](#inline_comments)
     * [Naming Conventions](#naming_conventions)
+    * [Objects](#objects)
     * [Functions](#functions)
     * [Strings](#strings)
     * [Conditionals](#conditionals)
@@ -43,20 +44,20 @@ The details in this guide have been very heavily inspired by several existing st
     * [Annotations](#annotations)
     * [Miscellaneous](#miscellaneous)
 
-<a name="code_layout"/>
+<a name="code_layout"></a>
 ## Code layout
 
-<a name="tabs_or_spaces"/>
+<a name="tabs_or_spaces"></a>
 ### Tabs or Spaces?
 
 Use **spaces only**, with **2 spaces** per indentation level. Never mix tabs and spaces.
 
-<a name="maximum_line_length"/>
+<a name="maximum_line_length"></a>
 ### Maximum Line Length
 
 Limit all lines to a maximum of 79 characters.
 
-<a name="blank_lines"/>
+<a name="blank_lines"></a>
 ### Blank Lines
 
 Separate top-level function and class definitions with a single blank line.
@@ -65,12 +66,12 @@ Separate method definitions inside of a class with a single blank line.
 
 Use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
 
-<a name="trailing_whitespace"/>
+<a name="trailing_whitespace"></a>
 ### Trailing Whitespace
 
 Do not include trailing whitespace on any lines.
 
-<a name="optional_commas"/>
+<a name="optional_commas"></a>
 ### Optional Commas
 
 Avoid the use of commas before newlines when properties or elements of an Object or Array are listed on separate lines.
@@ -97,12 +98,12 @@ bar:
   value: 87
 ```
 
-<a name="encoding"/>
+<a name="encoding"></a>
 ### Encoding
 
 UTF-8 is the preferred source file encoding.
 
-<a name="module_imports"/>
+<a name="module_imports"></a>
 ## Module Imports
 
 If using a module system (CommonJS Modules, AMD, etc.), `require` statements should be placed on separate lines.
@@ -117,12 +118,12 @@ These statements should be grouped in the following order:
 2. Third party library imports
 3. Local imports _(imports specific to this application or library)_
 
-<a name="whitespace"/>
+<a name="whitespace"></a>
 ## Whitespace in Expressions and Statements
 
 Avoid extraneous whitespace in the following situations:
 
-- Immediately inside parentheses, brackets or braces
+- Immediately inside parentheses or brackets
 
     ```coffeescript
        ($ 'body') # Yes
@@ -167,7 +168,7 @@ Additional recommendations:
            fooBar = 3
         ```
 
-<a name="comments"/>
+<a name="comments"></a>
 ## Comments
 
 If modifying code that is described by an existing comment, update the comment such that it accurately reflects the new code. (Ideally, improve the code to obviate the need for the comment, and delete the comment entirely.)
@@ -176,7 +177,7 @@ The first word of the comment should be capitalized, unless the first word is an
 
 If a comment is short, the period at the end can be omitted.
 
-<a name="block_comments"/>
+<a name="block_comments"></a>
 ### Block Comments
 
 Block comments apply to the block of code that follows them.
@@ -198,7 +199,7 @@ Paragraphs inside of block comments are separated by a line containing a single 
   stop()
 ```
 
-<a name="inline_comments"/>
+<a name="inline_comments"></a>
 ### Inline Comments
 
 Inline comments are placed on the line immediately above the statement that they are describing. If the inline comment is sufficiently short, it can be placed on the same line as the statement (separated by a single space from the end of the statement).
@@ -221,7 +222,7 @@ However, inline comments can be useful in certain scenarios:
   x = x + 1 # Compensate for border
 ```
 
-<a name="naming_conventions"/>
+<a name="naming_conventions"></a>
 ## Naming Conventions
 
 Use `camelCase` (with a leading lowercase character) to name all variables, methods, and object properties.
@@ -242,7 +243,44 @@ Methods and variables that are intended to be "private" should begin with a lead
 _privateMethod: ->
 ```
 
-<a name="functions"/>
+<a name="objects"></a>
+## Objects
+
+When declaring object literals:
+
+- With one key, value pair use a single line
+
+```coffeescript
+car = make: "Toyota"
+```
+
+- With more than one key, value pair use multi-line declarations
+
+```coffeescript
+pets =
+  dog: 'Fido'
+  cat: 'Garfield'
+  fetch: (pet) -> alert(pet)
+```
+
+To access object properties, use dot notation where possible otherwise use bracket notation
+
+```coffeescript
+pets =
+  dog: 'fido'
+  cat: 'garfield'
+
+console.log('dog name: ', pets.dog) # 'dog name: fido'
+
+showPetName = (petType) ->
+  console.log('pet name: ', pets[petType])
+
+showPetName('cat') # 'pet name: garfield'
+showPetName('dog') # 'pet name: fido'
+
+```
+
+<a name="functions"></a>
 ## Functions
 
 _(These guidelines also apply to the methods of a class.)_
@@ -271,48 +309,23 @@ In cases where method calls are being chained and the code does not fit on a sin
   .reduce((x, y) -> x + y)
 ```
 
-When calling functions, choose to omit or include parentheses in such a way that optimizes for readability. Keeping in mind that "readability" can be subjective, the following examples demonstrate cases where parentheses have been omitted or included in a manner that the community deems to be optimal:
+When calling functions, always use parentheses around function arguments for readability.
 
 ```coffeescript
-baz 12
+baz(12)
 
-brush.ellipse x: 10, y: 20 # Braces can also be omitted or included for readability
+brush.ellipse(x: 10, y: 20) # Braces can be omitted or included for readability
 
 foo(4).bar(8)
 
 obj.value(10, 20) / obj.value(20, 10)
 
-print inspect value
+print(inspect(value))
 
 new Tag(new Value(a, b), new Arg(c))
 ```
 
-You will sometimes see parentheses used to group functions (instead of being used to group function parameters). Examples of using this style (hereafter referred to as the "function grouping style"):
-
-```coffeescript
-($ '#selektor').addClass 'klass'
-
-(foo 4).bar 8
-```
-
-This is in contrast to:
-
-```coffeescript
-$('#selektor').addClass 'klass'
-
-foo(4).bar 8
-```
-
-In cases where method calls are being chained, some adopters of this style prefer to use function grouping for the initial call only:
-
-```coffeescript
-($ '#selektor').addClass('klass').hide() # Initial call only
-(($ '#selektor').addClass 'klass').hide() # All calls
-```
-
-The function grouping style is not recommended. However, **if the function grouping style is adopted for a particular project, be consistent with its usage.**
-
-<a name="strings"/>
+<a name="strings"></a>
 ## Strings
 
 Use string interpolation instead of string concatenation:
@@ -324,12 +337,19 @@ Use string interpolation instead of string concatenation:
 
 Prefer single quoted strings (`''`) instead of double quoted (`""`) strings, unless features like string interpolation are being used for the given string.
 
-<a name="conditionals"/>
+<a name="conditionals"></a>
 ## Conditionals
 
-Favor `unless` over `if` for negative conditions.
+Favor `if` over `unless` for negative conditions.
 
-Instead of using `unless...else`, use `if...else`:
+```coffeescript
+# No
+result = y unless x
+
+# Yes
+result = y if not x
+```
+
 
 ```coffeescript
   # Yes
@@ -359,47 +379,52 @@ Multi-line if/else clauses should use indentation:
   else ...
 ```
 
-<a name="looping_and_comprehensions"/>
+<a name="looping_and_comprehensions"></a>
 ## Looping and Comprehensions
 
-Take advantage of comprehensions whenever possible:
+For arrays, try to use native Array.prototype methods
 
 ```coffeescript
-  # Yes
+  # No
   result = (item.name for item in array)
 
   # No
   results = []
   for item in array
     results.push item.name
+
+  # Yes
+  result = array.map((item) -> item.name)
 ```
 
 To filter:
 
 ```coffeescript
-result = (item for item in array when item.name is "test")
+result = items.filter((item) -> item.name is 'test')
 ```
 
 To iterate over the keys and values of objects:
 
 ```coffeescript
-object = one: 1, two: 2
+object =
+  one: 1
+  two: 2
 alert("#{key} = #{value}") for key, value of object
 ```
 
-<a name="extending_native_objects"/>
+<a name="extending_native_objects"></a>
 ## Extending Native Objects
 
 Do not modify native objects.
 
 For example, do not modify `Array.prototype` to introduce `Array#forEach`.
 
-<a name="exceptions"/>
+<a name="exceptions"></a>
 ## Exceptions
 
 Do not suppress exceptions.
 
-<a name="annotations"/>
+<a name="annotations"></a>
 ## Annotations
 
 Use annotations when necessary to describe a specific action that must be taken against the indicated block of code.
@@ -432,7 +457,7 @@ Annotation types:
 
 If a custom annotation is required, the annotation should be documented in the project's README.
 
-<a name="miscellaneous"/>
+<a name="miscellaneous"></a>
 ## Miscellaneous
 
 `and` is preferred over `&&`.
@@ -482,6 +507,8 @@ console.log args... # Yes
 
 (a, b, c, rest...) -> # Yes
 ```
+
+Use `+= 1` in favor of `++` to avoid confusion and unexpected behavior.
 
 [coffeescript]: http://jashkenas.github.com/coffee-script/
 [coffeescript-issue-425]: https://github.com/jashkenas/coffee-script/issues/425
