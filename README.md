@@ -20,43 +20,43 @@ The details in this guide have been very heavily inspired by several existing st
 
 ## Table of Contents
 
-* [The CoffeeScript Style Guide](#guide)
-    * [Code Layout](#code_layout)
-        * [Tabs or Spaces?](#tabs_or_spaces)
-        * [Maximum Line Length](#maximum_line_length)
-        * [Blank Lines](#blank_lines)
-        * [Trailing Whitespace](#trailing_whitespace)
-        * [Optional Commas](#optional_commas)
-        * [Encoding](#encoding)
-    * [Module Imports](#module_imports)
-    * [Whitespace in Expressions and Statements](#whitespace)
-    * [Comments](#comments)
-        * [Block Comments](#block_comments)
-        * [Inline Comments](#inline_comments)
-    * [Naming Conventions](#naming_conventions)
-    * [Functions](#functions)
-    * [Strings](#strings)
-    * [Conditionals](#conditionals)
-    * [Looping and Comprehensions](#looping_and_comprehensions)
-    * [Extending Native Objects](#extending_native_objects)
-    * [Exceptions](#exceptions)
-    * [Annotations](#annotations)
-    * [Miscellaneous](#miscellaneous)
+<!-- BEGIN-MARKDOWN-TOC -->
+* [Inspiration](#inspiration)
+* [Table of Contents](#table-of-contents)
+* [Code layout](#code-layout)
+	* [Tabs or Spaces?](#tabs-or-spaces)
+	* [Maximum Line Length](#maximum-line-length)
+	* [Blank Lines](#blank-lines)
+	* [Trailing Whitespace](#trailing-whitespace)
+	* [Optional Commas](#optional-commas)
+	* [Encoding](#encoding)
+* [Module Imports](#module-imports)
+* [Whitespace in Expressions and Statements](#whitespace-in-expressions-and-statements)
+* [Comments](#comments)
+	* [Block Comments](#block-comments)
+	* [Inline Comments](#inline-comments)
+* [Naming Conventions](#naming-conventions)
+* [Functions](#functions)
+* [Strings](#strings)
+* [Conditionals](#conditionals)
+* [Looping and Comprehensions](#looping-and-comprehensions)
+* [Extending Native Objects](#extending-native-objects)
+* [Exceptions](#exceptions)
+* [Annotations](#annotations)
+* [Miscellaneous](#miscellaneous)
 
-<a name="code_layout"/>
+<!-- END-MARKDOWN-TOC -->
+
 ## Code layout
 
-<a name="tabs_or_spaces"/>
 ### Tabs or Spaces?
 
 Use **spaces only**, with **2 spaces** per indentation level. Never mix tabs and spaces.
 
-<a name="maximum_line_length"/>
 ### Maximum Line Length
 
 Limit all lines to a maximum of 79 characters.
 
-<a name="blank_lines"/>
 ### Blank Lines
 
 Separate top-level function and class definitions with a single blank line.
@@ -65,12 +65,10 @@ Separate method definitions inside of a class with a single blank line.
 
 Use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
 
-<a name="trailing_whitespace"/>
 ### Trailing Whitespace
 
 Do not include trailing whitespace on any lines.
 
-<a name="optional_commas"/>
 ### Optional Commas
 
 Avoid the use of commas before newlines when properties or elements of an Object or Array are listed on separate lines.
@@ -97,12 +95,10 @@ bar:
   value: 87
 ```
 
-<a name="encoding"/>
 ### Encoding
 
 UTF-8 is the preferred source file encoding.
 
-<a name="module_imports"/>
 ## Module Imports
 
 If using a module system (CommonJS Modules, AMD, etc.), `require` statements should be placed on separate lines.
@@ -117,7 +113,6 @@ These statements should be grouped in the following order:
 2. Third party library imports
 3. Local imports _(imports specific to this application or library)_
 
-<a name="whitespace"/>
 ## Whitespace in Expressions and Statements
 
 Avoid extraneous whitespace in the following situations:
@@ -167,7 +162,6 @@ Additional recommendations:
            fooBar = 3
         ```
 
-<a name="comments"/>
 ## Comments
 
 If modifying code that is described by an existing comment, update the comment such that it accurately reflects the new code. (Ideally, improve the code to obviate the need for the comment, and delete the comment entirely.)
@@ -176,7 +170,6 @@ The first word of the comment should be capitalized, unless the first word is an
 
 If a comment is short, the period at the end can be omitted.
 
-<a name="block_comments"/>
 ### Block Comments
 
 Block comments apply to the block of code that follows them.
@@ -198,7 +191,6 @@ Paragraphs inside of block comments are separated by a line containing a single 
   stop()
 ```
 
-<a name="inline_comments"/>
 ### Inline Comments
 
 Inline comments are placed on the line immediately above the statement that they are describing. If the inline comment is sufficiently short, it can be placed on the same line as the statement (separated by a single space from the end of the statement).
@@ -221,7 +213,6 @@ However, inline comments can be useful in certain scenarios:
   x = x + 1 # Compensate for border
 ```
 
-<a name="naming_conventions"/>
 ## Naming Conventions
 
 Use `camelCase` (with a leading lowercase character) to name all variables, methods, and object properties.
@@ -242,7 +233,6 @@ Methods and variables that are intended to be "private" should begin with a lead
 _privateMethod: ->
 ```
 
-<a name="functions"/>
 ## Functions
 
 _(These guidelines also apply to the methods of a class.)_
@@ -312,7 +302,6 @@ In cases where method calls are being chained, some adopters of this style prefe
 
 The function grouping style is not recommended. However, **if the function grouping style is adopted for a particular project, be consistent with its usage.**
 
-<a name="strings"/>
 ## Strings
 
 Use string interpolation instead of string concatenation:
@@ -324,7 +313,6 @@ Use string interpolation instead of string concatenation:
 
 Prefer single quoted strings (`''`) instead of double quoted (`""`) strings, unless features like string interpolation are being used for the given string.
 
-<a name="conditionals"/>
 ## Conditionals
 
 Favor `unless` over `if` for negative conditions.
@@ -359,7 +347,6 @@ Multi-line if/else clauses should use indentation:
   else ...
 ```
 
-<a name="looping_and_comprehensions"/>
 ## Looping and Comprehensions
 
 Take advantage of comprehensions whenever possible:
@@ -387,19 +374,16 @@ object = one: 1, two: 2
 alert("#{key} = #{value}") for key, value of object
 ```
 
-<a name="extending_native_objects"/>
 ## Extending Native Objects
 
 Do not modify native objects.
 
 For example, do not modify `Array.prototype` to introduce `Array#forEach`.
 
-<a name="exceptions"/>
 ## Exceptions
 
 Do not suppress exceptions.
 
-<a name="annotations"/>
 ## Annotations
 
 Use annotations when necessary to describe a specific action that must be taken against the indicated block of code.
@@ -432,7 +416,6 @@ Annotation types:
 
 If a custom annotation is required, the annotation should be documented in the project's README.
 
-<a name="miscellaneous"/>
 ## Miscellaneous
 
 `and` is preferred over `&&`.
