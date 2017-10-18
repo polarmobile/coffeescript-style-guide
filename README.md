@@ -54,7 +54,7 @@ Use **spaces only**, with **4 spaces** per indentation level. Never mix tabs and
 <a name="maximum_line_length"/>
 ### Maximum Line Length
 
-No limit
+120
 
 <a name="blank_lines"/>
 ### Blank Lines
