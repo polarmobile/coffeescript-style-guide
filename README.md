@@ -483,14 +483,14 @@ console.log args... # Yes
 (a, b, c, rest...) -> # Yes
 ```
 
-[coffeescript]: http://jashkenas.github.com/coffee-script/
-[coffeescript-issue-425]: https://github.com/jashkenas/coffee-script/issues/425
+[coffeescript]: https://github.com/jashkenas/coffeescript/
+[coffeescript-issue-425]: https://github.com/jashkenas/coffeescript/issues/425
 [spine-js]: http://spinejs.com/
-[spine-js-code-review]: https://gist.github.com/1005723
+[spine-js-code-review]: https://gist.github.com/jashkenas/1005723
 [pep8]: http://www.python.org/dev/peps/pep-0008/
 [ruby-style-guide]: https://github.com/bbatsov/ruby-style-guide
-[google-js-styleguide]: http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
+[google-js-styleguide]: https://google.github.io/styleguide/jsguide.html
 [common-coffeescript-idioms]: http://arcturo.github.com/library/coffeescript/04_idioms.html
 [coffeescript-specific-style-guide]: http://awardwinningfjords.com/2011/05/13/coffeescript-specific-style-guide.html
-[coffeescript-faq]: https://github.com/jashkenas/coffee-script/wiki/FAQ
+[coffeescript-faq]: https://github.com/jashkenas/coffeescript/wiki/FAQ
 [camel-case-variations]: http://en.wikipedia.org/wiki/CamelCase#Variations_and_synonyms
