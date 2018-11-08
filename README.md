@@ -43,20 +43,20 @@ The details in this guide have been very heavily inspired by several existing st
     * [Annotations](#annotations)
     * [Miscellaneous](#miscellaneous)
 
-<a name="code_layout"/>
+<a name="code_layout"></a>
 ## Code layout
 
-<a name="tabs_or_spaces"/>
+<a name="tabs_or_spaces"></a>
 ### Tabs or Spaces?
 
 Use **spaces only**, with **2 spaces** per indentation level. Never mix tabs and spaces.
 
-<a name="maximum_line_length"/>
+<a name="maximum_line_length"></a>
 ### Maximum Line Length
 
 Limit all lines to a maximum of 79 characters.
 
-<a name="blank_lines"/>
+<a name="blank_lines"></a>
 ### Blank Lines
 
 Separate top-level function and class definitions with a single blank line.
@@ -65,12 +65,12 @@ Separate method definitions inside of a class with a single blank line.
 
 Use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
 
-<a name="trailing_whitespace"/>
+<a name="trailing_whitespace"></a>
 ### Trailing Whitespace
 
 Do not include trailing whitespace on any lines.
 
-<a name="optional_commas"/>
+<a name="optional_commas"></a>
 ### Optional Commas
 
 Avoid the use of commas before newlines when properties or elements of an Object or Array are listed on separate lines.
@@ -97,12 +97,12 @@ bar:
   value: 87
 ```
 
-<a name="encoding"/>
+<a name="encoding"></a>
 ### Encoding
 
 UTF-8 is the preferred source file encoding.
 
-<a name="module_imports"/>
+<a name="module_imports"></a>
 ## Module Imports
 
 If using a module system (CommonJS Modules, AMD, etc.), `require` statements should be placed on separate lines.
@@ -117,7 +117,7 @@ These statements should be grouped in the following order:
 2. Third party library imports
 3. Local imports _(imports specific to this application or library)_
 
-<a name="whitespace"/>
+<a name="whitespace"></a>
 ## Whitespace in Expressions and Statements
 
 Avoid extraneous whitespace in the following situations:
@@ -167,7 +167,7 @@ Additional recommendations:
            fooBar = 3
         ```
 
-<a name="comments"/>
+<a name="comments"></a>
 ## Comments
 
 If modifying code that is described by an existing comment, update the comment such that it accurately reflects the new code. (Ideally, improve the code to obviate the need for the comment, and delete the comment entirely.)
@@ -176,7 +176,7 @@ The first word of the comment should be capitalized, unless the first word is an
 
 If a comment is short, the period at the end can be omitted.
 
-<a name="block_comments"/>
+<a name="block_comments"></a>
 ### Block Comments
 
 Block comments apply to the block of code that follows them.
@@ -198,7 +198,7 @@ Paragraphs inside of block comments are separated by a line containing a single 
   stop()
 ```
 
-<a name="inline_comments"/>
+<a name="inline_comments"></a>
 ### Inline Comments
 
 Inline comments are placed on the line immediately above the statement that they are describing. If the inline comment is sufficiently short, it can be placed on the same line as the statement (separated by a single space from the end of the statement).
@@ -221,7 +221,7 @@ However, inline comments can be useful in certain scenarios:
   x = x + 1 # Compensate for border
 ```
 
-<a name="naming_conventions"/>
+<a name="naming_conventions"></a>
 ## Naming Conventions
 
 Use `camelCase` (with a leading lowercase character) to name all variables, methods, and object properties.
@@ -242,7 +242,7 @@ Methods and variables that are intended to be "private" should begin with a lead
 _privateMethod: ->
 ```
 
-<a name="functions"/>
+<a name="functions"></a>
 ## Functions
 
 _(These guidelines also apply to the methods of a class.)_
@@ -312,7 +312,7 @@ In cases where method calls are being chained, some adopters of this style prefe
 
 The function grouping style is not recommended. However, **if the function grouping style is adopted for a particular project, be consistent with its usage.**
 
-<a name="strings"/>
+<a name="strings"></a>
 ## Strings
 
 Use string interpolation instead of string concatenation:
@@ -324,7 +324,7 @@ Use string interpolation instead of string concatenation:
 
 Prefer single quoted strings (`''`) instead of double quoted (`""`) strings, unless features like string interpolation are being used for the given string.
 
-<a name="conditionals"/>
+<a name="conditionals"></a>
 ## Conditionals
 
 Favor `unless` over `if` for negative conditions.
@@ -359,7 +359,7 @@ Multi-line if/else clauses should use indentation:
   else ...
 ```
 
-<a name="looping_and_comprehensions"/>
+<a name="looping_and_comprehensions"></a>
 ## Looping and Comprehensions
 
 Take advantage of comprehensions whenever possible:
@@ -387,19 +387,19 @@ object = one: 1, two: 2
 alert("#{key} = #{value}") for key, value of object
 ```
 
-<a name="extending_native_objects"/>
+<a name="extending_native_objects"></a>
 ## Extending Native Objects
 
 Do not modify native objects.
 
 For example, do not modify `Array.prototype` to introduce `Array#forEach`.
 
-<a name="exceptions"/>
+<a name="exceptions"></a>
 ## Exceptions
 
 Do not suppress exceptions.
 
-<a name="annotations"/>
+<a name="annotations"></a>
 ## Annotations
 
 Use annotations when necessary to describe a specific action that must be taken against the indicated block of code.
@@ -432,7 +432,7 @@ Annotation types:
 
 If a custom annotation is required, the annotation should be documented in the project's README.
 
-<a name="miscellaneous"/>
+<a name="miscellaneous"></a>
 ## Miscellaneous
 
 `and` is preferred over `&&`.
